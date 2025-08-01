@@ -1,0 +1,33 @@
+services:
+  # Nginx Service
+  nginx:
+    image: nginx:1.26.2-alpine3.20
+    restart: unless-stopped
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html:delegated
+      - ./docker/config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/config/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./docker/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - php
+    networks:
+      - my-network
+
+  # PHP Service
+  php:
+    image: php8.4-pdo
+    restart: unless-stopped
+    container_name: php
+    volumes:
+      - .:/var/www/html:delegated
+      - ./docker/ssl:/etc/mysql/certs:ro
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    external: true
