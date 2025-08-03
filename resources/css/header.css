@@ -1,0 +1,85 @@
+.header-top {
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 29px;
+}
+.header-top ul li {
+    color: var(--white-color);
+    list-style-type: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+.header-bottom {
+    border-bottom: 1px solid #dbdbdb;
+}
+.header-nav {
+    height: 80px;
+}
+.header-logo {
+    width: 200px;
+    height: 180px;
+    cursor: pointer;
+    transform: translateX(-15%);
+}
+.header-logo a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.btn-cus {
+        border: none;
+        outline: none;
+        background-color: var(--secondary-color);
+        padding: 8px 12px;
+        border-radius: 6px;
+        color: var(--text-heading-color);
+        font-size: 16px;
+        font-weight: 500;
+        gap: 6px;
+        transition: ease-in-out 0.3s;
+        width: auto;
+    }
+    #cart {
+        background-color: transparent !important;
+    }
+    #cart:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .btn-cus i {
+        text-shadow: 0 0 1px currentColor;
+    }
+    .btn-cus:hover {
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: var(--white-color);
+    }
+    .search-container {
+        width: 100%;
+        max-width: 500px;
+        min-width: 100px;
+        flex: 1 1 100px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: var(--secondary-color);
+        transition: background-color 0.3s ease, border 0.3s ease;
+        border: 1px solid transparent;
+    }
+    .search-container input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        width: 85%;
+    }
+    .search-container button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        width: 40px;
+    }
+    .search-container:focus-within button i {
+        color: var(--primary-color);
+    }
+    .search-container:focus-within {
+        background-color: #ffff;
+        border-color: var(--primary-color);
+    }
