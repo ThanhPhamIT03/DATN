@@ -119,25 +119,11 @@
                         <p>Vui lòng đăng nhập tài khoản thành viên để xem ưu đãi và thanh toán dễ dàng hơn.</p>
                     </div>
                     <div class="modal-login-btn d-flex align-items-center justify-content-around p-4">
-                        <a class="button" href = "#"><span class="button-text">Đăng ký</span></a>
-                        <a class="button button-login" href = "#"><span class="button-text">Đăng nhập</span></a>
+                        <a class="button" href = "{{ route('auth.register.index') }}"><span class="button-text">Đăng ký</span></a>
+                        <a class="button button-login" href = "{{ route('auth.login.index') }}"><span class="button-text">Đăng nhập</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<style> 
-    .slider-message {
-        position: relative;
-        height: 30px; /* hoặc điều chỉnh tuỳ nội dung */
-        overflow: hidden;
-    }
-
-    .slider-message li {
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        font-size: 14px;
-    }
-</style>
 </section>

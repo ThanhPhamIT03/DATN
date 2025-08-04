@@ -244,3 +244,15 @@
     .button-login:hover {
         filter: brightness(0.9);
     }
+    .slider-message {
+        position: relative;
+        height: 30px; /* hoặc điều chỉnh tuỳ nội dung */
+        overflow: hidden;
+    }
+
+    .slider-message li {
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+    }

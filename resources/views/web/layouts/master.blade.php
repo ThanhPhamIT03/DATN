@@ -9,6 +9,7 @@
 <body>
     <div class="wrapper">
         @include('web.layouts.header')
+        
         <main class="main-content">
             <div>
                 @hasSection('breadcrumb')

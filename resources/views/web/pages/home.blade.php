@@ -40,6 +40,7 @@
                     $searchHistory.slideDown(200);
                     $overlay.fadeIn(200);
                 } else {
+                    $searchHistory.slideUp(200);
                     $overlay.fadeOut(200);
                 }
             });
@@ -55,6 +56,7 @@
                     $modalLogin.slideDown(200);
                     $overlay.fadeIn(200);
                 } else {
+                    $modalLogin.slideUp(200);
                     $overlay.fadeOut(200);
                 }
             });
