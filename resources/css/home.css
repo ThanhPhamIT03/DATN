@@ -1,0 +1,18 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 900;
+    display: none;
+}
+
+.category-block,
+.search-history,
+.modal-login {
+    position: absolute;
+    z-index: 1000;
+    background: white;
+}

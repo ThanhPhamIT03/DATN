@@ -116,8 +116,8 @@
                         <p>Vui lòng đăng nhập tài khoản thành viên để xem ưu đãi và thanh toán dễ dàng hơn.</p>
                     </div>
                     <div class="modal-login-btn d-flex align-items-center justify-content-around p-4">
-                        <a class="button" href = "#">Đăng ký</a>
-                        <a class="button button-login" href = "#">Đăng nhập</a>
+                        <a class="button" href = "#"><span class="button-text">Đăng ký</span></a>
+                        <a class="button button-login" href = "#"><span class="button-text">Đăng nhập</span></a>
                     </div>
                 </div>
             </div>
@@ -137,6 +137,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        display: none;
     }
     .modal-login-heading {
         text-align: center;
@@ -152,7 +153,7 @@
     }
     .button {
         background-color: #fff;
-        padding: 12px 0;
+        padding: 10px 0;
         width: 200px;
         text-align: center;
         border-radius: 8px;
@@ -160,9 +161,26 @@
         color: var(--primary-color);
         border: 1px solid var(--primary-color);
         font-size: 18px;
+        overflow: hidden;
+        transition: background-color 0.3s ease-in-out;
+        display: inline-block;
+    }
+
+    .button-text {
+        display: inline-block;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .button:hover .button-text {
+        transform: scale(1.1);
     }
     .button-login {
-        border-color: 
+        border-color: transparent !important;
+        background-color: var(--primary-color) !important;
+        color: #fff !important;
+    }
+    .button-login:hover {
+        filter: brightness(0.9);
     }
 </style>
 </section>
