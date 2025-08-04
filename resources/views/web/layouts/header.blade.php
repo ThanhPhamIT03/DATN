@@ -1,7 +1,10 @@
 <section class="header">
-    <div class="header-top d-flex align-items-center justify-content-center">
-        <ul class="d-flex align-items-center justify-content-center m-0 list-unstyled">
-            <li style="font-size: 14px;"><strong>🚚 Miễn phí vận chuyển với đơn hàng trên 300K!</strong></li>
+    <div class="header-top d-flex align-items-center justify-content-center overflow-hidden">
+        <ul class="slider-message m-0 list-unstyled">
+            <li><strong>Miễn phí vận chuyển với đơn hàng trên 300K!</strong></li>
+            <li><strong>Giảm ngay 200K khi đặt hàng online!</strong></li>
+            <li><strong>Giảm ngay 500K đối với khách hàng là học sinh & sinh viên!</strong></li>
+            <li><strong>Giảm 2% đối với thành viên!</strong></li>
         </ul>
     </div>
     <div class="header-bottom">
@@ -116,71 +119,11 @@
                         <p>Vui lòng đăng nhập tài khoản thành viên để xem ưu đãi và thanh toán dễ dàng hơn.</p>
                     </div>
                     <div class="modal-login-btn d-flex align-items-center justify-content-around p-4">
-                        <a class="button" href = "#"><span class="button-text">Đăng ký</span></a>
-                        <a class="button button-login" href = "#"><span class="button-text">Đăng nhập</span></a>
+                        <a class="button" href = "{{ route('auth.register.index') }}"><span class="button-text">Đăng ký</span></a>
+                        <a class="button button-login" href = "{{ route('auth.login.index') }}"><span class="button-text">Đăng nhập</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<style> 
-    #account {
-        position: relative;
-    }
-    .modal-login {
-        position: absolute;
-        width: 500px;
-        height: auto;
-        background-color: #fff;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-    }
-    .modal-login-heading {
-        text-align: center;
-    }
-    .modal-login-heading h4 {
-        color: var(--text-heading-color);
-        font-size: 28px;
-    }
-    .modal-login-heading p{
-        margin-top: 32px;
-        color: var(--text-color);
-        font-size: 18px;
-    }
-    .button {
-        background-color: #fff;
-        padding: 10px 0;
-        width: 200px;
-        text-align: center;
-        border-radius: 8px;
-        text-decoration: none;
-        color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-        font-size: 18px;
-        overflow: hidden;
-        transition: background-color 0.3s ease-in-out;
-        display: inline-block;
-    }
-
-    .button-text {
-        display: inline-block;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .button:hover .button-text {
-        transform: scale(1.1);
-    }
-    .button-login {
-        border-color: transparent !important;
-        background-color: var(--primary-color) !important;
-        color: #fff !important;
-    }
-    .button-login:hover {
-        filter: brightness(0.9);
-    }
-</style>
 </section>
