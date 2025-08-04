@@ -7,25 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    @include('web.layouts.header')
+    <div class="wrapper">
+        @include('web.layouts.header')
+        <main class="main-content">
+            <div>
+                @hasSection('breadcrumb')
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            @yield('breadcrumb')
+                        </ol>
+                    </nav>
+                @endif
 
-    <main class="main-content">
-        <div>
-           @hasSection('breadcrumb')
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        @yield('breadcrumb')
-                    </ol>
-                </nav>
-            @endif
+                @yield('content')
+            </div>
+        </main>
 
-            @yield('content')
-
-        </div>
-    </main>
-
-    @include('web.layouts.footer')
-
+        @include('web.layouts.footer')
+    </div>
     @yield('script')
 </body>
 </html>

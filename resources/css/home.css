@@ -1,6 +1,6 @@
 .overlay {
     position: fixed;
-    top: 0;
+    top: 109px;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -10,8 +10,7 @@
 }
 
 .category-block,
-.search-history,
-.modal-login {
+.search-history {
     position: absolute;
     z-index: 1000;
     background: white;
