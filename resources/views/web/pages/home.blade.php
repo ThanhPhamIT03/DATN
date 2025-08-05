@@ -139,6 +139,17 @@
             // Tự động chuyển slide mỗi 4 giây
             setInterval(nextSlide, 4000);
         });
+
+        // Xử lý phần yêu thích
+        $(document).ready(function () {
+            $('.favorite-toggle').on('click', function () {
+                const $outline = $(this).find('.icon-outline');
+                const $fill = $(this).find('.icon-fill');
+
+                $outline.toggleClass('d-none');
+                $fill.toggleClass('d-none');
+            });
+        });
     </script>
 @stop
 

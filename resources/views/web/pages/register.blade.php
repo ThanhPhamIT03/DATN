@@ -27,7 +27,7 @@
 @section('content')
     <div id="register-page" style="background-color: var(--bgr-gray); min-height: 100vh; position: relative; padding: 1.5rem 0 4rem 0;">
         <div class="regis-block w-100 w-md-75 mx-auto" style="max-width: 800px;"
-                data-aos="fade-left"
+                data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-delay="300">
             <h4 class="mb-4 text-center" style="color: var(--primary-color); font-size: 30px; text-transform: uppercase;">
