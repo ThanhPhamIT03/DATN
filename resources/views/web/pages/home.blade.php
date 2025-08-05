@@ -145,6 +145,7 @@
 @section('content')
     @include('web.sections.slide')
     @include('web.sections.category-slide')
+    @include('web.sections.features-phone')
     <div class="overlay" style="display: none;"></div>
 @stop
 

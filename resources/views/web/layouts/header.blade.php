@@ -104,7 +104,7 @@
             </div>
 
             <div class="header-action d-flex align-items-center justify-content-between">
-                <div class="btn-cus me-3 ms-3" id="cart">
+                <div class="btn-cus me-3 ms-3" id="cart" onclick="window.location.href=''">
                     <span>Giỏ hàng</span>
                     <i class="bi bi-cart3 icon-act"></i>
                 </div>
