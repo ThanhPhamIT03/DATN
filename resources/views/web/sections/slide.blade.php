@@ -13,6 +13,7 @@
         height: 70vh;
         overflow: hidden;
         position: relative;
+        margin-bottom: 32px;
     }
 
     .slide-container {
