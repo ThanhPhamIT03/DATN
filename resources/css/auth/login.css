@@ -1,0 +1,121 @@
+    #login-page {
+        height: 100vh;
+    }
+    .login-block h4 {
+        color: var(--primary-color);
+        text-transform: uppercase;
+        font-size: 30px;
+        margin-bottom: 32px;
+    }
+    .btn-login {
+        height: 48px;
+        border: 1px solid transparent;
+        outline: none;
+        background-color: var(--primary-color);
+        border-radius: 8px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        transition: ease-in-out 0.3s;
+    }
+    .btn-login:hover {
+        cursor: pointer;
+        background-color: transparent;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
+    .input-custom {
+        height: 48px !important;
+    }
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-top: 1px solid #ccc;
+    }
+    .divider span {
+        margin: 0 1rem;
+        color: var(--text-color); 
+    }
+    .btn-login-social {
+        width: 200px;
+        height: 48px;
+        border-radius: 8px;
+        border: 1px solid #dbdbdb;
+        text-decoration: none;
+        transition: ease-in-out 0.3s;
+    }
+    .btn-login-social:hover {
+        cursor: pointer;
+        background-color: var(--bgr-gray);
+    }
+    .regis-redirect {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin-left: 4px;
+        transition: ease-in-out;
+    }
+    .regis-redirect:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .login-banner-img img {
+        width: 300px;
+        height: 150px;
+        object-fit: cover;
+        margin: auto;
+    }
+    .login-banner-title {
+        text-align: center;
+    }
+    .login-banner-title h4 {
+        color: var(--text-heading-color);
+    }
+    .login-banner-title span {
+        color: var(--primary-color);
+    }
+    .offer-box {
+        background-color: #E3E2E1;
+        border-radius: 8px;
+        margin-top: 24px;
+    }
+    .offer-list {
+        list-style: none;
+        margin: 0;
+        padding: 32px 0;
+    }
+    .offer-list li {
+        padding: 12px 24px;
+        color: var(--text-heading-color);
+    }
+    .offer-list li i {
+        color: #D80027;
+    }
+    .view-promotion-detail {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 32px;
+    }
+    .view-promotion-detail i {
+        margin-left: 4px;
+        transition: transform 0.3s ease;
+    }
+
+    .view-promotion-detail:hover {
+        text-decoration: underline;
+    }
+
+    .view-promotion-detail:hover i {
+        transform: translateX(4px);
+    }
