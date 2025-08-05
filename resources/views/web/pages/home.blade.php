@@ -120,11 +120,31 @@
 
         });
 
+        // Slider
+        $(document).ready(function () {
+            const $slider = $('.slide-container');
+            const slideCount = $slider.children().length;
+            let currentIndex = 0;
+
+            function goToSlide(index) {
+                const offset = -index * 100;
+                $slider.css('transform', `translateX(${offset}%)`);
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slideCount;
+                goToSlide(currentIndex);
+            }
+
+            // Tự động chuyển slide mỗi 4 giây
+            setInterval(nextSlide, 4000);
+        });
     </script>
 @stop
 
 @section('content')
-<div style="height: 100vh"></div>
+    @include('web.sections.slide')
+    @include('web.sections.category-slide')
     <div class="overlay" style="display: none;"></div>
 @stop
 

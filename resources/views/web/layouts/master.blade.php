@@ -11,7 +11,7 @@
         @include('web.layouts.header')
         
         <main class="main-content">
-            <div>
+            <div class="content">
                 @hasSection('breadcrumb')
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
