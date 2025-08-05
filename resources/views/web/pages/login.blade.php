@@ -123,7 +123,7 @@
                 data-aos-duration="1000"
                 data-aos-delay="100">
                 <div class="w-100 login-block" style="padding: 32px 120px;">
-                    <h4 class="text-center">Đăng nhập</h4>
+                    <h4 class="text-center">Đăng nhập thành viên</h4>
                     <form class="form-login" id="login-form">
                         <div class="mb-3">
                             <label class="form-label" for="phone_number">Số điện thoại</label>
@@ -161,8 +161,11 @@
                     </div>
                     <div class="d-flex justify-content-center gap-3 mt-4">
                         <span>Bạn chưa có tài khoản? 
-                            <a href="#" class="regis-redirect">Đăng ký ngay</a>
+                            <a href="{{ route('auth.register.index') }}" class="regis-redirect">Đăng ký ngay</a>
                         </span>
+                    </div>
+                    <div class="d-flex justify-content-start gap-3 mt-4">
+                        <a class="btn btn-outline-primary" href="{{ route('home.index') }}"><i class="bi bi-arrow-left"></i> Quay lại trang chủ</a>
                     </div>
                 </div>
             </div>

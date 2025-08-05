@@ -1,0 +1,22 @@
+    .form-section h5 {
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--primary-color);
+    }
+    .form-text {
+        font-size: 0.875rem;
+    }
+    .form-check-label {
+        font-size: 0.9rem;
+    }
+    .terms {
+        font-size: 0.85rem;
+    }
+    .form-note {
+        color: green;
+        font-size: 0.85rem;
+    }
+    .form-section {
+        padding-bottom: 120px;
+    }

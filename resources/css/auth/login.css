@@ -49,7 +49,7 @@
         border-radius: 8px;
         border: 1px solid #dbdbdb;
         text-decoration: none;
-        transition: ease-in-out;
+        transition: ease-in-out 0.3s;
     }
     .btn-login-social:hover {
         cursor: pointer;
