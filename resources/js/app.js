@@ -4,6 +4,7 @@ import 'bootstrap';
 
 // JQuery
 import $ from 'jquery';
+import 'jquery-validation';
 window.$ = window.jQuery = $;
 $(document).ready(function () {
     console.log("jQuery is working!");
@@ -16,3 +17,8 @@ import './swal-config';
 import * as Ladda from 'ladda/js/ladda';
 import 'ladda/dist/ladda.min.css';
 window.Ladda = Ladda;
+
+// AOS 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();

@@ -2,6 +2,7 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "./master/header.css";
 @import "./master/footer.css";
+@import "./auth/login.css";
 @import "./home.css";
 
 body {
@@ -30,4 +31,6 @@ html, body {
     --text-heading-color: #252A2B;
     --text-color: #5C5C5C;
     --white-color: #ffff;
+
+    --bgr-gray: #F7F7F8;
 }
