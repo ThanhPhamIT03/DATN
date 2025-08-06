@@ -65,6 +65,13 @@
                                 <i class="bi bi-chevron-right last-icon"></i>
                             </a>
                         </li>
+                        <li>
+                            <a href ="#">
+                                <i class="bi bi-phone-flip"></i>
+                                Thu cũ đổi mới
+                                <i class="bi bi-chevron-right last-icon"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

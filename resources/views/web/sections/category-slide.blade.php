@@ -62,6 +62,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-6 col-md-3">
+                <div class="category-item position-relative overflow-hidden rounded shadow-sm" onclick="location.href='#'" style="cursor: pointer;">
+                    <img src="{{ asset('./images/maycu6_1024x576.jpg') }}" alt="Điện thoại" class="w-100 h-100 object-cover">
+                    
+                    <div class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
+                        <h5 class="mb-3 fw-bold">Thu cũ đổi mới</h5>
+                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <style>
