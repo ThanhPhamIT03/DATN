@@ -157,6 +157,10 @@
     @include('web.sections.slide')
     @include('web.sections.category-slide')
     @include('web.sections.features-phone')
+    @include('web.sections.features-tablet')
+    @include('web.sections.accessory')
+    @include('web.sections.old-product')
+    @include('web.sections.features-blog')
     <div class="overlay" style="display: none;"></div>
 @stop
 

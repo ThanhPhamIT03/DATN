@@ -43,7 +43,7 @@
                     <ul class="footer-suport">
                         <li><a href="#">Tìm kiếm</a></li>
                         <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách bảo hành</a></li>
                         <li><a href="#">Chính sách bảo mật</a></li>
                         <li><a href="#">Điều khoản dịch vụ</a></li>
                         <li><a href="#">Liên hệ</a></li>

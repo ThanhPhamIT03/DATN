@@ -1,7 +1,7 @@
 <section>
     <div class="container-xl p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0 fearture-phone-heading">Điện thoại nổi bật</h4>
+            <h4 class="m-0 fearture-phone-heading">Máy tính bảng nổi bật</h4>
             <ul class="product-list">
                 <li>
                     <a href="#">Apple</a>
@@ -14,6 +14,12 @@
                 </li>
                 <li>
                     <a href="#">OPPO</a>
+                </li>
+                <li>
+                    <a href="#">HUAWEI</a>
+                </li>
+                <li>
+                    <a href="#">Lenovo</a>
                 </li>
                 <li>
                     <a href="#">Xem tất cả</a>
@@ -30,7 +36,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -56,7 +62,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -82,7 +88,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -108,7 +114,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -134,7 +140,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -160,7 +166,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -186,7 +192,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -212,7 +218,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -238,7 +244,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
@@ -264,7 +270,7 @@
                         <div class="position-absolute bg-primary text-white px-2 py-1 small custom-badge-right">
                             Trả góp 0%
                         </div>
-                        <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
+                        <img src="{{ asset('./images/may-tinh-bang.webp') }}" class="card-img-top img-product" alt="iPhone 16 Pro Max">
                         <div class="card-body p-2">
                             <h6 class="card-title mb-1 two-line-ellipsis" style="font-size: 0.95rem; font-weight: 500;">
                                 iPhone 16 Pro Max 256GB | Chính hãng VN/A
