@@ -4,6 +4,7 @@
         left: 0;
         right: 0;
         z-index: 9999;
+        background-color: #ffff;
     }
     .header-top {
         background-color: var(--primary-color);
@@ -27,6 +28,7 @@
         height: 180px;
         cursor: pointer;
         transform: translateX(-15%);
+        overflow: hidden;
     }
     .header-logo a img {
         width: 100%;
@@ -167,14 +169,18 @@
         text-decoration: underline;
     }
     .search-history-list {
-        padding-left: 50px;
+        padding-left: 26px;
     }
     .search-history-list li {
         padding: 6px 0;
+        list-style-type: none;
     }
     .search-history-list li a {
         text-decoration: none;
         color: var(--text-color);
+    }
+    .search-history-list li a:hover {
+        text-decoration: underline;
     }
     .search-trend {
         list-style-type: none;

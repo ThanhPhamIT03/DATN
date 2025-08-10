@@ -23,6 +23,10 @@ html, body {
     flex: 1;
 }
 
+.content {
+    margin-top: 110px;
+}
+
 :root {
     --primary-color: #19A8FF;
     --secondary-color: #F6F6F4;
