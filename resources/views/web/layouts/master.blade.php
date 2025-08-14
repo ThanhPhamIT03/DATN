@@ -13,11 +13,13 @@
         <main class="main-content">
             <div class="content" style="background-color: var(--bgr-gray)">
                 @hasSection('breadcrumb')
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            @yield('breadcrumb')
-                        </ol>
-                    </nav>
+                    <div class="container-xl">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                @yield('breadcrumb')
+                            </ol>
+                        </nav>
+                    </div>
                 @endif
 
                 @yield('content')
