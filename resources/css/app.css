@@ -4,6 +4,7 @@
 @import "./master/footer.css";
 @import "./auth/login.css";
 @import "./home.css";
+@import "./product/product-detail.css";
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -37,4 +38,40 @@ html, body {
     --white-color: #ffff;
 
     --bgr-gray: #F7F7F8;
+}
+
+/* CSS cho phần breadcrumb */
+.breadcrumb {
+    background: transparent;
+    padding: 1.75rem 0;
+    font-size: 16px;
+    margin: 0;
+}
+
+.breadcrumb-item {
+    color: #6c757d; 
+    position: relative;
+    padding: 0;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #0d6efd;
+    transition: color 0.3s;
+}
+
+.breadcrumb-item a:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #212529;
+    font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    padding: 0 0.5rem;
+    color: #6c757d;
 }

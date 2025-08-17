@@ -22,7 +22,7 @@
         </div>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -48,7 +48,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -74,7 +74,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -100,7 +100,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -126,7 +126,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -152,7 +152,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -178,7 +178,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -204,7 +204,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -230,7 +230,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%
@@ -256,7 +256,7 @@
             </div>
 
             <div class="col">
-                <a href="{{ route('auth.login.index') }}" class="text-decoration-none text-dark d-block h-100">
+                <a href="{{ route('web.product.index') }}" class="text-decoration-none text-dark d-block h-100">
                     <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                         <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
                             Giảm 15%

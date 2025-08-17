@@ -3,6 +3,8 @@ import './bootstrap';
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
+import './main.js'; 
+
 // JQuery
 import $ from 'jquery';
 import 'jquery-validation';
