@@ -75,3 +75,60 @@
 #productCarousel:hover .carousel-control-next {
     opacity: 1;
 }
+
+.color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.color-swatch:hover {
+    transform: scale(1.05);
+}
+
+.color-swatch.selected {
+    border-color: #666;
+    transform: scale(1.1);
+}
+
+#care {
+    cursor: pointer;
+}
+
+/* Class riêng cho icon commit */
+.icon-commit {
+    color: #7AC142;
+    font-size: 1.1rem;
+    /* chỉnh kích thước nếu muốn */
+}
+
+.hotline-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+.hotline-link {
+    font-weight: bold;
+    color: #e63946;
+    /* màu đỏ nổi bật */
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.hotline-link:hover {
+    color: #b71c1c;
+    /* đỏ đậm hơn khi hover */
+    text-decoration: underline;
+}
+
+#product-related .card img {
+    transition: transform 0.3s ease;
+}
+
+#product-related .card:hover img {
+    transform: scale(1.03);
+}
