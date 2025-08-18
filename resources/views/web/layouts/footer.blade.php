@@ -20,7 +20,7 @@
                 <div class="footer-card">
                     <h4>Thông tin liên hệ</h4>
                     <ul class="contact-list">
-                        <li><i class="bi bi-geo-alt"></i> <a href="https://maps.app.goo.gl/a6LSxcijhYrhSPht8" class="link-map">3 P. Phạm Khắc Quảng, Giang Biên, Long Biên, Hà Nội, Việt Nam</a></li>
+                        <li><i class="bi bi-geo-alt"></i> <a href="https://maps.app.goo.gl/a6LSxcijhYrhSPht8" class="link-map" target="_blank">3 P. Phạm Khắc Quảng, Giang Biên, Long Biên, Hà Nội, Việt Nam</a></li>
                         <li><i class="bi bi-telephone"></i> 0337.005.347</li>
                         <li><i class="bi bi-phone-vibrate"></i> 0337.005.347</li>
                         <li><i class="bi bi-envelope"></i> thanhphamit.03@gmail.com</li>
@@ -54,5 +54,5 @@
     </div>
 </section>
 <section class="sub-footer d-flex">
-    <div class="m-auto">Copyright &copy; 2025 <a href="https://sonthao.mobile.com">Son Thao Mobile</a>. Powered by <a href="https://www.facebook.com/thanhpham.dev03">Thanh Pham</a></div>
+    <div class="m-auto">Copyright &copy; 2025 <a href="https://sonthao.mobile.com">Son Thao Mobile</a>. Powered by <a href="https://www.facebook.com/thanhpham.dev03" target="_blank">Thanh Pham</a></div>
 </section>
