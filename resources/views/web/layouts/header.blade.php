@@ -156,7 +156,7 @@
 
                             <!-- Nội dung thông báo -->
                             <div class="flex-grow-1">
-                                <div>Đơn hàng <strong>00133S2412000274</strong> đang xỷ lý</div>
+                                <div>Đơn hàng <strong>00133S2412000274</strong> đang xử lý.</div>
                                 <a href="#" class="text-primary small">Xem chi tiết</a>
                             </div>
                         </div>
@@ -204,18 +204,22 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
         }
+
         .notify-card-item {
             border: 1px solid #ccc;
             border-radius: 8px;
             margin-bottom: 12px;
             padding: 10px;
         }
+
         .success {
             border-color: var(--primary-color) !important;
         }
+
         .pending {
             border-color: #FFC007 !important;
         }
+
         .reject {
             border-color: red !important;
         }
