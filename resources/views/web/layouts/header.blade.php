@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="user-card shadow-sm mb-2">
-                        <a href="#"
+                        <a href="{{ route('web.info.index') }}"
                             class="card-body p-2 d-flex align-items-center justify-content-between text-decoration-none">
                             <img src="{{ asset('./images/default-avatar.png') }}" alt="Avatar"
                                 class="rounded-circle me-2" style="width:40px; height:40px;">
