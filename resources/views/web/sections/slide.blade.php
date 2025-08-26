@@ -10,7 +10,7 @@
 
 <style>
     #slide-banner {
-        height: 70vh;
+        height: 85vh;
         overflow: hidden;
         position: relative;
         margin-bottom: 32px;
