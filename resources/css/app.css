@@ -5,6 +5,7 @@
 @import "./auth/login.css";
 @import "./home.css";
 @import "./product/product-detail.css";
+@import "./info/info.css";
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
