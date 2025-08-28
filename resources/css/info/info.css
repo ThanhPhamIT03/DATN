@@ -102,4 +102,5 @@
 
         .info-menu-item.active .info-menu-link {
             color: var(--primary-color);
+            color: #fff;
         }
