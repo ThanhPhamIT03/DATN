@@ -11,4 +11,9 @@ class InformationController extends Controller
     {
         return view('web.pages.information');
     }
+
+    public function add(Request $request)
+    {
+        dd($request->json());
+    }
 }

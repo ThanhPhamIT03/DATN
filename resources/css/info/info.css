@@ -102,4 +102,41 @@
 
         .info-menu-item.active .info-menu-link {
             color: var(--primary-color);
+            color: #fff;
+        }
+
+        .status {
+            margin: 0 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #dbdbdb;
+            background-color: transparent;
+            font-size: 14px;
+            cursor: pointer;
+            transition: ease-in-out 0.3s;
+        }
+
+        .status-all {
+            background-color: #0C6DFD;
+            color: #fff;
+        }
+
+        .status-processing {
+            background-color: #FFC007;
+            color: #fff;
+        }
+
+        .status-delivery {
+            background-color: #10CAF0;
+            color: #fff;
+        }
+
+        .status-cancel {
+            background-color: #FF0000;
+            color: #fff;
+        }
+
+        .status-delivered {
+            background-color: #198753;
+            color: #fff;
         }
