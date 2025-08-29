@@ -5,6 +5,10 @@ window.bootstrap = bootstrap;
 
 import './main.js'; 
 
+// JS cho trang thông tin cá nhân
+import './profile/menu.js';
+import './profile/history.js';
+
 // JQuery
 import $ from 'jquery';
 import 'jquery-validation';
