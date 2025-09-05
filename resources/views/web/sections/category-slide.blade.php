@@ -5,7 +5,7 @@
                 <h4 class="m-0 fearture-phone-heading">Danh mục</h4>
             </div>
             <!-- Category Item -->
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/phone.jpeg') }}" alt="Điện thoại" class="w-100 h-100 object-cover">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/may-tinh-bang-3-800x450.jpg') }}" alt="Điện thoại"
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/phu-kien-dien-thoai-gia-si-1.jpg') }}" alt="Điện thoại"
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/maycu6_1024x576.jpg') }}" alt="Điện thoại"
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/Anh-thumb-9-768x402.jpg') }}" alt="Điện thoại"
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/promotion.jpg') }}" alt="Điện thoại" class="w-100 h-100 object-cover">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
                 <div class="category-item position-relative overflow-hidden rounded shadow-sm"
                     onclick="location.href='#'" style="cursor: pointer;">
                     <img src="{{ asset('./images/maycu6_1024x576.jpg') }}" alt="Điện thoại"
