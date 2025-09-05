@@ -61,7 +61,8 @@
                                 <i class="bi bi-house me-3"></i> Tổng quan <i class="bi bi-chevron-right"></i>
                             </a>
                         </li>
-                        <li class="info-menu-item" id="bought-history-btn" data-route="{{ route('web.info.history.index') }}">
+                        <li class="info-menu-item" id="bought-history-btn"
+                            data-route="{{ route('web.info.history.index') }}">
                             <a href="#" class="info-menu-link">
                                 <i class="bi bi-cart me-3"></i> Lịch sử mua hàng <i class="bi bi-chevron-right"></i>
                             </a>
@@ -96,7 +97,8 @@
                         </li>
                         <li class="info-menu-item logout-item">
                             <!-- Logout bằng form -->
-                            <form method="POST" action="/logout" class="logout-form">
+                            <form method="POST" action="{{ route('auth.logout.logout') }}" class="logout-form">
+                                @csrf
                                 <button type="submit" class="info-menu-link logout-btn">
                                     <i class="bi bi-box-arrow-right me-3"></i> Đăng xuất <i class="bi bi-chevron-right"></i>
                                 </button>

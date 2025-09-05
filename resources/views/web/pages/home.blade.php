@@ -4,7 +4,7 @@
 
 @section('script')
     <script type="module">
-        $(document).ready(function () {
+        $(document).ready(function() {
             // -- Slide message ---
             const $slider = $('.slider-message');
             const $items = $slider.find('li');
@@ -27,12 +27,12 @@
             let index = 0;
             const total = $items.length;
 
-            setInterval(function () {
+            setInterval(function() {
                 index++;
 
                 $inner.animate({
                     top: `-${index * itemHeight}px`
-                }, 500, function () {
+                }, 500, function() {
                     // Nếu hết danh sách thì quay lại đầu
                     if (index >= total) {
                         $inner.css('top', 0);
@@ -44,7 +44,7 @@
         });
 
         // Slider
-        $(document).ready(function () {
+        $(document).ready(function() {
             const $slider = $('.slide-container');
             const slideCount = $slider.children().length;
             let currentIndex = 0;
@@ -64,8 +64,8 @@
         });
 
         // Xử lý phần yêu thích
-        $(document).ready(function () {
-            $('.favorite-toggle').on('click', function () {
+        $(document).ready(function() {
+            $('.favorite-toggle').on('click', function() {
                 const $outline = $(this).find('.icon-outline');
                 const $fill = $(this).find('.icon-fill');
 
@@ -85,5 +85,21 @@
     @include('web.sections.old-product')
     @include('web.sections.features-blog')
     <div class="overlay" style="display: none;"></div>
-@stop
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
 
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
+@stop

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }[type] || 'Thông báo';
 
         Swal.fire({
-            icon: type,
+            icon: type, 
             title: title,
             text: message,
             confirmButtonText: 'OK',
