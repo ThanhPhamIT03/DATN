@@ -21,7 +21,6 @@ $(document).ready(function () {
         }
     }
 
-
     // Khi bấm nút trạng thái processing
     $("#status-processing").on("click", function (e) {
         e.preventDefault();
