@@ -4,9 +4,9 @@
 
 @section('script')
     <script type="module">
-       $(document).ready(function () {
+        $(document).ready(function() {
             // Toggle password
-            $('.toggle-password').on('click', function () {
+            $('.toggle-password').on('click', function() {
                 const input = $('#password');
                 const iconShow = $(this).find('.toggle-icon-show');
                 const iconHide = $(this).find('.toggle-icon-hide');
@@ -23,7 +23,7 @@
             });
 
             // Hiện icon khi nhập mật khẩu
-            $('#password').on('input', function () {
+            $('#password').on('input', function() {
                 const val = $(this).val();
                 if (val.length > 5) {
                     $('.toggle-password').removeClass('d-none');
@@ -60,13 +60,13 @@
                 },
                 errorElement: "div",
                 errorClass: "invalid-feedback",
-                highlight: function (element) {
+                highlight: function(element) {
                     $(element).addClass("is-invalid");
                 },
-                unhighlight: function (element) {
+                unhighlight: function(element) {
                     $(element).removeClass("is-invalid");
                 },
-                errorPlacement: function (error, element) {
+                errorPlacement: function(error, element) {
                     error.insertAfter(element);
                 }
             });
@@ -78,11 +78,8 @@
     <div id="login-page" class="container-fluid">
         <div class="row justify-content-center align-items-center" style="height: 100vh">
             <!-- Cột bên trái -->
-            <div class="col-md-6 h-100 d-flex align-items-center justify-content-center"
-                data-aos="fade-right"
-                data-aos-duration="1000"
-                data-aos-delay="300"
-                style="background-color: var(--bgr-gray);">
+            <div class="col-md-6 h-100 d-flex align-items-center justify-content-center" data-aos="fade-right"
+                data-aos-duration="1000" data-aos-delay="300" style="background-color: var(--bgr-gray);">
                 <div class="w-100 login-banner" style="padding: 0 120px;">
                     <div class="login-banner-img d-flex mb-4">
                         <img src="{{ asset('./images/logo-website.png') }}">
@@ -93,10 +90,12 @@
                     <div class="offer-box">
                         <ul class="offer-list">
                             <li>
-                                <i class="bi bi-gift-fill me-2"></i><strong>Miễn phí giao hàng</strong> cho thành viên và cho đơn hàng giá trị từ 300K.
+                                <i class="bi bi-gift-fill me-2"></i><strong>Miễn phí giao hàng</strong> cho thành viên và
+                                cho đơn hàng giá trị từ 300K.
                             </li>
                             <li>
-                                <i class="bi bi-gift-fill me-2"></i><strong>Tặng voucher sinh nhật lên đến 500K</strong> cho thành viên.
+                                <i class="bi bi-gift-fill me-2"></i><strong>Tặng voucher sinh nhật lên đến 500K</strong> cho
+                                thành viên.
                             </li>
                             <li>
                                 <i class="bi bi-gift-fill me-2"></i>Thu cũ đổi mới trợ giá <strong>lên đến 1 triệu.</strong>
@@ -105,7 +104,8 @@
                                 <i class="bi bi-gift-fill me-2"></i>Thăng hạng <strong>nhận voucher lên đến 400K.</strong>
                             </li>
                             <li>
-                                <i class="bi bi-gift-fill me-2"></i><strong>Ưu đãi lên đến 10%</strong> đối với học sinh - sinh viên.
+                                <i class="bi bi-gift-fill me-2"></i><strong>Ưu đãi lên đến 10%</strong> đối với học sinh -
+                                sinh viên.
                             </li>
                         </ul>
                         <div class="text-center mb-3">
@@ -118,28 +118,32 @@
             </div>
 
             <!-- Cột bên phải -->
-            <div class="col-md-6 h-100 d-flex align-items-center justify-content-center"
-                data-aos="zoom-in"
-                data-aos-duration="1000"
-                data-aos-delay="100">
+            <div class="col-md-6 h-100 d-flex align-items-center justify-content-center" data-aos="zoom-in"
+                data-aos-duration="1000" data-aos-delay="100">
                 <div class="w-100 login-block" style="padding: 32px 120px;">
                     <h4 class="text-center">Đăng nhập thành viên</h4>
-                    <form class="form-login" id="login-form">
+                    <form class="form-login" id="login-form" method="POST" action="{{ route('auth.login.login')}}">
+                        @csrf
                         <div class="mb-3">
                             <label class="form-label" for="phone_number">Số điện thoại</label>
-                            <input type="text" class="form-control input-custom" id="phone_number" name="phone_number" placeholder="Nhập số điện thoại của bạn" required>
+                            <input type="text" class="form-control input-custom" id="phone_number"
+                                value="{{ session('phone') ?? old('phone') }}" name="phone"
+                                placeholder="Nhập số điện thoại của bạn" required>
                         </div>
                         <div class="mb-3 position-relative">
                             <label class="form-label" for="password">Mật khẩu</label>
-                            <input type="password" class="form-control pe-5 input-custom" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
+                            <input type="password" class="form-control pe-5 input-custom" id="password" name="password"
+                                placeholder="Nhập mật khẩu của bạn" required>
 
-                            <span class="toggle-password position-absolute end-0 me-3 d-none" style="cursor: pointer; top: 55%;">
+                            <span class="toggle-password position-absolute end-0 me-3 d-none"
+                                style="cursor: pointer; top: 55%;">
                                 <i class="bi bi-eye toggle-icon-show"></i>
                                 <i class="bi bi-eye-slash toggle-icon-hide d-none"></i>
                             </span>
                         </div>
                         <div class="mb-3 text-end">
-                            <a href="#" class="small text-decoration-none" style="color: var(--primary-color)">Quên mật khẩu?</a>
+                            <a href="#" class="small text-decoration-none" style="color: var(--primary-color)">Quên
+                                mật khẩu?</a>
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn-login">Đăng nhập</button>
@@ -150,26 +154,45 @@
                     </div>
                     <div class="d-flex justify-content-center gap-3 mt-4">
                         <a href="#" class="btn-login-social d-flex align-items-center justify-content-center">
-                            <img src="{{ asset('/images/google.webp') }}" alt="Google" width="20" height="20" class="me-2">
+                            <img src="{{ asset('/images/google.webp') }}" alt="Google" width="20" height="20"
+                                class="me-2">
                             <span class="text-dark fw-medium">Google</span>
                         </a>
 
                         <a href="#" class="btn-login-social d-flex align-items-center justify-content-center">
-                            <img src="{{ asset('./images/zalo.png') }}" alt="Zalo" width="20" height="20" class="me-2">
+                            <img src="{{ asset('./images/zalo.png') }}" alt="Zalo" width="20" height="20"
+                                class="me-2">
                             <span class="text-dark fw-medium">Zalo</span>
                         </a>
                     </div>
                     <div class="d-flex justify-content-center gap-3 mt-4">
-                        <span>Bạn chưa có tài khoản? 
+                        <span>Bạn chưa có tài khoản?
                             <a href="{{ route('auth.register.index') }}" class="regis-redirect">Đăng ký ngay</a>
                         </span>
                     </div>
                     <div class="d-flex justify-content-start gap-3 mt-4">
-                        <a class="btn btn-outline-primary" href="{{ route('home.index') }}"><i class="bi bi-arrow-left"></i> Quay lại trang chủ</a>
+                        <a class="btn btn-outline-primary" href="{{ route('home.index') }}"><i class="bi bi-arrow-left"></i>
+                            Quay lại trang chủ</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@stop
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
 
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
+@stop

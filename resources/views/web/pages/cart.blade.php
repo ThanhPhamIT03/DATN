@@ -97,6 +97,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center cart-container">
+            {{-- Dã đăng nhập --}}
             <div class="col-md-8">
                 <div class="position-relative py-3 border-bottom mb-4">
                     <a href="{{ route('home.index') }}" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-dark">
@@ -167,6 +168,10 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            {{-- Giỏ hàng trống --}}
+            <div class="col-md-8">
+                
             </div>
         </div>
     </div>

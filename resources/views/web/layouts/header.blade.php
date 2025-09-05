@@ -103,77 +103,69 @@
 
                 {{-- Tài khoản --}}
                 {{-- Chưa đăng nhập --}}
-                {{-- <div class="btn-cus" id="account">
-                    <span>Đăng nhập</span>
-                    <i class="bi bi-person-circle icon-act"></i>
-                </div> --}}
+                @guest
+                    <div class="btn-cus" id="account">
+                        <span>Đăng nhập</span>
+                        <i class="bi bi-person-circle icon-act"></i>
+                    </div>
+                @endguest
 
                 {{-- Đã đăng nhập --}}
-                <!-- Nút bấm -->
-                <div class="btn-cus" data-bs-toggle="offcanvas" data-bs-target="#accountPanel"
-                    aria-controls="accountPanel">
-                    <span>Tài khoản</span>
-                    <i class="bi bi-person-circle icon-act"></i>
-                </div>
-
-                <!-- Đã đăng nhập -->
-                <div class="offcanvas offcanvas-end p-4" tabindex="-1" id="accountPanel"
-                    aria-labelledby="accountPanelLabel">
-                    <div class="offcanvas-header">
-                        <h5 id="accountPanelLabel">Tài khoản</h5>
-                        <button type="button" class="btn-close text-reset"
-                            data-bs-dismiss="offcanvas"aria-label="Đóng"></button>
+                @auth
+                    <div class="btn-cus" data-bs-toggle="offcanvas" data-bs-target="#accountPanel"
+                        aria-controls="accountPanel">
+                        <span>Tài khoản</span>
+                        <i class="bi bi-person-circle icon-act"></i>
                     </div>
 
-                    <div class="user-card shadow-sm mb-2">
-                        <a href="{{ route('web.info.index') }}"
-                            class="card-body p-2 d-flex align-items-center justify-content-between text-decoration-none">
-                            <img src="{{ asset('./images/default-avatar.png') }}" alt="Avatar"
-                                class="rounded-circle me-2" style="width:40px; height:40px;">
-                            <div class="fw-bold flex-grow-1 text-center">
-                                Phạm Thành
-                            </div>
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="mt-4">
-                        <h5>Thông báo của tôi <i class="bi bi-bell"></i></h5>
-                    </div>
-                    <div class="mb-2 mt-2">
-                        <div class="card-body notify-card-item d-flex align-items-center success">
-                            <!-- Icon thông báo -->
-                            <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
-
-                            <!-- Nội dung thông báo -->
-                            <div class="flex-grow-1">
-                                <div>Đơn hàng <strong>00133S2412000273</strong> đã giao thành công.</div>
-                                <a href="#" class="text-primary small">Xem chi tiết</a>
-                            </div>
-                        </div>
-                        <div class="card-body d-flex notify-card-item align-items-center pending">
-                            <!-- Icon thông báo -->
-                            <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
-
-                            <!-- Nội dung thông báo -->
-                            <div class="flex-grow-1">
-                                <div>Đơn hàng <strong>00133S2412000274</strong> đang xử lý.</div>
-                                <a href="#" class="text-primary small">Xem chi tiết</a>
-                            </div>
+                    <div class="offcanvas offcanvas-end p-4" tabindex="-1" id="accountPanel"
+                        aria-labelledby="accountPanelLabel">
+                        <div class="offcanvas-header">
+                            <h5 id="accountPanelLabel">Tài khoản</h5>
+                            <button type="button" class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"aria-label="Đóng"></button>
                         </div>
 
-                        <div class="card-body d-flex notify-card-item align-items-center reject">
-                            <!-- Icon thông báo -->
-                            <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
+                        <div class="user-card shadow-sm mb-2">
+                            <a href="{{ route('web.info.index') }}"
+                                class="card-body p-2 d-flex align-items-center justify-content-between text-decoration-none">
+                                <img src="{{ asset('./images/default-avatar.png') }}" alt="Avatar"
+                                    class="rounded-circle me-2" style="width:40px; height:40px;">
+                                <div class="fw-bold flex-grow-1 text-center">
+                                    {{ $user->name }}
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="mt-4">
+                            <h5>Thông báo của tôi <i class="bi bi-bell"></i></h5>
+                        </div>
+                        <div class="mb-2 mt-2">
+                            <div class="card-body notify-card-item d-flex align-items-center success">
+                                <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+                                <div class="flex-grow-1">
+                                    <div>Đơn hàng <strong>00133S2412000273</strong> đã giao thành công.</div>
+                                    <a href="#" class="text-primary small">Xem chi tiết</a>
+                                </div>
+                            </div>
+                            <div class="card-body d-flex notify-card-item align-items-center pending">
+                                <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
+                                <div class="flex-grow-1">
+                                    <div>Đơn hàng <strong>00133S2412000274</strong> đang xử lý.</div>
+                                    <a href="#" class="text-primary small">Xem chi tiết</a>
+                                </div>
+                            </div>
 
-                            <!-- Nội dung thông báo -->
-                            <div class="flex-grow-1">
-                                <div>Đơn hàng <strong>00133S2412000274</strong> đã huỷ.</div>
-                                <a href="#" class="text-primary small">Xem chi tiết</a>
+                            <div class="card-body d-flex notify-card-item align-items-center reject">
+                                <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
+                                <div class="flex-grow-1">
+                                    <div>Đơn hàng <strong>00133S2412000274</strong> đã huỷ.</div>
+                                    <a href="#" class="text-primary small">Xem chi tiết</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @endauth
 
                 {{-- Modal login and register --}}
                 <div class="modal-login">

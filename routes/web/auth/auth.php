@@ -5,16 +5,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 
-Route::controller(LoginController::class)->name('auth.login.')
+Route::middleware('guest')->group(function () {
+    Route::controller(LoginController::class)->name('auth.login.')
         ->prefix('auth/login')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'login')->name('login');
-});
+        });
 
-Route::controller(RegisterController::class)->name('auth.register.')
+    Route::controller(RegisterController::class)->name('auth.register.')
         ->prefix('auth/register')
         ->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::post('/', 'register')->name('register');
+            Route::post('/store', 'store')->name('store');
+        });
 });
+
+Route::middleware('auth')->controller(LoginController::class)->name('auth.logout.')
+    ->prefix('auth/logout')
+    ->group(function () {
+        Route::post('/', 'logout')->name('logout');
+    });
