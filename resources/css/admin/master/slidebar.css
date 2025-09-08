@@ -1,0 +1,18 @@
+#admin-slidebar {
+    background-color: #2F3C54;
+    height: 100vh;
+}
+.admin-logo {
+    border-bottom: 1px solid #dbdbdb;
+}
+.admin-logo h6 {
+    color: #ffff;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+.admin-logo p {
+    color: #dbdbdb;
+    text-align: center;
+    font-size: 12px;
+}

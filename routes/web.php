@@ -7,7 +7,7 @@ use App\Http\Middleware\RoleMiddleware;
 // Admin
 $routeAdmin = File::allFiles(__DIR__ . '/admin');
 
-Route::middleware(['auth', RoleMiddleware::class . 'role:admin,sadmin'])->group(function() use ($routeAdmin) {
+Route::middleware(['auth', RoleMiddleware::class . ':admin,sadmin'])->prefix('admin')->name('admin.')->group(function() use ($routeAdmin) {
     foreach ($routeAdmin as $route) {
         if ($route->getExtension() === 'php') {
             require_once $route->getPathname();

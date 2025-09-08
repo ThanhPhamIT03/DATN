@@ -82,7 +82,7 @@
                 data-aos-duration="1000" data-aos-delay="300" style="background-color: var(--bgr-gray);">
                 <div class="w-100 login-banner" style="padding: 0 120px;">
                     <div class="login-banner-img d-flex mb-4">
-                        <img src="{{ asset('./images/logo-website.png') }}">
+                        <img src="{{ asset('./images/default/logo-website.png') }}">
                     </div>
                     <div class="login-banner-title">
                         <h4>Đăng nhập để không bỏ lỡ các ưu đãi hấp dẫn từ <span>Sơn Thảo Mobile</span></h4>
