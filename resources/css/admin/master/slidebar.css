@@ -3,7 +3,7 @@
     height: 100vh;
 }
 .admin-logo {
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 2px solid #dbdbdb;
 }
 .admin-logo h6 {
     color: #ffff;
@@ -14,5 +14,5 @@
 .admin-logo p {
     color: #dbdbdb;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
 }
