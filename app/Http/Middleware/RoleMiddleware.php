@@ -16,7 +16,7 @@ class RoleMiddleware
      public function handle($request, Closure $next, ...$roles): Response
     {
         if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
-            abort(403, 'Unauthorized.');
+            return redirect()->back()->with('error', 'Bạn không có quyền truy cập trang này.');
         }
         return $next($request);
     }

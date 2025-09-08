@@ -21,10 +21,10 @@
                             <img src="{{ asset('images/default-avatar.png') }}" class="rounded-circle me-3 img-fluid"
                                 alt="Ảnh đại diện" style="width:60px; height:60px; object-fit:cover;">
                             <div>
-                                <h5 class="mb-1 usr-name">Phạm Văn Thành</h5>
-                                <p class="mb-1 usr-phone">0123 456 789</p>
-                                <p class="mb-1 usr-role">Thành viên</p>
-                                <small class="text-muted">Cập nhật: 24/08/2025</small>
+                                <h5 class="mb-1 usr-name">{{ $user->name }}</h5>
+                                <p class="mb-1 usr-phone">{{ $user->phone }}</p>
+                                <p class="mb-1 usr-role">{{ $user->role }}</p>
+                                <small class="text-muted">Cập nhật: {{ $user->created_at }}</small>
                             </div>
                         </div>
                     </div>

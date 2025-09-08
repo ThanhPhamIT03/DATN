@@ -1,6 +1,3 @@
-@php
-    $isCartPage = Route::currentRouteName() === 'web.cart.index';
-@endphp
 
 <section class="header">
     <div class="header-top d-flex align-items-center justify-content-center overflow-hidden">
@@ -15,20 +12,20 @@
         <div class="container-xl header-nav d-flex align-items-center justify-content-between">
             <div class="header-logo">
                 <a href="{{ route('home.index') }}">
-                    <img src="{{ asset('images/logo-website.png') }}">
+                    <img src="{{ asset('images/default/logo-website.png') }}">
                 </a>
             </div>
 
             <div class="header-menu d-flex align-items-center justify-content-between">
                 {{-- Danh mục --}}
-                <div class="category btn-cus me-3 {{ $isCartPage ? 'd-none' : '' }}">
+                <div class="category btn-cus me-3">
                     <i class="bi bi-card-list"></i>
                     <span>Danh mục</span>
                     <i class="bi bi-chevron-down icon icon-down"></i>
                 </div>
 
                 {{-- Category block --}}
-                <div class="category-block {{ $isCartPage ? 'd-none' : '' }}">
+                <div class="category-block">
                     <ul>
                         <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-phone"></i>Điện thoại<i
                                     class="bi bi-chevron-right last-icon"></i></a></li>
@@ -49,7 +46,7 @@
                 </div>
 
                 {{-- Số điện thoại --}}
-                <div class="call-buy btn-cus me-3 {{ $isCartPage ? 'd-none' : '' }}">
+                <div class="call-buy btn-cus me-3">
                     <i class="bi bi-telephone"></i>
                     <a href="tel:0337005347">0337.005.347</a>
                 </div>
@@ -93,14 +90,6 @@
                     <i class="bi bi-cart3 icon-act"></i>
                 </div>
 
-                {{-- Tra cứu đơn hàng --}}
-                @if ($isCartPage)
-                    <div class="btn-cus me-3 ms-3 d-flex align-items-center" id="check-order">
-                        <span>Tra cứu đơn hàng</span>
-                        <i class="bi bi-truck"></i>
-                    </div>
-                @endif
-
                 {{-- Tài khoản --}}
                 {{-- Chưa đăng nhập --}}
                 @guest
@@ -137,6 +126,20 @@
                                 <i class="bi bi-chevron-right"></i>
                             </a>
                         </div>
+                        @if($user->role == 'admin' || $user->role == 'sadmin')
+                            <div class="user-card shadow-sm mb-2 mt-2">
+                                <a href="{{ route('admin.dashboard.index') }}"
+                                    class="card-body p-2 d-flex align-items-center justify-content-between text-decoration-none">
+                                    <img src="{{ asset('./images/dashboard-icon.png') }}" alt="Avatar"
+                                        class="rounded-circle me-2" style="width:40px; height:40px;">
+                                    <div class="fw-bold flex-grow-1 text-center">
+                                        Trang quản trị
+                                    </div>
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </div>
+                        @endif
+
                         <div class="mt-4">
                             <h5>Thông báo của tôi <i class="bi bi-bell"></i></h5>
                         </div>

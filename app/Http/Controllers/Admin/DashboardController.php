@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Web\Product;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ProductController
+class DashboardController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
 
-        return view('web.pages.product-detail', [
+        return view('admin.pages.dashboard', [
             'user' => $user
         ]);
     }
