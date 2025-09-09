@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\Banner\Banner;
+use App\Models\Category\Category;
 
 class HomeController extends Controller
 {
@@ -18,10 +19,12 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $banners = Banner::all()->where('status', 1);
+        $categories = Category::all()->where('status', 1);
 
         return view('web.pages.home', [
             'user' => $user,
-            'banners' => $banners
+            'banners' => $banners,
+            'categories' => $categories
         ]);
     }
 }
