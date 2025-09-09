@@ -13,11 +13,18 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-     public function handle($request, Closure $next, ...$roles): Response
+    public function handle($request, Closure $next, ...$roles): Response
     {
-        if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
+        // Nếu chưa đăng nhập → đưa về trang login
+        if (!Auth::check()) {
+            return back()->with('error', 'Bạn cần đăng nhập để truy cập.');
+        }
+
+        // Nếu đăng nhập nhưng không có quyền
+        if (!in_array(Auth::user()->role, $roles)) {
             return redirect()->back()->with('error', 'Bạn không có quyền truy cập trang này.');
         }
+
         return $next($request);
     }
 }
