@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 // Helpers
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 // Models
 use App\Models\Banner\Banner;
@@ -58,6 +59,9 @@ class ListBannerController extends Controller
         $banner->description = $request->description;
         $banner->link = $request->link;
         if ($request->hasFile('image')) {
+            if ($banner->image && Storage::disk('public')->exists($banner->image)) {
+                Storage::disk('public')->delete($banner->image);
+            }
             $banner->image = $request->file('image')->store('upload/banner', 'public');
         }
         $banner->save();
@@ -77,6 +81,10 @@ class ListBannerController extends Controller
                 'message' => 'Banner không tồn tại!'
             ], 404);
         }
+        if($banner->image && Storage::disk('public')->exists($banner->image)) {
+            Storage::disk('public')->delete($banner->image);
+        }
+
         $banner->delete();
         return response()->json([
             'success' => true,

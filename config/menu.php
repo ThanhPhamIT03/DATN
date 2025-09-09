@@ -19,8 +19,8 @@ return [
         'title' => 'Danh mục',
         'icon' => 'bi bi-list-ul',
         'children' => [
-            ['title' => 'Thêm danh mục mới', 'icon' => 'bi bi-folder-plus', 'route' => ''],
-            ['title' => 'Danh sách danh mục', 'icon' => 'bi bi-card-list', 'route' => '']
+            ['title' => 'Thêm danh mục mới', 'icon' => 'bi bi-folder-plus', 'route' => 'admin.category.add.index'],
+            ['title' => 'Danh sách danh mục', 'icon' => 'bi bi-card-list', 'route' => 'admin.category.list.index']
         ]
     ],
     [

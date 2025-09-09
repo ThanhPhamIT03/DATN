@@ -5,95 +5,20 @@
                 <h4 class="m-0 fearture-phone-heading">Danh mục</h4>
             </div>
             <!-- Category Item -->
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/phone.jpeg') }}" alt="Điện thoại" class="w-100 h-100 object-cover">
+            @foreach($categories as $category)
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="category-item position-relative overflow-hidden rounded shadow-sm"
+                        onclick="location.href='#'" style="cursor: pointer;">
+                        <img src="{{ asset('storage/' . $category->image ) }}" alt="{{ $category->name}}" class="w-100 h-100 object-cover">
 
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Điện thoại</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
+                        <div
+                            class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
+                            <h5 class="mb-3 fw-bold">{{ $category->name }}</h5>
+                            <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/may-tinh-bang-3-800x450.jpg') }}" alt="Điện thoại"
-                        class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Máy tính bảng</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/phu-kien-dien-thoai-gia-si-1.jpg') }}" alt="Điện thoại"
-                        class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Phụ kiện</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/maycu6_1024x576.jpg') }}" alt="Điện thoại"
-                        class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Hàng cũ</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/Anh-thumb-9-768x402.jpg') }}" alt="Điện thoại"
-                        class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Tin công nghệ</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/promotion.jpg') }}" alt="Điện thoại" class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Khuyến mãi</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="category-item position-relative overflow-hidden rounded shadow-sm"
-                    onclick="location.href='#'" style="cursor: pointer;">
-                    <img src="{{ asset('./images/maycu6_1024x576.jpg') }}" alt="Điện thoại"
-                        class="w-100 h-100 object-cover">
-
-                    <div
-                        class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
-                        <h5 class="mb-3 fw-bold">Thu cũ đổi mới</h5>
-                        <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <style>

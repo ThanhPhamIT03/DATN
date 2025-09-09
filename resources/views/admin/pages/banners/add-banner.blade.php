@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Dashboard | Thêm banner mới')
+@section('title', 'Thêm banner mới')
 
 @section('script')
     <script type="module">
