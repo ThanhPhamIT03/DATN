@@ -1,10 +1,10 @@
 <section id="slide-banner">
     <div class="slide-container" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">
-        <a href="#"><img src="{{ asset('./images/banner-ip16.webp')}}" class="banner-img"></a>
-        <a href="#"><img src="{{ asset('./images/banner-ip16(1).webp')}}" class="banner-img"></a>
-        <a href="#"><img src="{{ asset('./images/banner-samsung.webp')}}" class="banner-img"></a>
-        <a href="#"><img src="{{ asset('./images/banner-xaomi.jpg')}}" class="banner-img"></a>
-        <a href="#"><img src="{{ asset('./images/banner.png')}}" class="banner-img"></a>
+        @foreach ($banners as $banner)
+            <a href="{{ $banner->link }}">
+                <img src="{{ asset('storage/' . $banner->image) }}" class="banner-img" alt="{{ $banner->title }}">
+            </a>
+        @endforeach
     </div>
 </section>
 

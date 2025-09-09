@@ -1,19 +1,16 @@
 @extends('admin.layouts.master')
 
+@section('title', 'Tổng quan | Trang quản trị')
+
 @section('script')
-    <script type="module">
-        $(function() {
-            var path = window.location.pathname;
 
-            $('.admin-menu .collapse .list-group-item').each(function() {
-                if ($(this).attr('href') === path) {
-                    $(this).addClass('active-item');
+@stop
 
-                    $(this).closest('.collapse').addClass('show')
-                        .prev('a.list-group-item').addClass('active-item-parent').attr('aria-expanded',
-                            true);
-                }
-            });
-        });
-    </script>
-@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a></li>
+    <li class="breadcrumb-item" aria-current="page">Tổng quan</li>
+@stop
+
+@section('content')
+    
+@stop

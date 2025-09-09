@@ -1,5 +1,5 @@
 <section id="admin-header">
-    <div class="d-flex align-items-center justify-content-between" style="height: 76px;">
+    <div class="d-flex align-items-center justify-content-between" style="height: 66px;">
         <!-- Search + Fullscreen -->
         <div class="admin-header-search d-flex align-items-center">
             <!-- Fullscreen button -->
@@ -43,7 +43,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Trở về trang mua hàng</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.index')}}">Trở về trang mua hàng</a></li>
                 </ul>
             </div>
         </div>

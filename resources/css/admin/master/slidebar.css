@@ -1,18 +1,72 @@
 #admin-slidebar {
     background-color: #2F3C54;
-    height: 100vh;
+    height: 100%;
 }
+
 .admin-logo {
     border-bottom: 2px solid #dbdbdb;
 }
+
 .admin-logo h6 {
     color: #ffff;
     font-size: 24px;
     font-weight: 600;
     text-align: center;
 }
+
 .admin-logo p {
     color: #dbdbdb;
     text-align: center;
     font-size: 14px;
+}
+
+/* Menu item */
+.admin-menu .list-group-item {
+    background: transparent;
+    border: none;
+    color: #cfd3dc;
+    font-size: 16px;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover & focus */
+.admin-menu .list-group-item:hover,
+.admin-menu .list-group-item:focus {
+    background-color: #3a4b6a;
+    color: #ffffff;
+}
+
+/* Active item (đang ở route hiện tại) */
+.admin-menu .list-group-item.active-item {
+    background-color: #1f2a42 !important;
+    color: #fff !important;
+    font-weight: 500;
+}
+
+/* Active parent (menu cha đang mở hoặc có item con active) */
+.admin-menu .list-group-item.active-parent {
+    background-color: #24324f !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Menu con */
+.admin-menu .collapse .list-group-item {
+    font-size: 16px;
+    color: #cfd3dc;
+}
+
+.admin-menu .collapse .list-group-item:hover {
+    background-color: #3a4b6a;
+    color: #fff;
+}
+
+.admin-menu .bi-chevron-down {
+    transition: transform 0.2s ease-in-out;
+}
+
+.admin-menu>a.list-group-item[aria-expanded="true"] .bi-chevron-down {
+    transform: rotate(180deg);
 }

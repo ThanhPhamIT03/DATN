@@ -42,10 +42,10 @@
                     @include('admin.layouts.header')
 
                     <!-- Main Content -->
-                    <main class="flex-fill">
+                    <main class="flex-fill ps-3">
                         @hasSection('breadcrumb')
                             <nav aria-label="breadcrumb" class="mt-2">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb" style="padding: 0.75rem 0;">
                                     @yield('breadcrumb')
                                 </ol>
                             </nav>
