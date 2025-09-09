@@ -46,6 +46,15 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                <label for="type" class="form-label">Loại</label>
+                <select class="form-select @error('type') is-invalid @enderror" id="type" name="type" required>
+                    <option value="">-- Chọn loại --</option>
+                    <option value="product" {{ old('type') == 'product' ? 'selected' : '' }}>Sản phẩm</option>
+                    <option value="service" {{ old('type') == 'service' ? 'selected' : '' }}>Dịch vụ</option>
+                </select>
+            </div>
+
             <!-- Mô tả -->
             <div class="mb-3">
                 <label for="description" class="form-label">Mô tả</label>

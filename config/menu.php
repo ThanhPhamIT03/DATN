@@ -24,6 +24,13 @@ return [
         ]
     ],
     [
+        'title' => 'Thương hiệu',
+        'icon' => 'bi bi-shop',
+        'children' => [
+            ['title' => 'Danh sách thương hiệu', 'icon' => 'bi bi-card-list', 'route' => 'admin.brand.list.index'],
+        ]
+    ],
+    [
         'title' => 'Sản phẩm',
         'icon' => 'bi bi-cart',
         'children' => [

@@ -10,19 +10,31 @@
 
 <style>
     #slidebar {
-        width: 16.6666%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 250px;
         transition: all 0.3s ease;
+        overflow-y: auto;
+        background: #fff;
+        border-right: 1px solid #ddd;
+        z-index: 1000;
     }
+
     #content {
-        width: 83.3333%;
+        margin-left: 250px;
         transition: all 0.3s ease;
     }
+
     #slidebar.closed {
         width: 0;
         opacity: 0;
         overflow: hidden;
     }
+
     #content.full {
+        margin-left: 0;
         width: 100%;
     }
 </style>

@@ -56,6 +56,7 @@ class ListCategoryController extends Controller
             ], 404);
         }
         $category->name = $request->name;
+        $category->type = $request->type;
         $category->description = $request->description;
         $category->slug = Helper::genSlug($request->name);
         if ($request->hasFile('image')) {

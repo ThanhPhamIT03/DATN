@@ -142,35 +142,35 @@
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col" style="width: 50px;">STT</th>
-                    <th scope="col">Tiêu đề</th>
-                    <th scope="col">Mô tả</th>
-                    <th scope="col">Link</th>
-                    <th scope="col">Hình ảnh</th>
-                    <th scope="col" style="width: 150px;">Trạng thái</th>
-                    <th scope="col" style="width: 150px;">Hành động</th>
+                    <th style="text-align: center;" scope="col" style="width: 50px;">STT</th>
+                    <th style="text-align: center;" scope="col">Tiêu đề</th>
+                    <th style="text-align: center;" scope="col">Mô tả</th>
+                    <th style="text-align: center;" scope="col">Link</th>
+                    <th style="text-align: center;" scope="col">Hình ảnh</th>
+                    <th style="text-align: center;" scope="col" style="width: 150px;">Trạng thái</th>
+                    <th style="text-align: center;" scope="col" style="width: 150px;">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($banners as $index => $banner)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $banner->title }}</td>
-                        <td>{{ $banner->description }}</td>
-                        <td>
+                        <td style="text-align: center;">{{ $index + 1 }}</td>
+                        <td style="text-align: center;">{{ $banner->title }}</td>
+                        <td style="text-align: center;">{{ $banner->description }}</td>
+                        <td style="text-align: center;">
                             <a href="{{ $banner->link }}" target="_blank">{{ $banner->link }}</a>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}"
                                 style="width: 100px; height: auto;">
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <select class="form-select form-select-sm banner-status" data-id="{{ $banner->id }}">
                                 <option value="0" {{ $banner->status == 0 ? 'selected' : '' }}>Pending</option>
                                 <option value="1" {{ $banner->status == 1 ? 'selected' : '' }}>Active</option>
                             </select>
                         </td>
-                        <td>
+                        <td style="text-align: center;">
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown">

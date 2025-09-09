@@ -28,7 +28,7 @@ class AddCategoryController extends Controller
 
     public function add(Request $request)
     {
-        if ($request->name == '' || $request->description == '') {
+        if ($request->name == '' || $request->description == '' || $request->type == '') {
             return back()->with('error', 'Vui lòng nhập đầy đủ thông tin!');
         }
         if ($request->image == '') {
@@ -44,6 +44,7 @@ class AddCategoryController extends Controller
 
         Category::create([
             'name' => $request->name,
+            'type' => $request->type,
             'description' => $request->description,
             'image' => $path,
             'slug' => $slug,

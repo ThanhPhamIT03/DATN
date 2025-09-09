@@ -27,21 +27,11 @@
                 {{-- Category block --}}
                 <div class="category-block">
                     <ul>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-phone"></i>Điện thoại<i
-                                    class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-tablet"></i>Máy tính
-                                bảng<i class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-usb-plug"></i>Phụ kiện<i
-                                    class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-phone-flip"></i>Hàng
-                                cũ<i class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i
-                                    class="bi bi-file-earmark-post"></i>Tin công nghệ<i
-                                    class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-megaphone"></i>Khuyến
-                                mãi<i class="bi bi-chevron-right last-icon"></i></a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"><i class="bi bi-phone-flip"></i>Thu cũ
-                                đổi mới<i class="bi bi-chevron-right last-icon"></i></a></li>
+                        @foreach($categories as $category)
+                            <li><a href="{{ route('web.product-category.index') }}">
+                                {{ $category->name }}
+                                <i class="bi bi-chevron-right last-icon"></i></a></li>
+                        @endforeach
                     </ul>
                 </div>
 
