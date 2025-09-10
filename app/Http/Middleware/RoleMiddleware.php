@@ -17,12 +17,16 @@ class RoleMiddleware
     {
         // Nếu chưa đăng nhập → đưa về trang login
         if (!Auth::check()) {
-            return back()->with('error', 'Bạn cần đăng nhập để truy cập.');
+            return response()->view('web.pages.errors.403-error', [
+                'message' => 'Bạn cần đăng nhập để truy cập trang này.'
+            ], 403);
         }
 
         // Nếu đăng nhập nhưng không có quyền
         if (!in_array(Auth::user()->role, $roles)) {
-            return redirect()->back()->with('error', 'Bạn không có quyền truy cập trang này.');
+            return response()->view('web.pages.errors.403-error', [
+                'message' => 'Bạn không có quyền truy cập trang này.'
+            ], 403);
         }
 
         return $next($request);

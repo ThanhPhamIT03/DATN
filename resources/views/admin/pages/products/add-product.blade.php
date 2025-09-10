@@ -62,7 +62,7 @@
 
             <!-- Brand -->
             <div class="mb-3">
-                <label for="brand" class="form-label">Brand</label>
+                <label for="brand" class="form-label">Thương hiệu</label>
                 <select name="brand" id="brand" class="form-select @error('brand') is-invalid @enderror" required>
                     <option value="">-- Chọn thương hiệu --</option>
                     @foreach ($brands as $brand)
@@ -127,4 +127,21 @@
             <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
         </form>
     </div>
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
 @stop
