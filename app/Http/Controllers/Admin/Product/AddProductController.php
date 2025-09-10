@@ -27,4 +27,9 @@ class AddProductController extends Controller
             'brands' => $brands
         ]);
     }
+
+    public function add()
+    {
+        
+    }
 }
