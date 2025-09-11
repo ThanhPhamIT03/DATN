@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 
 // Helpers
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 // Models
 use App\Models\Products\Product;
@@ -30,11 +32,11 @@ class ListProductController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        if($request->filled('brand_id')) {
+        if ($request->filled('brand_id')) {
             $query->where('brand_id', $request->brand_id);
         }
 
-        if($request->filled('condition')) {
+        if ($request->filled('condition')) {
             $query->where('condition', $request->condition);
         }
 
@@ -52,18 +54,79 @@ class ListProductController extends Controller
         ]);
     }
 
-    public function status()
+    public function status(Request $request)
     {
+        $product = Product::find($request->id);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sản phẩm không tồn tại!'
+            ], 404);
+        }
 
+        $product->status = $request->status;
+        $product->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cập nhật trạng thái sản phẩm thành công!'
+        ], 200);
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
+        $product = Product::find($request->id);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sản phẩm không tồn tại'
+            ], 404);
+        }
 
+        if ($request->name == '' || $request->model == '' || $request->description == '') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng nhập đầy đủ thông tin sản phẩm!'
+            ], 422);
+        }
+
+        $product->name = $request->name;
+        $product->model = $request->model;
+        $product->description = $request->description;
+        $product->slug = Str::slug($request->name, '-');
+        if ($request->hasFile('thumbnail')) {
+            if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) {
+                Storage::disk('public')->delete($product->thumbnail);
+            }
+            $product->thumbnail = $request->file('thumbnail')->store('upload/products', 'public');
+        }
+        $product->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cập nhật sản phẩm thành công!'
+        ], 200);
     }
 
-    public function delete()
+    public function delete(Request $request)
     {
+        $product = Product::find($request->id);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sản phẩm không tồn tại!'
+            ], 404);
+        }
 
+        if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) {
+            Storage::disk('public')->delete($product->thumbnail);
+        }
+
+        $product->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Xoá sản phẩm thành công!'
+        ], 200);
     }
 }

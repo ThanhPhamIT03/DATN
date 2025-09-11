@@ -3,7 +3,130 @@
 @section('title', 'Danh sách sản phẩm')
 
 @section('script')
+    <script type="module">
+        // Trạng thái sản phẩm
+        $('.product-status').change(function() {
+            $.ajax({
+                url: "{{ route('admin.product.list.status') }}",
+                type: "POST",
+                data: {
+                    id: $(this).data('id'),
+                    status: $(this).val(),
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    if (res.success) {
+                        Swal.fire('Thành công', res.message, 'success');
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Lỗi', 'Không thể cập nhật trạng thái!', 'error');
+                }
+            });
+        });
 
+        // Edit sản phẩm
+        let currentUpdateUrl = null;
+
+        $(document).on('click', '.edit-product', function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let model = $(this).data('model');
+            let description = $(this).data('description');
+            let thumbnail = $(this).data('thumbnail');
+            currentUpdateUrl = $(this).data('edit');
+
+            $('#editProductId').val(id);
+            $('#editName').val(name);
+            $('#editModel').val(model);
+            $('#editDescription').val(description);
+            $('#editImagePreview').attr('src', '/storage/' + thumbnail);
+
+            let modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+            modal.show();
+        });
+
+        $('#editThumbnail').on('change', function() {
+            const [file] = this.files;
+            if (file) {
+                $('#editImagePreview').attr('src', URL.createObjectURL(file));
+            }
+        });
+
+        $('#editProductForm').submit(function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: currentUpdateUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    if (res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(() => {
+                            let modalEl = document.getElementById('editProductModal');
+                            let modal = bootstrap.Modal.getInstance(modalEl);
+                            modal.hide();
+
+                            $('#editProductModal').on('hidden.bs.modal', function() {
+                                location.reload();
+                            });
+                        });
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Lỗi', 'Không thể cập nhật sản phẩm!', 'error');
+                }
+            });
+        });
+
+        // Xoá sản phẩm
+        $(document).on('click', '.delete-product', function() {
+            let id = $(this).data('id');
+            let deleteUrl = $(this).data('delete');
+
+            Swal.fire({
+                title: "Bạn chắc chắn muốn xoá?",
+                text: "Hành động này không thể hoàn tác!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Xoá",
+                cancelButtonText: "Huỷ"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: "DELETE",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: id
+                        },
+                        success: function(res) {
+                            if (res.success) {
+                                Swal.fire("Đã xoá!", res.message, "success").then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire("Lỗi", res.message, "error");
+                            }
+                        },
+                        error: function() {
+                            Swal.fire("Lỗi", "Không thể xoá sản phẩm!", "error");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @stop
 
 @section('breadcrumb')
@@ -82,7 +205,7 @@
                         </td>
                         <td class="text-center">{{ $product->condition ?? 'N/A' }}</td>
                         <td style="text-align: center;">
-                            <select class="form-select form-select-sm category-status" data-id="{{ $product->id }}">
+                            <select class="form-select form-select-sm product-status" data-id="{{ $product->id }}">
                                 <option value="0" {{ $product->status == 0 ? 'selected' : '' }}>Pending</option>
                                 <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Active</option>
                             </select>
@@ -98,7 +221,8 @@
                                         <a class="dropdown-item edit-product" href="javascript:void(0);"
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                             data-description="{{ $product->description }}"
-                                            data-image="{{ $product->image }}"
+                                            data-thumbnail="{{ $product->thumbnail }}"
+                                            data-model="{{ $product->model }}"
                                             data-edit="{{ route('admin.product.list.edit') }}">
                                             Sửa
                                         </a>
@@ -122,9 +246,61 @@
             </tbody>
         </table>
 
+        {{-- Modal edit --}}
+        <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="editProductForm" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editBannerLabel">Sửa Danh mục</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="editProductId">
+
+                            <div class="mb-3">
+                                <label for="editName" class="form-label">Tên</label>
+                                <input type="text" class="form-control" name="name" id="editName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editModel" class="form-label">Model</label>
+                                <textarea class="form-control" name="model" id="editModel" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editDescription" class="form-label">Mô tả sản phẩm</label>
+                                <textarea class="form-control" name="description" id="editDescription" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editThumbnail" class="form-label">Ảnh đại diện sản phẩm</label>
+                                <input type="file" class="form-control" name="thumbnail" id="editThumbnail"
+                                    accept="image/*">
+                                <div class="mt-2 text-center">
+                                    <img id="editImagePreview" src="" alt="Preview"
+                                        style="max-width: 250px; height: auto; border: 1px solid #ddd; padding: 4px; border-radius: 6px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- Phân trang --}}
         <div class="d-flex justify-content-center mt-3">
-            {{ $products->links() }}
+            {{ $products->onEachSide(1)->links() }}
         </div>
     </div>
 @stop
