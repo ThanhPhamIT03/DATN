@@ -34,8 +34,9 @@ return [
         'title' => 'Sản phẩm',
         'icon' => 'bi bi-cart',
         'children' => [
-            ['title' => 'Thêm sản phẩm mới', 'icon' => 'bi bi-folder-plus', 'route' => 'admin.product.add.index'],
+            ['title' => 'Thêm sản phẩm', 'icon' => 'bi bi-folder-plus', 'route' => 'admin.product.add.index'],
             ['title' => 'Danh sách sản phẩm', 'icon' => 'bi bi-card-list', 'route' => 'admin.product.list.index'],
+            ['title' => 'Sản phẩm nổi bật', 'icon' => 'bi bi-star', 'route' => 'admin.product.featured.index'],
             ['title' => 'Danh sách biến thể', 'icon' => 'bi bi-list-ul', 'route' => 'admin.product.list.variants.index'],
         ]
     ]
