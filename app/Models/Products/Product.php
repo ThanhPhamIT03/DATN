@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category\Category;
 use App\Models\Products\Brand;
+use App\Models\Products\ProductVariant;
 
 class Product extends Model
 {
@@ -24,7 +25,9 @@ class Product extends Model
         'condition',
         'images',
         'is_featured',
-        'status'
+        'status',
+        'display_price',
+        'discount'
     ];
 
     /**
@@ -41,5 +44,13 @@ class Product extends Model
     public function category()
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    /**
+     * Một sản phẩm có nhiều biến thể
+     */
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
     }
 }

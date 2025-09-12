@@ -36,12 +36,17 @@
             let model = $(this).data('model');
             let description = $(this).data('description');
             let thumbnail = $(this).data('thumbnail');
+            let price = $(this).data('price');
+            let discount = $(this).data('discount');
+
             currentUpdateUrl = $(this).data('edit');
 
             $('#editProductId').val(id);
             $('#editName').val(name);
             $('#editModel').val(model);
             $('#editDescription').val(description);
+            $('#editPrice').val(price);
+            $('#editDiscount').val(discount);
             $('#editImagePreview').attr('src', '/storage/' + thumbnail);
 
             let modal = new bootstrap.Modal(document.getElementById('editProductModal'));
@@ -126,6 +131,51 @@
                 }
             });
         });
+
+        // Xử lý nút detail
+        $(document).ready(function() {
+            $('.detail-product').on('click', function(e) {
+                e.preventDefault(); 
+
+                var productId = $(this).data('id'); 
+                var detailUrl = $(this).data('detail');
+
+                window.location.href = detailUrl + '?id=' + productId;
+            });
+        });
+
+        // Xử lý ô tìm kiếm
+        $(document).ready(function() {
+            var $input = $('#keywordInput');
+            var $clear = $('.clear-btn');
+
+            // Hiện nút x nếu input có giá trị
+            function toggleClear() {
+                if ($input.val().length > 0) {
+                    $clear.show();
+                } else {
+                    $clear.hide();
+                }
+            }
+
+            toggleClear(); // chạy lần đầu
+
+            $input.on('input', toggleClear);
+
+            $clear.click(function() {
+                $input.val(''); // xóa giá trị
+                $clear.hide(); // ẩn nút
+                $input.focus(); // focus lại input
+                $('#keywordForm').submit(); // gửi form để load lại index
+            });
+        });
+
+        // Xử lý phần filter
+        $(document).ready(function() {
+            $('.auto-submit').on('change', function() {
+                $('#filterForm').submit();
+            });
+        });
     </script>
 @stop
 
@@ -141,43 +191,59 @@
             Danh sách Sản phẩm
         </h3>
 
+        {{-- Form tìm kiếm --}}
+        <form id="keywordForm" method="GET" action="{{ route('admin.product.list.index') }}">
+            <div class="row mb-3">
+                <div class="col-md-3 input-clear-wrapper">
+                    <input type="text" name="keyword" id="keywordInput" class="form-control"
+                        placeholder="Tìm theo tên sản phẩm..." value="{{ request('keyword') }}">
+                    <button type="button" class="clear-btn">&times;</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+
         {{-- Bộ lọc --}}
-        <div class="row mb-3">
-            <div class="col-md-3">
-                <input type="text" name="keyword" class="form-control" placeholder="Tìm theo tên..."
-                    value="{{ request('keyword') }}">
-            </div>
+        <form id="filterForm" method="GET" action="{{ route('admin.product.list.index') }}">
+            <div class="row mb-3">
+                <!-- Category -->
+                <div class="col-md-3">
+                    <select name="category_id" class="form-select auto-submit">
+                        <option value="">-- Tất cả --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"
+                                {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="col-md-3">
-                <select name="category_id" class="form-select">
-                    <option value="">-- Chọn danh mục --</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
+                <!-- Brand -->
+                <div class="col-md-3">
+                    <select name="brand_id" class="form-select auto-submit">
+                        <option value="">-- Tất cả --</option>
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Condition -->
+                <div class="col-md-3">
+                    <select name="condition" class="form-select auto-submit">
+                        <option value="">-- Tất cả --</option>
+                        <option value="new" {{ request('condition') == 'new' ? 'selected' : '' }}>Mới</option>
+                        <option value="used" {{ request('condition') == 'used' ? 'selected' : '' }}>Đã qua sử dụng
                         </option>
-                    @endforeach
-                </select>
+                    </select>
+                </div>
             </div>
-
-            <div class="col-md-3">
-                <select name="brand_id" class="form-select">
-                    <option value="">-- Chọn thương hiệu --</option>
-                    @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}" {{ request('brand_id') == $brand->id ? 'selected' : '' }}>
-                            {{ $brand->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select name="condition" class="form-select">
-                    <option value="">-- Chọn tình trạng --</option>
-                    <option value="new" {{ request('condition') == 'new' ? 'selected' : '' }}>Mới</option>
-                    <option value="used" {{ request('condition') == 'used' ? 'selected' : '' }}>Đã qua sử dụng</option>
-                </select>
-            </div>
-        </div>
+        </form>
 
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
@@ -186,6 +252,7 @@
                     <th style="text-align: center;" scope="col">Danh mục</th>
                     <th style="text-align: center;" scope="col">Thương hiệu</th>
                     <th style="text-align: center;" scope="col">Model</th>
+                    <th style="text-align: center;" scope="col">Giá bán</th>
                     <th style="text-align: center;" scope="col">Hình ảnh</th>
                     <th style="text-align: center;" scope="col">Tình trạng</th>
                     <th style="text-align: center;" scope="col">Trạng thái</th>
@@ -199,6 +266,24 @@
                         <td class="text-center">{{ $product->category->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->brand->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->model ?? 'N/A' }}</td>
+                        <td class="text-center">
+                            @php
+                                $discountPrice =
+                                    $product->display_price - $product->display_price * ($product->discount / 100);
+                            @endphp
+                            <div class="fw-bold text-danger">
+                                {{ number_format($discountPrice ?? $product->display_price, 0, ',', '.') }}₫
+                            </div>
+
+                            @if ($discountPrice)
+                                <div class="text-muted text-decoration-line-through small">
+                                    {{ number_format($product->display_price, 0, ',', '.') }}₫
+                                </div>
+                                <div class="text-danger small">
+                                    Giảm {{ $product->discount }}%
+                                </div>
+                            @endif
+                        </td>
                         <td style="text-align: center;">
                             <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="{{ $product->name }}"
                                 style="width: 50px; height: auto;" />
@@ -218,11 +303,12 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item edit-product" href="javascript:void(0);"
+                                        <a class="dropdown-item text-primary edit-product" href="javascript:void(0);"
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                             data-description="{{ $product->description }}"
-                                            data-thumbnail="{{ $product->thumbnail }}"
-                                            data-model="{{ $product->model }}"
+                                            data-thumbnail="{{ $product->thumbnail }}" data-model="{{ $product->model }}"
+                                            data-price="{{ $product->display_price }}"
+                                            data-discount="{{ $product->discount }}"
                                             data-edit="{{ route('admin.product.list.edit') }}">
                                             Sửa
                                         </a>
@@ -232,6 +318,13 @@
                                             data-id="{{ $product->id }}"
                                             data-delete="{{ route('admin.product.list.delete') }}">
                                             Xoá
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-success detail-product" href="javascript:void(0);"
+                                            data-id="{{ $product->id }}"
+                                            data-detail="{{ route('admin.product.detail.index') }}">
+                                            Xem chi tiết
                                         </a>
                                     </li>
                                 </ul>
@@ -276,6 +369,16 @@
                             <div class="mb-3">
                                 <label for="editDescription" class="form-label">Mô tả sản phẩm</label>
                                 <textarea class="form-control" name="description" id="editDescription" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editPrice" class="form-label">Giá bán</label>
+                                <input type="number" class="form-control" name="price" id="editPrice" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editDiscount" class="form-label">Giảm giá</label>
+                                <input type="number" class="form-control" name="discount" id="editDiscount" required>
                             </div>
 
                             <div class="mb-3">

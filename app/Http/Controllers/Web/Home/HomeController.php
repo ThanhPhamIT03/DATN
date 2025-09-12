@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 // Models
 use App\Models\Banner\Banner;
 use App\Models\Category\Category;
+use App\Models\Products\Product;
+use App\Models\Products\Brand;
 
 class HomeController extends Controller
 {
@@ -21,10 +23,42 @@ class HomeController extends Controller
         $banners = Banner::all()->where('status', 1);
         $categories = Category::all()->where('status', 1);
 
+        $categoryPhoneId = Category::where('slug', 'dien-thoai')->value('id');
+        $categoryTabletId = Category::where('slug', 'may-tinh-bang')->value('id');
+        $accessoryId = Category::where('slug', 'phu-kien')->value('id');
+
+        $featuredPhone = Product::where('is_featured', 1)
+            ->where('status', 1)
+            ->where('category_id', $categoryPhoneId)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        $featuredTablet = Product::where('is_featured', 1)
+            ->where('status', 1)
+            ->where('category_id', $categoryTabletId)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        $brands = Brand::where('status', 1)
+            ->take(4)
+            ->get();
+
+        $accessoryFeatured = Product::where('status', 1)
+            ->where('category_id', $accessoryId)
+            ->orderBy('created_at', 'desc')
+            ->take(12)
+            ->get();
+
         return view('web.pages.home', [
             'user' => $user,
             'banners' => $banners,
-            'categories' => $categories
+            'categories' => $categories,
+            'featuredPhone' => $featuredPhone,
+            'featuredTablet' => $featuredTablet,
+            'brands' => $brands,
+            'accessoryFeatured' => $accessoryFeatured
         ]);
     }
 }
