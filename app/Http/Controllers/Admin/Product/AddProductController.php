@@ -43,8 +43,13 @@ class AddProductController extends Controller
             return back()->with('error', 'Không tìm thấy thương hiệu');
         }
 
-        if($request->name == '' || $request->model == '' || $request->condition == '') {
+        if($request->name == '' || $request->model == '' || $request->condition == ''
+            || $request->price == '' || $request->discount == '') {
             return back()->with('error', 'Vui lòng nhập đầy đủ thông tin');
+        }
+
+        if(!is_numeric($request->price) || !is_numeric($request->discount)) {
+            return back()->with('error', 'Giá và giảm giá phải là số');
         }
 
         if($request->thumbnail == '') {
@@ -67,6 +72,8 @@ class AddProductController extends Controller
             'slug' => Str::slug($request->name, '-'),
             'model' => $request->model,
             'description' => $request->description,
+            'display_price' => $request->price,
+            'discount' => $request->discount,
             'condition' => $request->condition,
             'is_featired' => 0,
             'status' => 0,

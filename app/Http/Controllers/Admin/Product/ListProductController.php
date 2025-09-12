@@ -22,7 +22,7 @@ class ListProductController extends Controller
     {
         $user = Auth::user();
 
-        $query = Product::with(['category', 'brand']);
+        $query = Product::with(['category', 'brand'])->orderBy('created_at', 'desc');
 
         if ($request->filled('keyword')) {
             $query->where('name', 'LIKE', '%' . $request->keyword . '%');
@@ -83,16 +83,28 @@ class ListProductController extends Controller
             ], 404);
         }
 
-        if ($request->name == '' || $request->model == '' || $request->description == '') {
+        if (
+            $request->name == '' || $request->model == '' || $request->description == '' || $request->price == ''
+            || $request->discount == ''
+        ) {
             return response()->json([
                 'success' => false,
                 'message' => 'Vui lòng nhập đầy đủ thông tin sản phẩm!'
             ], 422);
         }
 
+        if (!is_numeric($request->price) || !is_numeric($request->discount)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Giá và giảm giá phải là số!'
+            ], 422);
+        }
+
         $product->name = $request->name;
         $product->model = $request->model;
         $product->description = $request->description;
+        $product->display_price = $request->price;
+        $product->discount = $request->discount;
         $product->slug = Str::slug($request->name, '-');
         if ($request->hasFile('thumbnail')) {
             if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) {

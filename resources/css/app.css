@@ -15,7 +15,9 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
-html, body {
+
+html,
+body {
     height: 100%;
     margin: 0;
 }
@@ -38,7 +40,7 @@ html, body {
     --primary-color: #19A8FF;
     --secondary-color: #F6F6F4;
     --red-color: #DF0906;
-    
+
     --text-heading-color: #252A2B;
     --text-color: #5C5C5C;
     --white-color: #ffff;
@@ -55,7 +57,7 @@ html, body {
 }
 
 .breadcrumb-item {
-    color: #6c757d; 
+    color: #6c757d;
     position: relative;
     padding: 0;
 }
@@ -76,8 +78,36 @@ html, body {
     font-weight: 500;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
     content: "›";
     padding: 0 0.5rem;
     color: #6c757d;
+}
+
+/* Container cho input và nút x */
+.input-clear-wrapper {
+    position: relative;
+}
+
+.input-clear-wrapper input {
+    padding-right: 30px;
+    /* chừa chỗ cho nút x */
+}
+
+.input-clear-wrapper .clear-btn {
+    position: absolute;
+    right: 16px;
+    top: 46%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 24px;
+    color: #aaa;
+    display: none;
+    /* ẩn mặc định */
+    border: none;
+    background: transparent;
+}
+
+.input-clear-wrapper .clear-btn:hover {
+    color: #333;
 }
