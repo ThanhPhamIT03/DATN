@@ -41,12 +41,15 @@
                 </div>
             </div>
 
-            <form class="search-container d-flex justify-content-between ps-2">
-                <input type="text" placeholder="Nhập từ khoá tìm kiếm ..." required>
-                <button type="submit">
+            <form class="search-container d-flex justify-content-between ps-2" action="{{ route('web.search.index') }}"
+                method="GET">
+                <input type="text" id="search-input" name="keyword" value="{{ request('keyword') }}"
+                    placeholder="Nhập từ khoá tìm kiếm ..." required>
+                <button type="submit" id="search-btn">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
+
 
             {{-- Search history container --}}
             <div class="search-history">
@@ -161,7 +164,8 @@
                                     <div class="card-body notify-card-item d-flex align-items-center success">
                                         <i class="bi bi-bell-fill text-success me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
-                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã giao thành công.</div>
+                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã giao thành công.
+                                            </div>
                                             <a href="#" class="text-primary small">Xem chi tiết</a>
                                         </div>
                                     </div>
