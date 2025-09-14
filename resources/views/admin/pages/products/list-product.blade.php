@@ -323,7 +323,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center">Không có sản phẩm nào</td>
+                        <td colspan="8" class="text-center text-danger">Không có sản phẩm nào</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -14,7 +14,7 @@
                         <div
                             class="category-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end align-items-center text-white p-3 text-center">
                             <h5 class="mb-3 fw-bold">{{ $category->name }}</h5>
-                            <a href="#" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
+                            <a href="{{ route('web.product-category.index', $category->id) }}" class="btn btn-light btn-sm fw-medium px-3">Xem ngay</a>
                         </div>
                     </div>
                 </div>

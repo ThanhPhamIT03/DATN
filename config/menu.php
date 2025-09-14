@@ -38,5 +38,13 @@ return [
             ['title' => 'Danh sách sản phẩm', 'icon' => 'bi bi-card-list', 'route' => 'admin.product.list.index'],
             ['title' => 'Sản phẩm nổi bật', 'icon' => 'bi bi-star', 'route' => 'admin.product.featured.index']
         ]
+    ],
+    [
+        'title' => 'Quản lý đơn hàng',
+        'icon' => 'bi bi-bag',
+        'children' => [
+            ['title' => 'Danh sách đơn hàng', 'icon' => 'bi bi-card-list', 'route' => 'admin.order.list.index'],
+            ['title' => 'Tạo đơn hàng mới', 'icon' => 'bi bi-folder-plus', 'route' => '']
+        ]
     ]
 ];
