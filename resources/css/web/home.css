@@ -85,9 +85,9 @@
         border-bottom: 6px solid transparent;
         border-left: 6px solid #007bff;
     }
-    .two-line-ellipsis {
+    .one-line-ellipsis {
         display: -webkit-box;
-        -webkit-line-clamp: 2;      
+        -webkit-line-clamp: 1;      
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;

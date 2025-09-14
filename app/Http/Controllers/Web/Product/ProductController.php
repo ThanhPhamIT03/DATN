@@ -10,17 +10,51 @@ use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\Category\Category;
+use App\Models\Products\Product;
+use App\Models\Cart\Cart;
+use App\Models\Order\Order;
 
 class ProductController
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $categories = Category::all()->where('status', 1);
+        $product = Product::find($request->id);
+        if (!$product) {
+            return back()->with('error', 'Sản phẩm không tồn tại');
+        }
+
+        $variants = $product->variants()
+            ->where('status', 1)
+            ->get();
+
+        $relatedProduct = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('brand_id', $product->brand_id)
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        if ($user) {
+            $countCartItem = Cart::where('user_id', $user->id)->count();
+        } else {
+            $countCartItem = 0;
+        }
+        $orders = Order::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
         return view('web.pages.product-detail', [
             'user' => $user,
-            'categories' => $categories
+            'categories' => $categories,
+            'product' => $product,
+            'variants' => $variants,
+            'relatedProduct' => $relatedProduct,
+            'countCartItem' => $countCartItem,
+            'orders' => $orders
         ]);
     }
 }

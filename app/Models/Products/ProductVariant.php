@@ -4,6 +4,7 @@ namespace App\Models\Products;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order\OrderItem;
 
 class ProductVariant extends Model
 {
@@ -15,6 +16,7 @@ class ProductVariant extends Model
         'color',
         'storage',
         'price',
+        'sale_price',
         'quantity',
         'thumbnail',
         'status',
@@ -34,5 +36,11 @@ class ProductVariant extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    // Một biến thể có thể có nhiều order item
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_variant_id');
     }
 }

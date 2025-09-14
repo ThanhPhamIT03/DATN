@@ -319,13 +319,18 @@
             <tbody>
                 @forelse($productVariants as $product)
                     <tr>
-                        <td class="text-center">{{ $product->code ?? 'N/A' }}</td>
+                        <td class="text-center text-truncate" style="max-width: 200px;">{{ $product->code ?? 'N/A' }}
+                        </td>
                         <td class="text-center">{{ $product->color ?? 'N/A' }}</td>
                         <td class="text-center">
                             {{ $product->storage['ram'] }} / {{ $product->storage['rom'] }}
                         </td>
                         <td class="text-center text-danger fw-bold">
-                            {{ number_format($product->price, 0, ',', '.') }}₫
+                            {{ number_format($product->sale_price, 0, ',', '.') }}₫
+                            <br>
+                            <span class="text-muted" style="text-decoration: line-through; font-weight: normal;">
+                                {{ number_format($product->price, 0, ',', '.') }}₫
+                            </span>
                         </td>
                         <td class="text-center">{{ $product->quantity ?? 'N/A' }}</td>
                         <td style="text-align: center;">
@@ -357,8 +362,7 @@
                                             data-color="{{ $product->color }}"
                                             data-thumbnail="{{ $product->thumbnail }}"
                                             data-ram="{{ $product->storage['ram'] }}"
-                                            data-rom="{{ $product->storage['rom'] }}"
-                                            data-price="{{ $product->price }}"
+                                            data-rom="{{ $product->storage['rom'] }}" data-price="{{ $product->price }}"
                                             data-quantity="{{ $product->quantity }}"
                                             data-operating_system="{{ $product->info['operating_system'] }}"
                                             data-screen_size="{{ $product->info['screen_size'] }}"

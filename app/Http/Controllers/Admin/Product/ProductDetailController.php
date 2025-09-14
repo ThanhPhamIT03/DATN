@@ -15,6 +15,7 @@ use App\Models\Products\Product;
 use App\Models\Products\ProductVariant;
 use App\Models\Category\Category;
 use App\Models\Products\Brand;
+use App\Models\Cart\Cart;
 
 class ProductDetailController extends Controller
 {
@@ -42,7 +43,7 @@ class ProductDetailController extends Controller
             'categories' => $categories,
             'brands' => $brands,
             'parentProduct' => $parentProduct,
-            'productVariants' => $productVariants
+            'productVariants' => $productVariants,
         ]);
     }
 
@@ -82,8 +83,8 @@ class ProductDetailController extends Controller
             'front_camera' => $request->front_camera,
             'rear_camera' => $request->rear_camera,
             'chip' => $request->chip,
-            'rom' => $request->storage_rom,
-            'ram' => $request->storage_ram,
+            'rom' => $request->storage_rom . 'GB',
+            'ram' => $request->storage_ram . 'GB',
             'battery' => $request->battery,
             'cpu_type' => $request->cpu_type
         ];
@@ -93,10 +94,11 @@ class ProductDetailController extends Controller
             'code' => $request->code,
             'color' => $request->color,
             'storage' => [
-                'rom' => $request->storage_rom,
-                'ram' => $request->storage_ram
+                'rom' => $request->storage_rom . 'GB',
+                'ram' => $request->storage_ram . 'GB'
             ],
             'price' => $request->price,
+            'sale_price' => $request->price - ($request->price * $product->discount / 100),
             'quantity' => $request->quantity,
             'thumbnail' => $pathImg,
             'status' => 0,
@@ -157,12 +159,15 @@ class ProductDetailController extends Controller
         $variant->code = $request->code;
         $variant->color = $request->color;
         $variant->storage = [
-            'rom' => $request->rom,
-            'ram' => $request->ram
+            'rom' => $request->rom . 'GB',
+            'ram' => $request->ram . 'GB'
         ];
         $variant->price = $request->price;
+        $variant->sale_price = $request->price - ($request->price * $variant->product->discount / 100);
         $variant->quantity = $request->quantity;
         $variant->info = [
+            'ram' => $request->ram . 'GB',
+            'rom' => $request->rom . 'GB',
             'operating_system' => $request->operating_system,
             'screen_size' => $request->screen_size,
             'screen_technology' => $request->screen_technology,

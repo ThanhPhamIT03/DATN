@@ -2,6 +2,8 @@
 
 namespace App\Http\Helpers;
 
+use Carbon\Carbon;
+
 class Helper
 {
     public static function genSlug($name)
@@ -27,5 +29,14 @@ class Helper
         $slug = trim($slug, '-');
 
         return $slug;
+    }
+
+    public static function genOrderCode($userId)
+    {
+        $currentDate = Carbon::now()->format('Ymd');
+        $currentTime = Carbon::now()->format('Hms');
+        $code = 'ORD' . $currentDate . $currentTime . $userId;
+
+        return $code;
     }
 }

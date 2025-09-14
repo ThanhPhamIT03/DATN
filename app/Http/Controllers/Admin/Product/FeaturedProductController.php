@@ -26,6 +26,8 @@ class FeaturedProductController extends Controller
         $products = $query->paginate(10)->withQueryString();
 
         $productsIsFeatured = Product::where('is_featured', 0)
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
             ->pluck('name', 'id');
 
         return view('admin.pages.products.featured-product', [

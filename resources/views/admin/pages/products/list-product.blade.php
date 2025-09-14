@@ -16,9 +16,13 @@
                 },
                 success: function(res) {
                     if (res.success) {
-                        Swal.fire('Thành công', res.message, 'success');
+                        Swal.fire('Thành công', res.message, 'success').then(() => {
+                            location.reload();
+                        });
                     } else {
-                        Swal.fire('Lỗi', res.message, 'error');
+                         Swal.fire('Thất bại', res.message, 'error').then(() => {
+                            location.reload();
+                        });
                     }
                 },
                 error: function() {
@@ -36,7 +40,6 @@
             let model = $(this).data('model');
             let description = $(this).data('description');
             let thumbnail = $(this).data('thumbnail');
-            let price = $(this).data('price');
             let discount = $(this).data('discount');
 
             currentUpdateUrl = $(this).data('edit');
@@ -45,7 +48,6 @@
             $('#editName').val(name);
             $('#editModel').val(model);
             $('#editDescription').val(description);
-            $('#editPrice').val(price);
             $('#editDiscount').val(discount);
             $('#editImagePreview').attr('src', '/storage/' + thumbnail);
 
@@ -135,9 +137,9 @@
         // Xử lý nút detail
         $(document).ready(function() {
             $('.detail-product').on('click', function(e) {
-                e.preventDefault(); 
+                e.preventDefault();
 
-                var productId = $(this).data('id'); 
+                var productId = $(this).data('id');
                 var detailUrl = $(this).data('detail');
 
                 window.location.href = detailUrl + '?id=' + productId;
@@ -252,7 +254,7 @@
                     <th style="text-align: center;" scope="col">Danh mục</th>
                     <th style="text-align: center;" scope="col">Thương hiệu</th>
                     <th style="text-align: center;" scope="col">Model</th>
-                    <th style="text-align: center;" scope="col">Giá bán</th>
+                    <th style="text-align: center;" scope="col">Giảm giá</th>
                     <th style="text-align: center;" scope="col">Hình ảnh</th>
                     <th style="text-align: center;" scope="col">Tình trạng</th>
                     <th style="text-align: center;" scope="col">Trạng thái</th>
@@ -262,27 +264,16 @@
             <tbody>
                 @forelse($products as $product)
                     <tr>
-                        <td class="text-center">{{ $product->name }}</td>
+                        <td class="text-center text-truncate" style="max-width: 200px;">
+                            {{ $product->name }}
+                        </td>
                         <td class="text-center">{{ $product->category->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->brand->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->model ?? 'N/A' }}</td>
                         <td class="text-center">
-                            @php
-                                $discountPrice =
-                                    $product->display_price - $product->display_price * ($product->discount / 100);
-                            @endphp
-                            <div class="fw-bold text-danger">
-                                {{ number_format($discountPrice ?? $product->display_price, 0, ',', '.') }}₫
+                            <div class="text-danger small">
+                                Giảm {{ $product->discount }}%
                             </div>
-
-                            @if ($discountPrice)
-                                <div class="text-muted text-decoration-line-through small">
-                                    {{ number_format($product->display_price, 0, ',', '.') }}₫
-                                </div>
-                                <div class="text-danger small">
-                                    Giảm {{ $product->discount }}%
-                                </div>
-                            @endif
                         </td>
                         <td style="text-align: center;">
                             <img src="{{ asset('storage/' . $product->thumbnail) }}" alt="{{ $product->name }}"
@@ -307,7 +298,6 @@
                                             data-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                             data-description="{{ $product->description }}"
                                             data-thumbnail="{{ $product->thumbnail }}" data-model="{{ $product->model }}"
-                                            data-price="{{ $product->display_price }}"
                                             data-discount="{{ $product->discount }}"
                                             data-edit="{{ route('admin.product.list.edit') }}">
                                             Sửa
@@ -363,17 +353,12 @@
 
                             <div class="mb-3">
                                 <label for="editModel" class="form-label">Model</label>
-                                <textarea class="form-control" name="model" id="editModel" rows="3"></textarea>
+                                <input type="text" class="form-control" name="model" id="editModel">
                             </div>
 
                             <div class="mb-3">
                                 <label for="editDescription" class="form-label">Mô tả sản phẩm</label>
                                 <textarea class="form-control" name="description" id="editDescription" rows="3"></textarea>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="editPrice" class="form-label">Giá bán</label>
-                                <input type="number" class="form-control" name="price" id="editPrice" required>
                             </div>
 
                             <div class="mb-3">

@@ -7,5 +7,5 @@ Route::name('web.product-category.')->prefix('/product-category')
     ->controller(ProductCategoryController::class)
     ->group(function() {
 
-        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'index')->name('index');
 });

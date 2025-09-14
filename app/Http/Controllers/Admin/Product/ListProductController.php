@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Products\Product;
 use App\Models\Category\Category;
 use App\Models\Products\Brand;
+use App\Models\Products\ProductVariant;
+
 
 class ListProductController extends Controller
 {
@@ -61,7 +63,14 @@ class ListProductController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Sản phẩm không tồn tại!'
-            ], 404);
+            ]);
+        }
+
+        if ($product->variants->count() === 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng thêm biến thể trước khi hiển thị sản phẩm này lên Webview!'
+            ]);
         }
 
         $product->status = $request->status;
@@ -84,8 +93,7 @@ class ListProductController extends Controller
         }
 
         if (
-            $request->name == '' || $request->model == '' || $request->description == '' || $request->price == ''
-            || $request->discount == ''
+            $request->name == '' || $request->model == '' || $request->description == '' || $request->discount == ''
         ) {
             return response()->json([
                 'success' => false,
@@ -93,17 +101,16 @@ class ListProductController extends Controller
             ], 422);
         }
 
-        if (!is_numeric($request->price) || !is_numeric($request->discount)) {
+        if (!is_numeric($request->discount)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Giá và giảm giá phải là số!'
+                'message' => 'Giảm giá phải là số!'
             ], 422);
         }
 
         $product->name = $request->name;
         $product->model = $request->model;
         $product->description = $request->description;
-        $product->display_price = $request->price;
         $product->discount = $request->discount;
         $product->slug = Str::slug($request->name, '-');
         if ($request->hasFile('thumbnail')) {
@@ -112,6 +119,12 @@ class ListProductController extends Controller
             }
             $product->thumbnail = $request->file('thumbnail')->store('upload/products', 'public');
         }
+        $variants = ProductVariant::where('product_id', $product->id)->get();
+        foreach ($variants as $variant) {
+            $variant->sale_price = $variant->price - ($variant->price * $request->discount / 100);
+            $variant->save();
+        }
+
         $product->save();
 
         return response()->json([
