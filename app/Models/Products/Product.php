@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category\Category;
 use App\Models\Products\Brand;
 use App\Models\Products\ProductVariant;
+use App\Models\Order\OrderItem;
 
 class Product extends Model
 {
@@ -26,8 +27,7 @@ class Product extends Model
         'images',
         'is_featured',
         'status',
-        'display_price',
-        'discount'
+        'discount',
     ];
 
     /**
@@ -52,5 +52,11 @@ class Product extends Model
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    // Một sản phẩm có thể có nhiều order item
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
     }
 }

@@ -10,62 +10,121 @@
 
 @section('script')
     <script type="module">
-        $(document).on('click', '.color-swatch', function() {
-            // Bỏ active ở tất cả
-            $('.color-swatch').removeClass('selected');
-
-            // Thêm active cho cái được click
-            $(this).addClass('selected');
-
-            // Lấy giá trị
-            let colorCode = $(this).data('color');
-            let colorName = $(this).data('value');
-            let slideIndex = $(this).data('slide');
-
-            // Hiển thị tên màu
-            $('#selected-color').text(colorName).removeClass('d-none');
-
-            // Di chuyển carousel tới slide ảnh tương ứng
-            let carouselEl = document.getElementById('productCarousel');
-            let carousel = bootstrap.Carousel.getInstance(carouselEl) ||
-                new bootstrap.Carousel(carouselEl);
-            carousel.to(slideIndex);
-        });
-
-        // 🔹 Lắng nghe sự kiện chuyển slide
-        $('#productCarousel').on('slid.bs.carousel', function(e) {
-            let currentIndex = $(e.relatedTarget).index();
-
-            // Lấy color-swatch theo data-slide
-            let swatch = $('.color-swatch[data-slide="' + currentIndex + '"]');
-
-            if (swatch.length) {
-                // Bỏ active ở tất cả và set lại
-                $('.color-swatch').removeClass('selected');
-                swatch.addClass('selected');
-
-                // Cập nhật text màu
-                $('#selected-color').text(swatch.data('value')).removeClass('d-none');
-            }
-        });
-
-        $("#care").on("change", function() {
-            if ($(this).is(":checked")) {
-                console.log("Toggle đang BẬT");
-            } else {
-                console.log("Toggle đang TẮT");
-            }
-        });
-
         $(document).ready(function() {
             $("#toggle-specs").click(function() {
-                $("#extra-specs").slideToggle(300); // slide mượt hơn
+                $("#extra-specs").slideToggle(300);
                 if ($("#extra-specs").is(":visible")) {
                     $("#toggle-text").text("Thu gọn");
                     $("#toggle-icon").removeClass("bi-chevron-down").addClass("bi-chevron-up");
                 } else {
                     $("#toggle-text").text("Xem chi tiết");
                     $("#toggle-icon").removeClass("bi-chevron-up").addClass("bi-chevron-down");
+                }
+            });
+        });
+
+        function updateProductDetails(versionEl) {
+            let price = parseInt(versionEl.data("price"), 10) || 0;
+            let installment = parseFloat(versionEl.data("installment")) || 0;
+
+            // Nếu chọn bảo hành thì cộng thêm
+            if ($("#care").is(":checked")) {
+                let carePrice = parseInt($("#product-care").data("care"), 10) || 0;
+                price += carePrice;
+                installment += carePrice / 12;
+            }
+
+            // Update giá
+            $("#product-price").text(new Intl.NumberFormat('vi-VN').format(price) + "₫");
+            $("#product-installment").text(
+                new Intl.NumberFormat('vi-VN').format(Math.round(installment)) + "₫/tháng"
+            );
+
+            // Update thông số
+            $("#screen").text(versionEl.data("screen_size") + ", " + versionEl.data("screen_technology"));
+            $("#operating_system").text(versionEl.data("operating_system"));
+            $("#cpu_type").text(versionEl.data("chip") + ", " + versionEl.data("cpu_type"));
+            $("#ram").text(versionEl.data("ram"));
+            $("#rom").text(versionEl.data("rom"));
+            $("#rear_camera").text(versionEl.data("rear_camera"));
+            $("#front_camera").text(versionEl.data("front_camera"));
+            $("#battery").text(versionEl.data("battery"));
+        }
+
+        // Khi click chọn phiên bản
+        $(document).on("click", ".version-option", function() {
+            $(".version-option").removeClass("active");
+            $(this).addClass("active");
+            updateProductDetails($(this));
+        });
+
+        // Khi bật/tắt bảo hành cũng update lại phiên bản đang active
+        $("#care").on("change", function() {
+            let activeVersion = $(".version-option.active");
+            if (activeVersion.length) {
+                updateProductDetails(activeVersion);
+            }
+        });
+
+        // Xử lý nút thêm giỏ hàng
+
+        $(document).on("click", "#add-to-cart", function(e) {
+            e.preventDefault();
+
+            let activeVersion = $(".version-option.active");
+
+            if (!activeVersion.length) {
+                alert("Vui lòng chọn phiên bản trước khi thêm vào giỏ!");
+                return;
+            }
+
+            // Lấy dữ liệu từ phiên bản
+            let variantId = activeVersion.data("id");
+            let price = parseInt(activeVersion.data("price"), 10) || 0;
+
+            // Nếu có bảo hành thì cộng thêm
+            if ($("#care").is(":checked")) {
+                let carePrice = parseInt($("#product-care").data("care"), 10) || 0;
+                price += carePrice;
+            }
+
+            // Các thông số khác (nếu muốn lưu vào cột info JSON)
+            let info = {
+                screen: activeVersion.data("screen_size") + ", " + activeVersion.data("screen_technology"),
+                operating_system: activeVersion.data("operating_system"),
+                chip: activeVersion.data("chip"),
+                cpu_type: activeVersion.data("cpu_type"),
+                ram: activeVersion.data("ram"),
+                rom: activeVersion.data("rom"),
+                rear_camera: activeVersion.data("rear_camera"),
+                front_camera: activeVersion.data("front_camera"),
+                battery: activeVersion.data("battery"),
+                care: $("#care").is(":checked") ? 1 : 0
+            };
+
+            // Gửi AJAX thêm giỏ hàng
+            let addToCartUrl = $("#add-to-cart").data("url");
+            $.ajax({
+                url: addToCartUrl,
+                method: "POST",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    variant_id: variantId,
+                    quantity: 1,
+                    price: price,
+                    info: info
+                },
+                success: function(res) {
+                    if (res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Lỗi', 'Bạn cần đăng nhập!', 'error');
                 }
             });
         });
@@ -78,22 +137,17 @@
             {{-- Cột 1 --}}
             <div class="col-md-6">
                 <div id="productCarousel" class="carousel slide position-relative" data-bs-ride="carousel">
+                    {{-- Ảnh sản phẩm --}}
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="d-block mx-auto"
-                                alt="iPhone 16 Pro Max">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('./images/iphone-16-pro-max-titan-den.webp') }}" class="d-block mx-auto"
-                                alt="iPhone 16 Pro Max Titan Đen">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('./images/iphone-16-pro-max-titan-tu-nhien.webp') }}" class="d-block mx-auto"
-                                alt="iPhone 16 Pro Max Titan Tự Nhiên">
-                        </div>
+                        @foreach ($variants as $variant)
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <img src="{{ asset('storage/' . $variant->thumbnail) }}" class="d-block mx-auto"
+                                    alt="{{ $product->name }}">
+                            </div>
+                        @endforeach
                     </div>
 
-                    <!-- Nút prev/next -->
+                    {{-- Nút prev/next --}}
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                         data-bs-slide="prev">
                         <i class="bi bi-chevron-left icon-prev"></i>
@@ -105,20 +159,14 @@
                         <span class="visually-hidden">Next</span>
                     </button>
 
-                    <!-- Indicator -->
+                    {{-- Indicator sinh động theo variants --}}
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
-
-                    <!-- Màu sắc đã chọn -->
-                    <div id="selected-color"
-                        class="position-absolute bottom-0 start-0 mb-3 ms-3 px-3 py-1 bg-dark bg-opacity-75 text-white rounded small">
-                        Vàng sa mạc
+                        @foreach ($variants as $index => $variant)
+                            <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="{{ $index }}"
+                                class="{{ $loop->first ? 'active' : '' }}"
+                                aria-current="{{ $loop->first ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}">
+                            </button>
+                        @endforeach
                     </div>
                 </div>
 
@@ -136,43 +184,26 @@
                         </div>
                         <div class="block-product">
                             <div class="row">
-                                <div class="col-md-4 mb-3"> <a href="#" class="text-decoration-none text-dark">
-                                        <div class="card h-100 shadow-sm overflow-hidden pt-2"> <img
-                                                src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top"
-                                                alt="Sản phẩm 1">
-                                            <div class="card-body">
-                                                <h6 class="card-title text-truncate" style="max-width: 100%;"> Tên sản phẩm
-                                                    rất rất dài vượt quá khung hiển thị </h6>
-                                                <p class="card-text text-danger fw-bold">1.200.000₫</p> <span
-                                                    class="btn btn-primary btn-sm">Mua ngay</span>
+                                @forelse($relatedProduct as $related)
+                                    <div class="col-md-4 mb-3"> <a href="#" class="text-decoration-none text-dark">
+                                            <div class="card h-100 shadow-sm overflow-hidden pt-2"> <img
+                                                    src="{{ asset('storage/' . $related->thumbnail) }}" class="card-img-top"
+                                                    alt="Sản phẩm 1">
+                                                <div class="card-body">
+                                                    <h6 class="card-title text-truncate" style="max-width: 100%;">
+                                                        {{ $related->name }}</h6>
+                                                    <p class="card-text text-danger fw-bold">
+                                                        {{ number_format($related->variants->first()->sale_price, 0, ',', '.') }}₫</p>
+                                                    <a href="#" class="btn btn-primary btn-sm mt-2">Mua ngay</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a> </div>
-                                <div class="col-md-4 mb-3"> <a href="#" class="text-decoration-none text-dark ">
-                                        <div class="card h-100 shadow-sm overflow-hidden pt-2"> <img
-                                                src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top"
-                                                alt="Sản phẩm 1">
-                                            <div class="card-body">
-                                                <h6 class="card-title text-truncate" style="max-width: 100%;"> Tên sản phẩm
-                                                    rất rất dài vượt quá khung hiển thị </h6>
-                                                <p class="card-text text-danger fw-bold">1.200.000₫</p> <span
-                                                    class="btn btn-primary btn-sm">Mua ngay</span>
-                                            </div>
-                                        </div>
-                                    </a> </div>
-                                <div class="col-md-4 mb-3"> <a href="#" class="text-decoration-none text-dark">
-                                        <div class="card h-100 shadow-sm overflow-hidden pt-2"> <img
-                                                src="{{ asset('./images/iphone-16-pro-max.webp') }}" class="card-img-top"
-                                                alt="Sản phẩm 1">
-                                            <div class="card-body">
-                                                <h6 class="card-title text-truncate" style="max-width: 100%;"> Tên sản phẩm
-                                                    rất rất dài vượt quá khung hiển thị </h6>
-                                                <p class="card-text text-danger fw-bold">1.200.000₫</p> <span
-                                                    class="btn btn-primary btn-sm">Mua ngay</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                @empty
+                                    <div class="col-12 d-flex align-items-center justify-content-center m-4">
+                                        <span class="text-danger fw-bold fst-italic">Không có sản phẩm liên quan nào.</span>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -182,38 +213,50 @@
             {{-- Côt 2 --}}
             <div class="col-md-6 d-flex flex-column">
                 <div id="product-info">
-                    <h1 class="product-title fs-3 fw-bolder mb-2">iPhone 16 Pro Max 256GB – NEW</h1>
+                    <h1 class="product-title fs-3 fw-bolder mb-2">{{ $product->name }}</h1>
+                </div>
+
+                {{-- Giá --}}
+                <div class="product-price">
                     <div class="price-box">
                         <div
                             class="price_container d-flex flex-row flex-wrap align-items-center justify-content-between mt-2">
                             <div class="me-2">
-                                <strong class="fs-4 pt-0 d-inline price_val text-danger">
-                                    33.490.000₫
+                                <strong id="product-price" class="fs-4 pt-0 d-inline price_val text-danger">
+                                    {{ number_format($variants->first()->sale_price, 0, ',', '.') }}₫
                                 </strong>
                             </div>
                             <div class="fs-14px text-end">
                                 <span>Trả góp từ: </span>
-                                <strong class="price2_val text-danger d-inline fs-14px pt-0">
-                                    3.031.000₫/tháng
+                                <strong id="product-installment" class="price2_val text-danger d-inline fs-14px pt-0">
+                                    {{ number_format(round($variant->sale_price / 12), 0, ',', '.') }}₫/tháng
                                 </strong>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Màu sắc -->
-                <div id="product-colors" class="mt-4">
-                    <div class="d-flex align-items-center flex-row justify-content-start flex-wrap">
-                        <div class="me-2">
-                            <strong class="me-2">Màu sắc:</strong>
-                        </div>
-                        <div class="color-box d-flex align-items-center flex-wrap">
-                            <div class="color-swatch" style="background-color:#000000;" data-color="#000000"
-                                data-value="Đen" data-slide="1"></div>
-                            <div class="color-swatch" style="background-color:#c0c0c0;" data-color="#c0c0c0"
-                                data-value="Bạc" data-slide="2"></div>
-                            <div class="color-swatch" style="background-color:blue;" data-color="#1e73be"
-                                data-value="Xanh" data-slide="0"></div>
+                <!-- Phiên bản -->
+                <div id="product-version" class="mt-4">
+                    <div class="align-items-center flex-wrap">
+                        <div class="me-4 fw-bold mb-2">Phiên bản:</div>
+                        <div class="d-flex align-items-center flex-wrap gap-2">
+                            @foreach ($variants as $index => $variant)
+                                <div class="border rounded px-3 py-2 small version-option {{ $loop->first ? 'active' : '' }}"
+                                    data-id="{{ $variant->id }}" data-price="{{ $variant->sale_price }}"
+                                    data-installment="{{ $variant->sale_price / 12 }}" data-color="{{ $variant->color }}"
+                                    data-storage="{{ $variant->storage['ram'] }}-{{ $variant->storage['rom'] }}"
+                                    data-opearing_system="{{ $variant->info['operating_system'] }}"
+                                    data-screen_size="{{ $variant->info['screen_size'] }}"
+                                    data-screen_technology="{{ $variant->info['screen_technology'] }}"
+                                    data-front_camera="{{ $variant->info['front_camera'] }}"
+                                    data-rear_camera="{{ $variant->info['rear_camera'] }}"
+                                    data-chip="{{ $variant->info['chip'] }}" data-ram="{{ $variant->info['ram'] }}"
+                                    data-rom="{{ $variant->info['rom'] }}" data-battery="{{ $variant->info['battery'] }}"
+                                    data-cpu_type="{{ $variant->info['cpu_type'] }}">
+                                    {{ $variant->color }} - {{ $variant->storage['ram'] }}/{{ $variant->storage['rom'] }}
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -232,7 +275,9 @@
                                 </p>
                                 <p class="mb-0 text-muted small">Bảo hành 1 đổi 1 nguyên seal 30 ngày</p>
                             </div>
-                            <p class="mb-0 fw-bold text-danger">+350.000 ₫</p>
+                            <p id="product-care" data-care="350000" class="mb-0 fw-bold text-danger">
+                                +350.000 ₫
+                            </p>
                         </div>
                     </div>
                     <!-- Toggle (Bootstrap 5 Switch) -->
@@ -279,7 +324,7 @@
                     <!-- Nút giỏ hàng + trả góp -->
                     <div class="row">
                         <div class="col-6 mb-2">
-                            <a href="#"
+                            <a href="#" id="add-to-cart" data-url="{{ route('web.cart.add') }}"
                                 class="btn btn-warning btn-lg w-100 d-flex flex-column align-items-center justify-content-center text-white">
                                 <div class="fw-bolder fs-5 text-uppercase">
                                     <i class="bi bi-cart-plus"></i> THÊM VÀO GIỎ
@@ -337,17 +382,17 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Màn hình</th>
-                                <td>Màn hình Super Retina XDR 6,9 inch Độ phân giải 2868x1320 pixel với mật độ điểm ảnh 460
-                                    ppi, Công nghệ ProMotion, Màn hình Luôn Bật</td>
+                                <td id="screen">{{ $variants->first()->info['screen_size'] }},
+                                    {{ $variants->first()->info['screen_technology'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Hệ điều hành</th>
-                                <td>iOS 18</td>
+                                <td id="operating_system">{{ $variants->first()->info['operating_system'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">CPU</th>
-                                <td>Chip A18 Pro CPU 6 lõi với 2 lõi hiệu năng và 4 lõi tiết kiệm điện, Neural Engine 16 lõi
-                                </td>
+                                <td id="cpu_type">{{ $variants->first()->info['chip'] }},
+                                    {{ $variants->first()->info['cpu_type'] }}</td>
                             </tr>
                         </tbody>
 
@@ -355,23 +400,23 @@
                         <tbody id="extra-specs" style="display: none;">
                             <tr>
                                 <th scope="row">RAM</th>
-                                <td>8 GB</td>
+                                <td id="ram">{{ $variants->first()->storage['ram'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Bộ nhớ trong</th>
-                                <td>128 GB</td>
+                                <td id="rom">{{ $variants->first()->storage['rom'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Camera chính</th>
-                                <td>108 MP + 12 MP + 8 MP</td>
+                                <td id="rear_camera">{{ $variants->first()->info['rear_camera'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Camera trước</th>
-                                <td>108 MP + 12 MP + 8 MP</td>
+                                <td id="front_camera">{{ $variants->first()->info['front_camera'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Pin</th>
-                                <td>4500 mAh, sạc nhanh 65W</td>
+                                <td id="battery">{{ $variants->first()->info['battery'] }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -383,7 +428,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -426,4 +470,18 @@
         </div>
     </div>
     <div class="overlay" style="display: none;"></div>
+    <style>
+        .version-option {
+            border: 1px solid #dbdbdb !important;
+        }
+
+        .version-option:hover {
+            cursor: pointer;
+            border-color: var(--primary-color) !important;
+        }
+
+        .version-option.active {
+            border-color: var(--primary-color) !important;
+        }
+    </style>
 @stop

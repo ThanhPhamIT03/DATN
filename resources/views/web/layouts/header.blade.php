@@ -1,4 +1,3 @@
-
 <section class="header">
     <div class="header-top d-flex align-items-center justify-content-center overflow-hidden">
         <ul class="slider-message m-0 list-unstyled">
@@ -27,10 +26,10 @@
                 {{-- Category block --}}
                 <div class="category-block">
                     <ul>
-                        @foreach($categories as $category)
-                            <li><a href="{{ route('web.product-category.index') }}">
-                                {{ $category->name }}
-                                <i class="bi bi-chevron-right last-icon"></i></a></li>
+                        @foreach ($categories as $category)
+                            <li><a href="{{ route('web.product-category.index', $category->id) }}">
+                                    {{ $category->name }}
+                                    <i class="bi bi-chevron-right last-icon"></i></a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -74,12 +73,19 @@
 
             <div class="header-action d-flex align-items-center justify-content-between">
                 {{-- Giỏ hàng --}}
-                <div class="btn-cus me-3 ms-3" id="cart"
+                <div class="btn-cus me-3 ms-3 position-relative" id="cart"
                     onclick="window.location.href='{{ route('web.cart.index') }}'">
                     <span>Giỏ hàng</span>
                     <i class="bi bi-cart3 icon-act"></i>
-                </div>
 
+                    <!-- Badge hiển thị số lượng -->
+                    @auth
+                        <span id="cart-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $countCartItem }}
+                        </span>
+                    @endauth
+                </div>
                 {{-- Tài khoản --}}
                 {{-- Chưa đăng nhập --}}
                 @guest
@@ -116,7 +122,7 @@
                                 <i class="bi bi-chevron-right"></i>
                             </a>
                         </div>
-                        @if($user->role == 'admin' || $user->role == 'sadmin')
+                        @if ($user->role == 'admin' || $user->role == 'sadmin')
                             <div class="user-card shadow-sm mb-2 mt-2">
                                 <a href="{{ route('admin.dashboard.index') }}"
                                     class="card-body p-2 d-flex align-items-center justify-content-between text-decoration-none">
@@ -134,28 +140,42 @@
                             <h5>Thông báo của tôi <i class="bi bi-bell"></i></h5>
                         </div>
                         <div class="mb-2 mt-2">
-                            <div class="card-body notify-card-item d-flex align-items-center success">
-                                <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
-                                <div class="flex-grow-1">
-                                    <div>Đơn hàng <strong>00133S2412000273</strong> đã giao thành công.</div>
-                                    <a href="#" class="text-primary small">Xem chi tiết</a>
-                                </div>
-                            </div>
-                            <div class="card-body d-flex notify-card-item align-items-center pending">
-                                <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
-                                <div class="flex-grow-1">
-                                    <div>Đơn hàng <strong>00133S2412000274</strong> đang xử lý.</div>
-                                    <a href="#" class="text-primary small">Xem chi tiết</a>
-                                </div>
-                            </div>
-
-                            <div class="card-body d-flex notify-card-item align-items-center reject">
-                                <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
-                                <div class="flex-grow-1">
-                                    <div>Đơn hàng <strong>00133S2412000274</strong> đã huỷ.</div>
-                                    <a href="#" class="text-primary small">Xem chi tiết</a>
-                                </div>
-                            </div>
+                            @forelse($orders as $order)
+                                @if ($order->status == 'processing')
+                                    <div class="card-body notify-card-item d-flex align-items-center warning">
+                                        <i class="bi bi-bell-fill text-warning me-3" style="font-size: 1.5rem;"></i>
+                                        <div class="flex-grow-1">
+                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đang xử lý.</div>
+                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                @elseif ($order->status == 'shipping')
+                                    <div class="card-body notify-card-item d-flex align-items-center success">
+                                        <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div class="flex-grow-1">
+                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đang giao hàng.</div>
+                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                @elseif ($order->status == 'success')
+                                    <div class="card-body notify-card-item d-flex align-items-center success">
+                                        <i class="bi bi-bell-fill text-success me-3" style="font-size: 1.5rem;"></i>
+                                        <div class="flex-grow-1">
+                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã giao thành công.</div>
+                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                @elseif($order->status == 'cancel')
+                                    <div class="card-body notify-card-item d-flex align-items-center success">
+                                        <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
+                                        <div class="flex-grow-1">
+                                            <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã huỷ.</div>
+                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                 @endauth

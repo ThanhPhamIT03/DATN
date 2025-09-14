@@ -106,7 +106,7 @@
             <tbody>
                 @forelse($products as $product)
                     <tr>
-                        <td class="text-center">{{ $product->name }}</td>
+                        <td class="text-center text-truncate" style="max-width: 200px;">{{ $product->name }}</td>
                         <td class="text-center">{{ $product->category->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->brand->name ?? 'N/A' }}</td>
                         <td class="text-center">{{ $product->model ?? 'N/A' }}</td>

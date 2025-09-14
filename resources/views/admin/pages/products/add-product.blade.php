@@ -95,19 +95,9 @@
                 @enderror
             </div>
 
-            {{-- Display price --}}
-            <div class="mb-3">
-                <label for="price" class="form-label">Giá bán</label>
-                <input type="number" name="price" id="price"
-                    class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}">
-                @error('price')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
             {{-- Discount --}}
             <div class="mb-3">
-                <label for="discount" class="form-label">Giamr giá (%)</label>
+                <label for="discount" class="form-label">GIảm giá (%)</label>
                 <input type="number" name="discount" id="discount"
                     class="form-control @error('discount') is-invalid @enderror" value="{{ old('discount') }}">
                 @error('discount')
