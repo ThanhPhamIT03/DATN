@@ -179,6 +179,7 @@
                                     </div>
                                 @endif
                             @empty
+                                <span>Không có đơn hàng nào!</span>
                             @endforelse
                         </div>
                     </div>

@@ -154,6 +154,23 @@ class CartController
             ]);
         }
 
+        foreach($items as $item) {
+            $cart = Cart::find($item['id']);
+            $variant = $cart->variant;
+            if($variant->quantity < 1) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sản phẩm đã hết hàng!'
+                ]);
+            }
+            if($cart->quantity > $variant->quantity) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Số lượng sản phẩm không đủ!'
+                ]);
+            }
+        }
+
         session(['cart_ids' => $items]);
         session()->save();
 

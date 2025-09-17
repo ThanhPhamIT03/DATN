@@ -7,5 +7,5 @@ Route::controller(ListOrderController::class)->name('order.list.')->prefix('orde
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::post('status', 'status')->name('status');
-        Route::get('detail','detail')->name('detail');
+        Route::get('export','export')->name('export');
 });

@@ -57,14 +57,16 @@ class ProductCategoryController
 
         if ($user) {
             $countCartItem = Cart::where('user_id', $user->id)->count();
+            $orders = Order::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->take(10)
+                ->get();
         } else {
             $countCartItem = 0;
+            $orders = [];
         }
 
-        $orders = Order::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->take(10)
-            ->get();
+
 
         return view('web.pages.product-category', [
             'user' => $user,

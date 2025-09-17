@@ -5,6 +5,7 @@ namespace App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Order\Bill;
 
 class Order extends Model
 {
@@ -37,5 +38,11 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'order_id');
+    }
+
+    // Mỗi order có một bill
+    public function bill()
+    {
+        return $this->hasOne(Bill::class, 'order_id');
     }
 }

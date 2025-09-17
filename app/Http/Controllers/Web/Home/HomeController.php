@@ -52,17 +52,17 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(12)
             ->get();
-            
-        if($user) {
+
+        if ($user) {
+            $orders = Order::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
             $countCartItem = Cart::where('user_id', $user->id)->count();
         } else {
             $countCartItem = 0;
+            $orders = [];
         }
-
-        $orders = Order::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->take(10)
-            ->get();
 
         return view('web.pages.home', [
             'user' => $user,

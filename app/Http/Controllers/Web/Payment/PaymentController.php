@@ -153,15 +153,18 @@ class PaymentController extends Controller
                 'variant' => [
                     'color' => $item['variant']['color'],
                     'ram' => $item['variant']['ram'],
+                    'rom' => $item['variant']['rom']
                 ],
                 'total_price' => $item['total_price'],
             ]);
+
+            $variant->quantity = $variant->quantity - $cart->quantity;
+            $variant->save();
 
             $cart->delete();
         }
 
         session()->forget('cart');
-
 
         return response()->json([
             'success' => true,

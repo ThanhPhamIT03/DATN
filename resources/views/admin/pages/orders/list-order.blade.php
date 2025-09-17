@@ -73,15 +73,56 @@
         });
 
         // Xử lý nút Xem chi tiết
-        $(document).ready(function() {
-            $('.detail-order').on('click', function(e) {
-                e.preventDefault();
+        let exportUrl = null;
+        $(document).on('click', '.detail-order', function() {
+            let id = $(this).data('id');
+            let customerName = $(this).data('customer_name');
+            let customerPhone = $(this).data('customer_phone');
+            let customerEmail = $(this).data('customer_email');
+            let customerAddress = $(this).data('customer_address');
+            let orderItems = $(this).data('order_items');
 
-                var productId = $(this).data('id');
-                var detailUrl = $(this).data('detail');
+            $('#orderId').val(id);
+            $('#customerName').text(customerName);
+            $('#customerPhone').text(customerPhone);
+            $('#customerEmail').text(customerEmail);
+            $('#customerAddress').text(customerAddress);
 
-                window.location.href = detailUrl + '?id=' + productId;
+            let total = orderItems.reduce((sum, item) => {
+                return sum + Number(item.total_price);
+            }, 0);
+            $('#total').text(Number(total).toLocaleString() + ' đ');
+
+
+            let container = $("#orderItems");
+            container.empty();
+
+            orderItems.forEach(item => {
+                container.append(`
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h6 class="card-title">${item.product_name}</h6>
+                            <p class="card-text mb-1">Phiên bản: <strong>${item.variant.ram}/${item.variant.rom} - ${item.variant.color}</strong></p>
+                            <p class="card-text mb-1">Số lượng: <strong>${item.quantity}</strong></p>
+                            <p class="card-text mb-1">Đơn giá: ${Number(item.price).toLocaleString()} đ</p>
+                            <p class="card-text">Thành tiền: <strong>${Number(item.total_price).toLocaleString()} đ</strong></p>
+                        </div>
+                    </div>
+                `);
             });
+
+            let modal = new bootstrap.Modal(document.getElementById('detailOrderModal'));
+            modal.show();
+        });
+
+        $(document).on('click', '.show-bill', function() {
+            let billUrl = $(this).data('bill');
+
+            if (billUrl) {
+                window.open(billUrl, '_blank'); 
+            } else {
+                Swal.fire('Lỗi', 'Hoá đơn chưa được tạo!', 'error');
+            }
         });
     </script>
 @stop
@@ -148,11 +189,11 @@
             <thead class="table-dark">
                 <tr>
                     <th style="text-align: center;" scope="col">Mã đơn hàng</th>
-                    <th style="text-align: center;" scope="col">Tên khách hàng</th>
                     <th style="text-align: center;" scope="col">Thông tin khách hàng</th>
                     <th style="text-align: center;" scope="col">Phương thức thanh toán</th>
                     <th style="text-align: center;" scope="col">Trạng thái đơn hàng</th>
                     <th style="text-align: center;" scope="col">Hành động</th>
+                    <th style="text-align: center;" scope="col">Hoá đơn</th>
                 </tr>
             </thead>
             <tbody>
@@ -161,7 +202,6 @@
                         <td class="text-center text-truncate" style="max-width: 200px;">
                             {{ $order->order_code }}
                         </td>
-                        <td style="text-align: center;">{{ $order->user->name ?? 'N/A' }}</td>
                         <td style="text-align: center">
                             <button type="button" class="btn btn-sm btn-primary show-info-btn"
                                 data-info='@json($order->customer_info)'>
@@ -190,12 +230,22 @@
                                     <li>
                                         <a class="dropdown-item text-success detail-order" href="javascript:void(0);"
                                             data-id="{{ $order->id }}"
-                                            data-detail="{{ route('admin.order.list.detail.index') }}">
+                                            data-customer_name="{{ $order->customer_info['customer_name'] }}"
+                                            data-customer_phone="{{ $order->customer_info['customer_phone'] }}"
+                                            data-customer_email="{{ $order->user->email }}"
+                                            data-customer_address="{{ $order->customer_info['customer_address'] }}"
+                                            data-order_items='@json($order->orderItems)'>
                                             Xem chi tiết
                                         </a>
                                     </li>
                                 </ul>
                             </div>
+                        </td>
+                        <td style="text-align: center">
+                            <button type="button" class="btn btn-sm btn-primary show-bill"
+                                data-bill="{{ $order->bill ? $order->bill->path : '' }}">
+                                Xem hoá đơn
+                            </button>
                         </td>
                     </tr>
                 @empty
@@ -224,9 +274,80 @@
             </div>
         </div>
 
+        {{-- Modal chi tiết đơn hàng --}}
+        <div class="modal fade" id="detailOrderModal" tabindex="-1" aria-labelledby="detailOrderLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailOrderLabel">Chi tiết đơn hàng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="detailOrderForm" method="GET" action="{{ route('admin.order.list.export') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <!-- Thông tin khách hàng -->
+                            <h6 class="mb-3">Thông tin khách hàng</h6>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Khách hàng</h6>
+                                    <p class="card-text mb-1">Tên khách hàng: <strong id="customerName"></strong></p>
+                                    <p class="card-text mb-1">Số điện thoại: <strong id="customerPhone"></strong></p>
+                                    <p class="card-text mb-1">Email: <strong id="customerEmail"></strong></p>
+                                    <p class="card-text">Địa chỉ: <strong id="customerAddress"></strong></p>
+                                </div>
+                            </div>
+
+                            <!-- Thông tin đơn hàng -->
+                            <h6 class="mt-4 mb-3">Thông tin đơn hàng</h6>
+                            <div id="orderItems">
+
+                            </div>
+
+                            {{-- Tổng tiền đơn hàng --}}
+                            <h4 class="mt-4 mb-3 text-primary">Tổng tiền:</h4>
+                            <strong id="total" class="mb-0 text-danger"></strong>
+
+                            <!-- Thêm hidden input để truyền ID đơn hàng -->
+                            <input type="hidden" id="orderId" name="order_id">
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary" id="exportInvoiceBtn">
+                                Xuất hóa đơn
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {{-- Phân trang --}}
         <div class="d-flex justify-content-center mt-3">
             {{ $orders->onEachSide(1)->links() }}
         </div>
     </div>
+
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
 @stop

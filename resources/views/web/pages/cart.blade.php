@@ -279,6 +279,13 @@
                                             {{ number_format($cart->variant->price, 0, ',', '.') }}₫
                                         </span>
                                     </div>
+                                    <div>
+                                        @if($cart->variant->quantity > 0)
+                                        <span class="text-success fst-italic">Còn hàng</span>
+                                        @else
+                                        <span class="text-danger fst-italic">Hết hàng</span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <button data-minus_quantity_url="{{ route('web.cart.minus.quantity') }}"

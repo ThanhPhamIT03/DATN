@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Order\Order;
+use App\Models\Order\Bill;
 
 class User extends Authenticatable
 {
@@ -58,5 +59,11 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id');
+    }
+
+    // Quan hệ một nhiều với bảng bills
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'user_id');
     }
 }

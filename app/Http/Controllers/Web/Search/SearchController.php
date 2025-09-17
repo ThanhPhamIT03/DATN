@@ -28,10 +28,15 @@ class SearchController
             $countCartItem = 0;
         }
 
-        $orders = Order::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->take(10)
-            ->get();
+        if ($user) {
+            $orders = Order::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->take(10)
+                ->get();
+        }
+        else {
+            $orders = [];
+        }
 
         $keyword = $request->keyword;
 
