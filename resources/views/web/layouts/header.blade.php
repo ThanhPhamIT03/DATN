@@ -60,7 +60,8 @@
                     </div>
                     <ul class="search-history-list">
                         @foreach($searchHistories as $item)
-                            <li><a href="#">{{ $item->keyword }}</a></li>
+                            <li><a id="history-item" href="#" data-url="{{ route('web.search.index') }}"
+                                            data-keyword="{{ $item->keyword }}">{{ $item->keyword }}</a></li>
                         @endforeach
                     </ul>
                 @endauth

@@ -81,6 +81,13 @@
                 let toast = new bootstrap.Toast(toastEl[0]);
                 toast.show();
             }
+
+            $(document).on('click', '#history-item', function() {
+                let url = $(this).data('url'); 
+                let keyword = $(this).data('keyword'); 
+
+                window.location.href = url + '?keyword=' + encodeURIComponent(keyword);
+            });
         });
     </script>
 </body>

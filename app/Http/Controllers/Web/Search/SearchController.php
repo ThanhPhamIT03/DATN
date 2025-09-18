@@ -89,7 +89,7 @@ class SearchController
         }
 
         $searchHistories = $user->searchHistory;
-        
+
         foreach($searchHistories as $item) {
             $item->delete();
         }
