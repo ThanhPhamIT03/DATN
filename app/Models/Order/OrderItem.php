@@ -42,7 +42,7 @@ class OrderItem extends Model
     }
 
     // Mỗi order item thuộc về một product variant
-    public function variant()
+    public function hasVariant()
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }

@@ -38,7 +38,7 @@ class CartController
 
         $orders = Order::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->take(10)
+            ->take(4)
             ->get();
         $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
 
