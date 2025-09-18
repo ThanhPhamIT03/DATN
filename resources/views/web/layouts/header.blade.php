@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                 @elseif ($order->status == 'shipping')
-                                    <div class="card-body notify-card-item d-flex align-items-center success">
+                                    <div class="card-body notify-card-item d-flex align-items-center primary">
                                         <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đang giao hàng.</div>
@@ -172,7 +172,7 @@
                                         </div>
                                     </div>
                                 @elseif($order->status == 'cancel')
-                                    <div class="card-body notify-card-item d-flex align-items-center success">
+                                    <div class="card-body notify-card-item d-flex align-items-center danger">
                                         <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã huỷ.</div>

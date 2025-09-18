@@ -1,13 +1,9 @@
 // Bootstrap  
-import './bootstrap';     
+import './bootstrap';
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
-import './main.js'; 
-
-// JS cho trang thông tin cá nhân
-import './profile/menu.js';
-import './profile/history.js';
+import './main.js';
 
 // JQuery
 import $ from 'jquery';
