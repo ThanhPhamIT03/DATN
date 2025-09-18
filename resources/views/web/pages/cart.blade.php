@@ -179,6 +179,7 @@
                 });
             });
 
+            // Hiển thị toast message
             function updateCartTotal() {
                 let total = 0;
 
@@ -271,8 +272,7 @@
                                     <h6 class="mb-1">{{ $cart->product->name }} - {{ $cart->variant->storage['rom'] }} -
                                         {{ $cart->variant->color }}</h6>
                                     <div>
-                                        <span class="text-danger fw-bold product-price"
-                                            data-price="{{ $cart->price }}">
+                                        <span class="text-danger fw-bold product-price" data-price="{{ $cart->price }}">
                                             {{ number_format($cart->price, 0, ',', '.') }}₫
                                         </span>
                                         <span class="text-muted text-decoration-line-through ms-2">
@@ -280,10 +280,10 @@
                                         </span>
                                     </div>
                                     <div>
-                                        @if($cart->variant->quantity > 0)
-                                        <span class="text-success fst-italic">Còn hàng</span>
+                                        @if ($cart->variant->quantity > 0)
+                                            <span class="text-success fst-italic">Còn hàng</span>
                                         @else
-                                        <span class="text-danger fst-italic">Hết hàng</span>
+                                            <span class="text-danger fst-italic">Hết hàng</span>
                                         @endif
                                     </div>
                                 </div>
@@ -376,6 +376,7 @@
             </div>
         </div>
     </div>
+    <div class="overlay" style="display: none;"></div>
 
     @if (session('error'))
         <script>

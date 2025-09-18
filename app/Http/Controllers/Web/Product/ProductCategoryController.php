@@ -14,6 +14,7 @@ use App\Models\Products\Product;
 use App\Models\Products\Brand;
 use App\Models\Cart\Cart;
 use App\Models\Order\Order;
+use App\Models\Search;
 
 class ProductCategoryController
 {
@@ -61,9 +62,11 @@ class ProductCategoryController
                 ->orderBy('created_at', 'desc')
                 ->take(10)
                 ->get();
+            $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
         } else {
             $countCartItem = 0;
             $orders = [];
+            $searchHistories = [];
         }
 
 
@@ -75,7 +78,8 @@ class ProductCategoryController
             'brands' => $brands,
             'curentCategory' => $curentCategory,
             'countCartItem' => $countCartItem,
-            'orders' => $orders
+            'orders' => $orders,
+            'searchHistories' => $searchHistories
         ]);
     }
 }

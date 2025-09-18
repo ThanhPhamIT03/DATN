@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 use App\Models\Order\Order;
 use App\Models\Order\Bill;
+use App\Models\Search;
 
 class User extends Authenticatable
 {
@@ -65,5 +66,11 @@ class User extends Authenticatable
     public function bills()
     {
         return $this->hasMany(Bill::class, 'user_id');
+    }
+
+    // Quan hệ với bảng lịch sử tìm kiếm
+    public function searchHistory()
+    {
+        return $this->hasMany(Search::class, 'user_id');
     }
 }

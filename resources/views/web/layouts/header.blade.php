@@ -53,24 +53,25 @@
 
             {{-- Search history container --}}
             <div class="search-history">
-                <div class="d-flex align-items-center justify-content-between search-history-title p-4">
-                    <h4 class="p-0 m-0">Lịch sử tìm kiếm <i class="bi bi-clock-history"></i></h4>
-                    <a href="#">Xoá toàn bộ lịch sử <i class="bi bi-trash"></i></a>
-                </div>
-                <ul class="search-history-list">
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                </ul>
-                <div class="pt-0 ps-4 pe-4 pb-4 search-history-title">
+                @auth
+                    <div class="d-flex align-items-center justify-content-between search-history-title p-4">
+                        <h4 class="p-0 m-0">Lịch sử tìm kiếm <i class="bi bi-clock-history"></i></h4>
+                        <a href="#" id="del-history" data-url="{{ route('web.search.delete') }}">Xoá toàn bộ lịch sử <i class="bi bi-trash"></i></a>
+                    </div>
+                    <ul class="search-history-list">
+                        @foreach($searchHistories as $item)
+                            <li><a href="#">{{ $item->keyword }}</a></li>
+                        @endforeach
+                    </ul>
+                @endauth
+                <div class="mt-4 ps-4 pe-4 pb-4 search-history-title">
                     <h4 class="p-0 m-0">Xu hướng tìm kiếm <i class="bi bi-fire"></i></h4>
                 </div>
                 <ul class="d-flex flex-wrap gap-2 search-trend">
                     <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
-                    <li><a href="#">iPhone 16 Pro Max</a></li>
+                    <li><a href="#">iPhone 17 Pro Max</a></li>
+                    <li><a href="#">Samsung S25 Ultra</a></li>
+                    <li><a href="#">Xaomi 15</a></li>
                 </ul>
             </div>
 

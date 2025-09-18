@@ -18,6 +18,7 @@ use App\Models\Products\ProductVariant;
 use App\Models\Cart\Cart;
 use App\Models\Order\Order;
 use App\Models\Order\OrderItem;
+use App\Models\Search;
 
 class PaymentController extends Controller
 {
@@ -74,12 +75,15 @@ class PaymentController extends Controller
             ->take(10)
             ->get();
 
+        $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
+
         return view('web.pages.payment', [
             'user' => $user,
             'categories' => $categories,
             'countCartItem' => $countCartItem,
             'orderInfo' => $orderInfo,
-            'orders' => $orders
+            'orders' => $orders,
+            'searchHistories' => $searchHistories
         ]);
     }
 

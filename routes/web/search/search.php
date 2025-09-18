@@ -9,4 +9,5 @@ Route::controller(SearchController::class)->name('web.search.')
         
         // Index
         Route::get('/result', 'index')->name('index');
+        Route::delete('delete', 'delete')->name('delete');
 });

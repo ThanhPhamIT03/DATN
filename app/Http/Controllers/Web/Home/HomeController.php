@@ -16,6 +16,7 @@ use App\Models\Products\Product;
 use App\Models\Products\Brand;
 use App\Models\Cart\Cart;
 use App\Models\Order\Order;
+use App\Models\Search;
 
 class HomeController extends Controller
 {
@@ -59,9 +60,11 @@ class HomeController extends Controller
                 ->take(4)
                 ->get();
             $countCartItem = Cart::where('user_id', $user->id)->count();
+            $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
         } else {
             $countCartItem = 0;
             $orders = [];
+            $searchHistories = [];
         }
 
         return view('web.pages.home', [
@@ -73,7 +76,8 @@ class HomeController extends Controller
             'brands' => $brands,
             'accessoryFeatured' => $accessoryFeatured,
             'countCartItem' => $countCartItem,
-            'orders' => $orders
+            'orders' => $orders,
+            'searchHistories' => $searchHistories
         ]);
     }
 }

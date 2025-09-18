@@ -14,6 +14,7 @@ use App\Models\Category\Category;
 use App\Models\Cart\Cart;
 use App\Models\Products\ProductVariant;
 use App\Models\Order\Order;
+use App\Models\Search;
 
 class CartController
 {
@@ -39,13 +40,15 @@ class CartController
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
+        $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
 
         return view('web.pages.cart', [
             'user' => $user,
             'categories' => $categories,
             'carts' => $carts,
             'countCartItem' => $countCartItem,
-            'orders' => $orders
+            'orders' => $orders,
+            'searchHistories' => $searchHistories
         ]);
     }
 

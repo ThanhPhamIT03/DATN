@@ -14,6 +14,7 @@ use App\Models\Category\Category;
 use App\Models\Cart\Cart;
 use App\Models\Order\Order;
 use App\Models\Products\Product;
+use App\Models\Search;
 
 class SearchController
 {
@@ -33,9 +34,17 @@ class SearchController
                 ->orderBy('created_at', 'desc')
                 ->take(10)
                 ->get();
+
+            Search::create([
+                'user_id' => $user->id,
+                'keyword' => $request->keyword
+            ]);
+
+            $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
         }
         else {
             $orders = [];
+            $searchHistories = [];
         }
 
         $keyword = $request->keyword;
@@ -67,7 +76,27 @@ class SearchController
             'countCartItem' => $countCartItem,
             'orders' => $orders,
             'searchResults' => $searchResults,
-            'keyword' => $keyword
+            'keyword' => $keyword,
+            'searchHistories' => $searchHistories
+        ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $user = Auth::user();
+        if(!$user) {
+            return back()->with('error', 'Vui lòng đăng nhập!');
+        }
+
+        $searchHistories = $user->searchHistory;
+        
+        foreach($searchHistories as $item) {
+            $item->delete();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Xóa lịch sử tìm kiếm thành công!'
         ]);
     }
 }
