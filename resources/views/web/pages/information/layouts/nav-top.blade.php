@@ -4,12 +4,16 @@
         <div class="card shadow-sm p-2">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('images/default-avatar.png') }}" class="rounded-circle me-3 img-fluid"
-                    alt="Ảnh đại diện" style="width:60px; height:60px; object-fit:cover;">
+                    alt="Ảnh đại diện" style="width:80px; height:80px; object-fit:cover;">
                 <div>
                     <h5 class="mb-1 usr-name">{{ $user->name }}</h5>
                     <p class="mb-1 usr-phone">{{ $user->phone }}</p>
                     <p class="mb-1 usr-role">{{ $user->role }}</p>
                     <small class="text-muted">Cập nhật: {{ $user->created_at }}</small>
+                    <br>
+                    <a href="{{ route('home.index') }}" class="btn btn-outline-primary mt-4">
+                        <i class="bi bi-arrow-left"></i> Trở về trang mua hàng
+                    </a>
                 </div>
             </div>
         </div>
@@ -22,7 +26,7 @@
                 <i class="bi bi-bag-check fs-2 text-primary"></i>
             </div>
             <h6 class="mb-1">Tổng đơn hàng</h6>
-            <p class="fs-5 fw-bold text-success mb-0">120</p>
+            <p class="fs-5 fw-bold text-success mb-0">{{ $user->orders->count() }}</p>
         </div>
     </div>
 
@@ -33,7 +37,17 @@
                 <i class="bi bi-cash-stack fs-2 text-warning"></i>
             </div>
             <h6 class="mb-1">Tổng chi tiêu</h6>
-            <p class="fs-5 fw-bold text-danger mb-0">50,000,000₫</p>
+            @php
+                $totalPrice = 0;
+                $orders = $user->orders;
+                foreach ($orders as $order) {
+                    $orderItems = $order->orderItems;
+                    foreach ($orderItems as $item) {
+                        $totalPrice += $item->total_price;
+                    }
+                }
+            @endphp
+            <p class="fs-5 fw-bold text-danger mb-0">{{ number_format($totalPrice, 0, ',', '.') }}đ</p>
         </div>
     </div>
 </div>

@@ -83,8 +83,8 @@
             }
 
             $(document).on('click', '#history-item', function() {
-                let url = $(this).data('url'); 
-                let keyword = $(this).data('keyword'); 
+                let url = $(this).data('url');
+                let keyword = $(this).data('keyword');
 
                 window.location.href = url + '?keyword=' + encodeURIComponent(keyword);
             });

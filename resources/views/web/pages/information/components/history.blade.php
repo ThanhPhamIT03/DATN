@@ -74,8 +74,16 @@
                             @endif
                             <div class="fw-bold text-danger"><span class="text-dark small">Tổng thanh toán:
                                 </span>{{ number_format($variant->price, 0, ',', '.') }}</div>
-                            <a href="#" class="small text-decoration-none">Xem chi tiết <i
-                                    class="bi bi-chevron-right"></i></a>
+                            @if ($item->bill)
+                                <a href="{{ asset($item->bill->path) }}" target="_blank"
+                                    class="small text-decoration-none">Xem chi tiết
+                                    <i class="bi bi-chevron-right"></i></a>
+                            @else
+                                <a href="javascript:void(0);" class="small text-decoration-none text-muted"
+                                    onclick="new bootstrap.Toast(document.getElementById('invoiceToast')).show();">
+                                    Xem chi tiết <i class="bi bi-chevron-right"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -94,5 +102,18 @@
     {{-- Phân trang --}}
     <div class="d-flex justify-content-center mt-3">
         {{ $orders->onEachSide(1)->links() }}
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+    <div id="invoiceToast" class="toast text-bg-warning border-0 fs-6" role="alert" aria-live="assertive"
+        aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                <div class="small text-dark">Hóa đơn chưa được tạo</div>
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+        </div>
     </div>
 </div>

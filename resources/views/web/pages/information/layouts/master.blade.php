@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+    <!-- Custom Page Loading -->
     @yield('script')
 </body>
 

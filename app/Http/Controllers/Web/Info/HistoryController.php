@@ -33,10 +33,6 @@ class HistoryController extends Controller
 
         $orders = $query->paginate(5)->withQueryString();
 
-        // $orders = Order::where('user_id', $user->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->paginate(5);
-
         return view('web.pages.information.buy-history', [
             'user' => $user,
             'orders' => $orders

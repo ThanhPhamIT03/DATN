@@ -168,11 +168,12 @@
         <table style="width:100%; text-align:center; border:none; border-collapse:collapse;">
             <tr style="border:none;">
                 <td style="width:50%; vertical-align:top; text-align:center; border:none;">
-                    <h4 style="margin-bottom:60px;">KHÁCH HÀNG</h4>
+                    <h4 style="margin-bottom:30px;">KHÁCH HÀNG</h4>
                     <strong>{{ $customerInfo['name'] }}</strong>
                 </td>
                 <td style="width:50%; vertical-align:top; text-align:center; border:none;">
-                    <h4 style="margin-bottom:60px;">THU NGÂN</h4>
+                    <h4 style="margin-bottom:20px;">THU NGÂN</h4>
+                    <p>{{ Auth::user()->name }}</p>
                     @if($order->payment_method == 'cod')
                         <strong>Thanh toán khi nhận hàng</strong>
                     @else

@@ -16,12 +16,20 @@ $(document).ready(function () {
 // SweetAlert2
 import './swal-config';
 
-// Ladda Button
-import * as Ladda from 'ladda/js/ladda';
-import 'ladda/dist/ladda.min.css';
+// ladda button
+import * as Ladda from 'ladda';
+import 'ladda/dist/ladda-themeless.min.css';
+
 window.Ladda = Ladda;
+
+document.addEventListener("DOMContentLoaded", () => {
+    Ladda.bind('.ladda-button');
+});
 
 // AOS 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
+
+
+

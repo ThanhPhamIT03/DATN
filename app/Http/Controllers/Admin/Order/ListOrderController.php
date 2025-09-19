@@ -16,9 +16,6 @@ use Carbon\Carbon;
 use App\Models\Order\Order;
 use App\Models\Order\Bill;
 
-
-;
-
 class ListOrderController extends Controller
 {
     public function index(Request $request)

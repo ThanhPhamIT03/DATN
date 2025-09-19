@@ -313,7 +313,7 @@
                     <!-- Nút mua ngay -->
                     <div class="row mb-3">
                         <div class="col-12">
-                            <a href="#"
+                            <a href="{{ route('web.cart.index') }}"
                                 class="btn btn-primary btn-lg w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="fw-bolder fs-5 text-uppercase">MUA NGAY</div>
                                 <div class="small fw-normal fs-6 text-light">Giao hàng tận nơi hoặc nhận tại cửa hàng</div>

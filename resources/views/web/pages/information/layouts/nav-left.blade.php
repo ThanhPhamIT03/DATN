@@ -10,8 +10,8 @@
                 <i class="bi bi-cart me-3"></i> Lịch sử mua hàng <i class="bi bi-chevron-right"></i>
             </a>
         </li>
-        <li class="info-menu-item" id="info-btn">
-            <a href="#" class="info-menu-link">
+        <li class="info-menu-item {{ (Route::currentRouteName() == 'web.info.account.index' ? 'active' : '') }}">
+            <a href="{{ route('web.info.account.index') }}" class="info-menu-link">
                 <i class="bi bi-person me-3"></i> Thông tin cá nhân <i class="bi bi-chevron-right"></i>
             </a>
         </li>

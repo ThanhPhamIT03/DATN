@@ -158,7 +158,7 @@
                     <div class="mb-3">
                         <label for="customer_address" class="form-label">Địa chỉ</label>
                         <input class="form-control" id="customer_address" name="customer_address"
-                            value="{{ old('customer_address', $user->address ?? '') }}" required>
+                            value="{{ old('customer_address', $user->default_address ?? '') }}" required>
                     </div>
 
                     {{-- Nút thanh toán --}}
