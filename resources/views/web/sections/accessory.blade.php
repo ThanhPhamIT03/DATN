@@ -1,13 +1,13 @@
 <section>
     <div class="container-xl p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0 fearture-phone-heading">Phụ kiện</h4>
-            <a href="{{ route('web.product-category.index', $accessoryId) }}" class="view-more">Xem tất cả</a>
+            <h4 class="m-0 fearture-phone-heading" data-aos="fade-right" data-aos-duration="1000">Phụ kiện</h4>
+            <a href="{{ route('web.product-category.index', $accessoryId) }}" class="view-more" data-aos="fade-left" data-aos-duration="1000">Xem tất cả</a>
         </div>
 
         <div class="row g-3">
             @foreach ($accessoryFeatured as $item)
-                <div class="col-6 col-sm-4 col-md-2">
+                <div class="col-6 col-sm-4 col-md-2" data-aos="fade-up" data-aos-duration="1000">
                     <a href="#" class="d-block text-center p-3 rounded text-decoration-none h-100 card-custom">
                         <img src="{{ asset('storage/' . $item->thumbnail) }}" class="img-fluid mb-2"
                             alt="{{ $item->name }}" style="max-height: 60px;">

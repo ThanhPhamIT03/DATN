@@ -153,7 +153,7 @@
                         <span>Hoặc đăng nhập bằng</span>
                     </div>
                     <div class="d-flex justify-content-center gap-3 mt-4">
-                        <a href="#" class="btn-login-social d-flex align-items-center justify-content-center">
+                        <a href="{{ route('google.login') }}" class="btn-login-social d-flex align-items-center justify-content-center">
                             <img src="{{ asset('/images/google.webp') }}" alt="Google" width="20" height="20"
                                 class="me-2">
                             <span class="text-dark fw-medium">Google</span>

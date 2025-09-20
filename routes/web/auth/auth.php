@@ -26,3 +26,10 @@ Route::middleware('auth')->controller(LoginController::class)->name('auth.logout
     ->group(function () {
         Route::post('/', 'logout')->name('logout');
     });
+
+Route::middleware('guest')->controller(LoginController::class)
+    ->group(function () {
+
+        Route::get('auth/google', 'redirectToGoogle')->name('google.login');
+        Route::get('auth/google/callback', 'googleCallback');
+});

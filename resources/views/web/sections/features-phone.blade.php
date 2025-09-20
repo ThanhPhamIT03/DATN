@@ -1,8 +1,8 @@
 <section>
     <div class="container-xl p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0 fearture-phone-heading">Điện thoại nổi bật</h4>
-            <ul class="product-list">
+            <h4 class="m-0 fearture-phone-heading" data-aos="fade-right" data-aos-duration="1000">Điện thoại nổi bật</h4>
+            <ul class="product-list" data-aos="fade-left" data-aos-duration="1000">
                 @foreach($brands as $brand)
                     <li>
                         <a href="#">{{ $brand->name }}</a>
@@ -15,7 +15,7 @@
         </div>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
             @foreach($featuredPhone as $item)
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-duration="1000">
                     <a href="{{ route('web.product.index', $item->id) }}" class="text-decoration-none text-dark d-block h-100">
                         <div class="card position-relative shadow-sm rounded-3 border-0 h-100">
                             <div class="position-absolute bg-danger text-white px-2 py-1 small custom-badge-left">
