@@ -29,6 +29,7 @@ class HomeController extends Controller
         $categoryPhoneId = Category::where('slug', 'dien-thoai')->value('id');
         $categoryTabletId = Category::where('slug', 'may-tinh-bang')->value('id');
         $accessoryId = Category::where('slug', 'phu-kien')->value('id');
+        $oldProductId = Category::where('slug', 'hang-cu')->value('id');
 
         $featuredPhone = Product::where('is_featured', 1)
             ->where('status', 1)
@@ -77,7 +78,11 @@ class HomeController extends Controller
             'accessoryFeatured' => $accessoryFeatured,
             'countCartItem' => $countCartItem,
             'orders' => $orders,
-            'searchHistories' => $searchHistories
+            'searchHistories' => $searchHistories,
+            'categoryPhoneId' => $categoryPhoneId,
+            'categoryTabletId' => $categoryTabletId,
+            'accessoryId' => $accessoryId,
+            'oldProductId' => $oldProductId
         ]);
     }
 }

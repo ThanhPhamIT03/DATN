@@ -2,7 +2,7 @@
     <div class="container-xl p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="m-0 fearture-phone-heading">Phụ kiện</h4>
-            <a href="#" class="view-more">Xem tất cả</a>
+            <a href="{{ route('web.product-category.index', $accessoryId) }}" class="view-more">Xem tất cả</a>
         </div>
 
         <div class="row g-3">

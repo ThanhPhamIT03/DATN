@@ -3,11 +3,13 @@
 namespace App\Models\Products;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category\Category;
 use App\Models\Products\Brand;
 use App\Models\Products\ProductVariant;
 use App\Models\Order\OrderItem;
+use App\Models\Products\Review;
 
 class Product extends Model
 {
@@ -58,5 +60,11 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'product_id');
+    }
+
+    // Quan hệ với bảng review
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'product_id');
     }
 }

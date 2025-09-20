@@ -74,7 +74,7 @@
             let activeVersion = $(".version-option.active");
 
             if (!activeVersion.length) {
-                alert("Vui lòng chọn phiên bản trước khi thêm vào giỏ!");
+                alert("Vui lòng chọn phiên bản trước khi thêm vào giỏ hàng!");
                 return;
             }
 
@@ -127,6 +127,73 @@
                     Swal.fire('Lỗi', 'Bạn cần đăng nhập!', 'error');
                 }
             });
+        });
+
+        // Khi click vào nút MUA NGAY  
+        $(document).on('click', '.btn-buy', function(e) {
+            e.preventDefault();
+
+            let activeVersion = $('.version-option.active');
+
+            if (!activeVersion.length) {
+                new bootstrap.Toast(document.getElementById('invoiceToast')).show();
+                return;
+            }
+
+            let variantId = activeVersion.data('id');
+            let price = parseInt(activeVersion.data('price'), 10) || 0;
+            let buyNowUrl = $('.btn-buy').data('url');
+
+            if ($('#care').is(':checked')) {
+                let carePrice = parseInt($("#product-care").data("care"), 10) || 0;
+                price += carePrice;
+            }
+
+            let info = {
+                screen: activeVersion.data("screen_size") + ", " + activeVersion.data("screen_technology"),
+                operating_system: activeVersion.data("operating_system"),
+                chip: activeVersion.data("chip"),
+                cpu_type: activeVersion.data("cpu_type"),
+                ram: activeVersion.data("ram"),
+                rom: activeVersion.data("rom"),
+                rear_camera: activeVersion.data("rear_camera"),
+                front_camera: activeVersion.data("front_camera"),
+                battery: activeVersion.data("battery"),
+                care: $("#care").is(":checked") ? 1 : 0
+            };
+
+            $.ajax({
+                url: buyNowUrl,
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    variant_id: variantId,
+                    quantity: 1,
+                    price: price,
+                    info: info
+                },
+                success: function(res) {
+                    if (res.success) {
+                        new bootstrap.Toast(document.getElementById('toastSuccess')).show();
+                        setTimeout(function() {
+                            window.location.href = "{{ route('web.cart.index') }}";
+                        }, 2000);
+                    } else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    new bootstrap.Toast(document.getElementById('systemError')).show();
+                    return;
+                }
+            });
+        });
+
+        // Xử lý form bình luận
+        $(document).on('click', '.btn-review', function(e) {
+            e.preventDefault();
+
+            $('#review-form').submit();
         });
     </script>
 @stop
@@ -185,16 +252,20 @@
                         <div class="block-product">
                             <div class="row">
                                 @forelse($relatedProduct as $related)
-                                    <div class="col-md-4 mb-3"> <a href="#" class="text-decoration-none text-dark">
+                                    <div class="col-md-4 mb-3">
+                                        <a href="{{ route('web.product.index', $related->id) }}"
+                                            class="text-decoration-none text-dark">
                                             <div class="card h-100 shadow-sm overflow-hidden pt-2"> <img
-                                                    src="{{ asset('storage/' . $related->thumbnail) }}" class="card-img-top"
-                                                    alt="Sản phẩm 1">
+                                                    src="{{ asset('storage/' . $related->thumbnail) }}"
+                                                    class="card-img-top" alt="Sản phẩm 1">
                                                 <div class="card-body">
                                                     <h6 class="card-title text-truncate" style="max-width: 100%;">
                                                         {{ $related->name }}</h6>
                                                     <p class="card-text text-danger fw-bold">
-                                                        {{ number_format($related->variants->first()->sale_price, 0, ',', '.') }}₫</p>
-                                                    <a href="#" class="btn btn-primary btn-sm mt-2">Mua ngay</a>
+                                                        {{ number_format($related->variants->first()->sale_price, 0, ',', '.') }}₫
+                                                    </p>
+                                                    <a href="{{ route('web.product.index', $related->id) }}"
+                                                        class="btn btn-primary btn-sm mt-2">Mua ngay</a>
                                                 </div>
                                             </div>
                                         </a>
@@ -313,8 +384,8 @@
                     <!-- Nút mua ngay -->
                     <div class="row mb-3">
                         <div class="col-12">
-                            <a href="{{ route('web.cart.index') }}"
-                                class="btn btn-primary btn-lg w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="#" data-url="{{ route('web.cart.buy') }}"
+                                class="btn btn-primary btn-lg w-100 d-flex flex-column align-items-center justify-content-center btn-buy">
                                 <div class="fw-bolder fs-5 text-uppercase">MUA NGAY</div>
                                 <div class="small fw-normal fs-6 text-light">Giao hàng tận nơi hoặc nhận tại cửa hàng</div>
                             </a>
@@ -435,41 +506,108 @@
         <div class="row pb-4">
             <div class="col-12">
                 <h4 class="mb-3">Đánh giá sản phẩm</h4>
-
-                <!-- Form thêm đánh giá -->
-                <div class="card p-3 mb-4">
-                    <h5>Thêm đánh giá của bạn</h5>
-                    <form id="review-form">
-                        <div class="mb-2">
-                            <textarea id="review-text" class="form-control" rows="3" required></textarea>
+                @auth
+                    @if ($check)
+                        @if ($isReview)
+                        @else
+                            <!-- Form thêm đánh giá -->
+                            <div class="card p-3 mb-4">
+                                <h5>Thêm đánh giá của bạn</h5>
+                                <form id="review-form" action="{{ route('web.product.review') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="order_id" value="{{ $orderId }}">
+                                    <div class="mb-2">
+                                        <textarea id="review-text" name="review_text" class="form-control" rows="3" required></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-primary ladda-button btn-review"
+                                        data-style="zoom-in">Gửi đánh giá</button>
+                                </form>
+                            </div>
+                        @endif
+                    @else
+                        <div class="alert alert-warning text-center">
+                            Bạn chưa mua sản phẩm này nên không thể đánh giá.
                         </div>
-                        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                    </form>
-                </div>
+                    @endif
+                @endauth
 
                 <!-- Danh sách đánh giá -->
                 <div id="reviews-list" class="mb-4">
-
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <div class="fw-bold">Nguyễn Văn A</div>
-                            <p class="mb-1 mt-2">Sản phẩm chất lượng, giao hàng nhanh. Rất hài lòng!</p>
-                            <div class="text-muted" style="font-size: 0.85rem;">Đã mua sản phẩm ngày: 2025-08-01</div>
+                    @forelse($reviews as $review)
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                @if (Auth::check() && Auth::user()->id == $review->user_id)
+                                    <span class="bg-primary text-white rounded px-3 py-1">
+                                        Bạn
+                                    </span>
+                                @else
+                                    <div class="fw-bold">{{ $review->user->name }}</div>
+                                @endif
+                                <p class="mb-1 mt-2">{{ $review->content }}</p>
+                                <div class="text-muted" style="font-size: 0.85rem;">Đã mua sản phẩm ngày:
+                                    {{ $review->order->created_at }}</div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <div class="fw-bold">Trần Thị B</div>
-                            <p class="mb-1 mt-2">Rất đẹp và bền. Sẽ ủng hộ lần sau!</p>
-                            <div class="text-muted" style="font-size: 0.85rem;">Đã mua sản phẩm ngày: 2025-07-25</div>
+                    @empty
+                        <div class="alert alert-info text-center">
+                            Chưa có đánh giá nào cho sản phẩm này.
                         </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Phân trang --}}
+    <div class="d-flex justify-content-center mt-3">
+        {{ $reviews->onEachSide(1)->links() }}
+    </div>
+
+    {{-- Toast thông báo khi chưa chọn phiên bản --}}
+    <div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+        <div id="invoiceToast" class="toast text-bg-danger border-0 fs-6" role="alert" aria-live="assertive"
+            aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                    <div class="small text-light">Vui lòng chọn phiên bản trước khi mua!</div>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+            </div>
+        </div>
+    </div>
+
+    {{-- Toast thông báo khi bấm nút mua ngay thất bại --}}
+    <div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+        <div id="systemError" class="toast text-bg-danger border-0 fs-6" role="alert" aria-live="assertive"
+            aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                    <div class="small text-light">Có lỗi xảy ra, vui lòng thử lại sau!</div>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+            </div>
+        </div>
+    </div>
+
+    {{-- Toast thông báo khi thành công --}}
+    <div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+        <div id="toastSuccess" class="toast text-bg-success border-0 fs-6" role="alert" aria-live="assertive"
+            aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                    <div class="small text-light">Thêm vào giỏ hàng thành công</div>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="overlay" style="display: none;"></div>
+
     <style>
         .version-option {
             border: 1px solid #dbdbdb !important;
@@ -484,4 +622,21 @@
             border-color: var(--primary-color) !important;
         }
     </style>
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
 @stop

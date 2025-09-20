@@ -236,6 +236,38 @@
                 }
             });
         });
+
+        // Xử lý khi bấm vào nút xóa tất cả sản phẩm đã chọn
+        $(document).on('click', '#deleteAllProduct', function(e) {
+            e.preventDefault();
+
+            let itemChecked = document.querySelectorAll('.product-checkbox:checked');
+            let ids = Array.from(itemChecked).map(el => parseInt(el.getAttribute('data-id')));
+            let url = $(this).data('url');
+
+            $.ajax({
+                url: url,
+                method: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    ids: ids
+                },
+                success: function(res) {
+                    if(res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(function() {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire('Thất bại', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    new bootstrap.Toast(document.getElementById('systemError')).show();
+                    return;
+                }
+            });
+        });
     </script>
 @stop
 
@@ -259,7 +291,8 @@
                             <span id="selectAllLabel">Chọn tất cả</span>
                             <span id="deselectAllLabel" class="d-none">Bỏ chọn tất cả</span>
                         </div>
-                        <a href="#" id="deleteAllProduct">Xoá sản phẩm đã chọn</a>
+                        <a href="#" id="deleteAllProduct" data-url="{{ route('web.cart.delete.all') }}">Xoá sản phẩm đã
+                            chọn</a>
                     </div>
                     @forelse($carts as $cart)
                         <div class="card mb-3">
@@ -376,6 +409,21 @@
             </div>
         </div>
     </div>
+
+    {{-- Toast thông báo khi lỗi hệ thống --}}
+    <div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+        <div id="systemError" class="toast text-bg-danger border-0 fs-6" role="alert" aria-live="assertive"
+            aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                    <div class="small text-light">Có lỗi xảy ra, vui lòng thử lại sau!</div>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="overlay" style="display: none;"></div>
 
     @if (session('error'))

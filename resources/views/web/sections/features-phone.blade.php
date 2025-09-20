@@ -9,7 +9,7 @@
                     </li>
                 @endforeach
                 <li>
-                    <a href="#">Xem tất cả</a>
+                    <a href="{{ route('web.product-category.index', $categoryPhoneId) }}">Xem tất cả</a>
                 </li>
             </ul>
         </div>

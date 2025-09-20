@@ -3,9 +3,11 @@
 namespace App\Models\Order;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Order\Bill;
+use App\Models\Products\Review;
 
 class Order extends Model
 {
@@ -44,5 +46,11 @@ class Order extends Model
     public function bill()
     {
         return $this->hasOne(Bill::class, 'order_id');
+    }
+
+    // Quan hệ với bảng review
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'order_id');
     }
 }

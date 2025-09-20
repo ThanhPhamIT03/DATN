@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Order\Order;
 use App\Models\Order\Bill;
+use App\Models\Products\Review;
 use App\Models\Search;
 
 class User extends Authenticatable
@@ -73,5 +75,11 @@ class User extends Authenticatable
     public function searchHistory()
     {
         return $this->hasMany(Search::class, 'user_id');
+    }
+
+    // Quan hệ với bảng review
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'user_id');
     }
 }

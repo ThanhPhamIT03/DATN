@@ -19,7 +19,8 @@ class HistoryController extends Controller
     {
         $user = Auth::user();
 
-        $query = Order::orderBy('created_at', 'desc');
+        $query = Order::orderBy('created_at', 'desc')
+                        ->where('user_id', $user->id);
 
         if($request->filled('status')) {
             $query->where('status', $request->status);

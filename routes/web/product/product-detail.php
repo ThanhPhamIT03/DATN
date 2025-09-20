@@ -7,4 +7,5 @@ Route::controller(ProductController::class)->name('web.product.')
     ->prefix('/product')
     ->group(function() {
     Route::get('/{id}', 'index')->name('index');
+    Route::post('review', 'review')->middleware('auth')->name('review');
 });
