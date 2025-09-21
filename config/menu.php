@@ -44,7 +44,8 @@ return [
         'icon' => 'bi bi-bag',
         'children' => [
             ['title' => 'Danh sách đơn hàng', 'icon' => 'bi bi-card-list', 'route' => 'admin.order.list.index'],
-            ['title' => 'Tạo đơn hàng mới', 'icon' => 'bi bi-folder-plus', 'route' => '']
+            ['title' => 'Tạo đơn hàng mới', 'icon' => 'bi bi-folder-plus', 'route' => ''],
+            ['title' => 'Yêu cầu hủy đơn', 'icon' => 'bi bi-arrow-repeat', 'route' => 'admin.order.request.index']
         ]
     ]
 ];

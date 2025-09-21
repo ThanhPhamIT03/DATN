@@ -77,12 +77,30 @@
                             @if ($item->bill)
                                 <a href="{{ asset($item->bill->path) }}" target="_blank"
                                     class="small text-decoration-none">Xem chi tiết
-                                    <i class="bi bi-chevron-right"></i></a>
-                            @else
-                                <a href="javascript:void(0);" class="small text-decoration-none text-muted"
-                                    onclick="new bootstrap.Toast(document.getElementById('invoiceToast')).show();">
-                                    Xem chi tiết <i class="bi bi-chevron-right"></i>
+                                    <i class="bi bi-chevron-right"></i>
                                 </a>
+                                @if($item->status == 'cancel')
+                                    @else
+                                        <button type="button" class="btn btn-sm btn-danger btn-cancel ladda-button"
+                                        data-style="zoom-in" data-url="{{ route('web.info.history.cancel') }}"
+                                        data-order_id="{{ $item->id }}">
+                                        <i class="bi bi-x-circle me-1"></i> Yêu cầu hủy đơn
+                                    </button>   
+                                @endif
+                            @else
+                                <div class="d-flex align-items-center gap-3 mt-2">
+                                    <a href="javascript:void(0);"
+                                        class="text-muted small d-inline-flex align-items-center"
+                                        onclick="new bootstrap.Toast(document.getElementById('invoiceToast')).show();">
+                                        <i class="bi bi-receipt me-1"></i> Xem chi tiết
+                                    </a>
+
+                                    <button type="button" class="btn btn-sm btn-danger btn-cancel ladda-button"
+                                        data-style="zoom-in" data-url="{{ route('web.info.history.cancel') }}"
+                                        data-order_id="{{ $item->id }}">
+                                        <i class="bi bi-x-circle me-1"></i> Hủy đơn
+                                    </button>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -112,6 +130,19 @@
             <div class="toast-body">
                 <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
                 <div class="small text-dark">Hóa đơn chưa được tạo</div>
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-4" style="z-index: 9999">
+    <div id="systemError" class="toast text-bg-danger border-0 fs-6" role="alert" aria-live="assertive"
+        aria-atomic="true" data-bs-delay="3000" data-bs-autohide="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <div class="fw-bold mb-1">Thông báo! <i class="bi bi-bell"></i></div>
+                <div class="small text-light">Không thể hủy đơn</div>
             </div>
             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Đóng"></button>
         </div>

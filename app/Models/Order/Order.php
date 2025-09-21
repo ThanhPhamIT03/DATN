@@ -4,10 +4,12 @@ namespace App\Models\Order;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Order\Bill;
 use App\Models\Products\Review;
+use App\Models\Order\OrderPending;
 
 class Order extends Model
 {
@@ -52,5 +54,11 @@ class Order extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'order_id');
+    }
+
+    // Quan hệ với bảng order pending
+    public function pending()
+    {
+        return $this->hasOne(OrderPending::class, 'order_id');
     }
 }

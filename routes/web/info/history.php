@@ -8,4 +8,5 @@ Route::name('web.info.history.')->prefix('info/history')
     ->middleware('auth')
     ->group(function() {
         Route::get('/', 'index')->name('index');
+        Route::delete('cancel', 'cancel')->name('cancel');
 });

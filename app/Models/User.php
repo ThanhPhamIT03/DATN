@@ -12,6 +12,7 @@ use App\Models\Order\Order;
 use App\Models\Order\Bill;
 use App\Models\Products\Review;
 use App\Models\Search;
+use App\Models\Order\OrderPending;
 
 class User extends Authenticatable
 {
@@ -82,5 +83,11 @@ class User extends Authenticatable
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'user_id');
+    }
+
+    // Quan hệ với bảng order pending
+    public function orderPending(): HasMany
+    {
+        return $this->hasMany(OrderPending::class, 'user_id');
     }
 }

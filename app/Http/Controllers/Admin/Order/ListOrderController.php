@@ -110,6 +110,9 @@ class ListOrderController extends Controller
                 'total' => $total
             ]);
 
+            $order->status = 'shipping';
+            $order->save();
+
             // Lưu file
             $pdf->save($dir . '/' . $fileName);
 

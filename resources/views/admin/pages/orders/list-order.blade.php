@@ -119,7 +119,7 @@
             let billUrl = $(this).data('bill');
 
             if (billUrl) {
-                window.open(billUrl, '_blank'); 
+                window.open(billUrl, '_blank');
             } else {
                 Swal.fire('Lỗi', 'Hoá đơn chưa được tạo!', 'error');
             }
@@ -308,8 +308,10 @@
                             </div>
 
                             {{-- Tổng tiền đơn hàng --}}
-                            <h4 class="mt-4 mb-3 text-primary">Tổng tiền:</h4>
-                            <strong id="total" class="mb-0 text-danger"></strong>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="mt-4 mb-3 text-primary">Tổng tiền:</h4>
+                                <strong id="total" class="mb-0 text-danger"></strong>
+                            </div>
 
                             <!-- Thêm hidden input để truyền ID đơn hàng -->
                             <input type="hidden" id="orderId" name="order_id">
