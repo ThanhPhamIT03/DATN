@@ -46,6 +46,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user',
+            'address' => [],
+            'default_address' => null
         ]);
 
         return redirect()->route('auth.login.index')->with('success', 'Đăng ký thành công - Chuyển đến trang đăng nhập!')

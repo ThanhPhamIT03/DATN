@@ -164,7 +164,7 @@
     </div>
 
     <div class="list-group">
-        @if($user->default_address)
+        @if ($user->default_address)
             <div class="list-group-item d-flex justify-content-between align-items-start">
                 <div>
                     <div>{{ $user->default_address }}</div>
@@ -176,7 +176,7 @@
                 <div>
                     <div class="text-danger">Chưa cập nhật địa chỉ</div>
                 </div>
-            </div>  
+            </div>
         @endif
         @forelse($user->address as $key => $address)
             <div class="list-group-item d-flex justify-content-between align-items-start">
@@ -184,11 +184,12 @@
                     <div>{{ $address }}</div>
                 </div>
                 <div class="ms-3">
-                    <button class="btn btn-sm btn-danger btn-delete ladda-button" data-style="zoom-in" data-key="{{ $key }}" data-url="{{ route('web.info.account.delete.address') }}">Xóa</button>
+                    <button class="btn btn-sm btn-danger btn-delete ladda-button" data-style="zoom-in"
+                        data-key="{{ $key }}"
+                        data-url="{{ route('web.info.account.delete.address') }}">Xóa</button>
                 </div>
             </div>
         @empty
-
         @endforelse
     </div>
 </div>
@@ -196,7 +197,63 @@
 
 {{-- Mật khẩu --}}
 <div class="card shadow-sm p-2">
-    <div class="d-flex align-items-center">
-        <h5 class="pt-2 ps-2">Mật khẩu</h5>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0 ps-2">Mật khẩu</h5>
+        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+            data-bs-target="#updatePasswordModal">
+            <i class="bi bi-pencil-square"></i>
+            Cập nhật mật khẩu
+        </button>
+    </div>
+    <span class="ps-2 text-secondary fs-6">Cập nhật lần cuối: {{ $user->created_at }}</span>
+</div>
+
+{{-- Modal cập nhật mật khẩu --}}
+<div class="modal fade" id="updatePasswordModal" tabindex="-1" aria-labelledby="updatePasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatePasswordModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Step 1: Nhập số điện thoại -->
+                <form id="sendOtpForm">
+                    @csrf
+                    <div class="step step-1">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone_verify" name="phone_verify"
+                            placeholder="Nhập số điện thoại" required>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Gửi mã OTP</button>
+                    </div>
+                </form>
+
+                <!-- Step 2: Nhập mã OTP + mật khẩu mới -->
+                <form id="updatePasswordForm" style="display: none;">
+                    @csrf
+                    <input type="hidden" name="phone" id="otp_phone">
+                    <div class="step step-2">
+                        <label for="otp" class="form-label">Mã xác nhận (OTP)</label>
+                        <input type="text" class="form-control" id="otp" name="otp"
+                            placeholder="Nhập mã OTP" required>
+
+                        <label for="new_password" class="form-label mt-3">Mật khẩu mới</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password"
+                            placeholder="Nhập mật khẩu mới" required>
+
+                        <label for="new_password_confirmation" class="form-label mt-3">Xác nhận mật khẩu mới</label>
+                        <input type="password" class="form-control" id="new_password_confirmation"
+                            name="new_password_confirmation" placeholder="Nhập lại mật khẩu mới" required>
+
+                        <button type="submit" class="btn btn-success w-100 mt-3">Cập nhật mật khẩu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

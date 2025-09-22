@@ -34,7 +34,8 @@ class User extends Authenticatable
         'birthday',
         'role',
         'promo_register',
-        'social_id'
+        'social_id',
+        'default_address'
     ];
 
     /**

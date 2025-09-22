@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
+use App\Http\Controllers\Web\Auth\PasswordResetController;
 
 Route::middleware('guest')->group(function () {
     Route::controller(LoginController::class)->name('auth.login.')
@@ -33,3 +34,11 @@ Route::middleware('guest')->controller(LoginController::class)
         Route::get('auth/google', 'redirectToGoogle')->name('google.login');
         Route::get('auth/google/callback', 'googleCallback');
 });
+
+Route::controller(PasswordResetController::class)->name('auth.reset.')->prefix('auth/reset')
+    ->group(function() {
+        Route::get('', 'loadPageReset')->name('index');
+        Route::post('send-otp', 'sendOtp')->name('sendOtp');
+        Route::post('reset-password', 'updatePasswordByOtp')->name('password');
+    });
+

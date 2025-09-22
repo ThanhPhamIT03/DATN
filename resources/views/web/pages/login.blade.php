@@ -142,7 +142,7 @@
                             </span>
                         </div>
                         <div class="mb-3 text-end">
-                            <a href="#" class="small text-decoration-none" style="color: var(--primary-color)">Quên
+                            <a href="{{ route('auth.reset.index') }}" class="small text-decoration-none" style="color: var(--primary-color)">Quên
                                 mật khẩu?</a>
                         </div>
                         <div class="d-grid">
