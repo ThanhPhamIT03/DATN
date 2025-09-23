@@ -47,5 +47,28 @@ return [
             ['title' => 'Tạo đơn hàng mới', 'icon' => 'bi bi-folder-plus', 'route' => ''],
             ['title' => 'Yêu cầu hủy đơn', 'icon' => 'bi bi-arrow-repeat', 'route' => 'admin.order.request.index']
         ]
+    ],
+    [
+        'title' => 'Quản lý bài viết',
+        'icon' => 'bi bi-file-earmark-post',
+        'children' => [
+            ['title' => 'Thêm bài viết', 'icon' => 'bi bi-plus-square-fill', 'route' => 'admin.blog.create.index'],
+            ['title' => 'Danh sách bài viết' , 'icon' => 'bi bi-card-list', 'route' => 'admin.blog.list.index']
+        ]
+    ],
+    [
+        'title' => 'Quản lý tài khoản',
+        'icon' => 'bi bi-person-circle',
+        'children' => [
+            ['title' => 'Tài khoản nhân viên', 'icon' => 'bi bi-person-badge-fill', 'route' => ''],
+            ['title' => 'Tài khoản khách hàng', 'icon' => 'bi bi-people', 'route' => '']
+        ]
+    ],
+    [
+        'title' => 'Thống kê',
+        'icon' => 'bi bi-graph-up-arrow',
+        'children' => [
+            ['title' => 'Thống kê doanh số', 'icon' => 'bi bi-graph-up-arrow', 'route' => '']
+        ]
     ]
 ];
