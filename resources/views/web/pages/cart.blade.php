@@ -253,18 +253,46 @@
                     ids: ids
                 },
                 success: function(res) {
-                    if(res.success) {
+                    if (res.success) {
                         Swal.fire('Thành công', res.message, 'success').then(function() {
                             location.reload();
                         });
-                    }
-                    else {
+                    } else {
                         Swal.fire('Thất bại', res.message, 'error');
                     }
                 },
                 error: function() {
                     new bootstrap.Toast(document.getElementById('systemError')).show();
                     return;
+                }
+            });
+        });
+
+        // Lấy trạng thái thanh toán
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            const resultCode = urlParams.get('resultCode');
+
+            $.ajax({
+                url: "{{ route('web.payment.momo.ipn') }}",
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    order_code: orderId,
+                    resultCode: resultCode
+                },
+                success: function(res) {
+                    if(res.success) {
+                        console.log(res.message);
+                        window.location.href=res.redirect;
+                    }
+                    else {
+                        console.log(res.message);
+                    }
+                },
+                error: function() {
+                    console.log('Không thể cập nhật trạng thái thanh toán!');
                 }
             });
         });

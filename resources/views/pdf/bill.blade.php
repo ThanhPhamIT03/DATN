@@ -103,6 +103,7 @@
     </div>
     <div class="file-customer-info">
         <p><strong>Mã đơn hàng:</strong> #{{ $order->order_code }}</p>
+        <p><strong>Ngày mua hàng: </strong>{{ ($order->created_at)->format('Y-m-d')}}</p>
         <p><strong>Khách hàng:</strong> {{ $customerInfo['name'] }}</p>
         <p><strong>SĐT:</strong> {{ $customerInfo['phone'] }}</p>
         <p><strong>Email:</strong> {{ $customerInfo['email'] }}</p>
@@ -141,28 +142,6 @@
         <p><strong>10 ngày đầu tiên: </strong>hỗ trợ đổi máy theo nhu cầu khách hàng.</p>
         <p><strong>20 ngày tiếp theo: </strong>hỗ trợ đổi máy với lỗi phần cứng do nhà sản xuất.</p>
         <p><strong>(Tất cả bảo hành không bao gồm lỗi do người dùng).</strong></p> <br>
-        {{-- <h4>Điều kiện bảo hành: </h4>
-        <ul>
-            <li>Bảo hành theo tiêu chuẩn nhà sản xuất.</li>
-            <li>Từ chối bảo hành với những trường hợp sau: </li>
-            <p>* Hết hạn bảo hành hoặc tem bảo hành của cửa hàng bị rách, mất.</p>
-            <p>* Các lỗi do người dùng sử dụng: rơi vỡ, vào nước, sai nguồn điện, ẩm mốc, ...</p>
-        </ul>
-        <h4>Quy định về bàn giao sản phẩm:</h4>
-        <h5>1. Đối với sản phẩm mới:</h5>
-        <p><strong>- Mua tại cửa hàng: </strong>Quý khách vui lòng kiểm tra tình trạng sản phẩm trước khi mua. Sau khi
-            bàn giao xong, sau này các lỗi hình thức như xước, rạn nứt, cong vênh, ... nếu có sẽ là lỗi do quá trình sử
-            dụng của người dùng.</p>
-        <p><strong>- Mua hàng online: </strong>Đối với khách hàng mua online và tự tay bóc máy ở ngoài khu vực cửa hàng.
-            Quý khách vui lòng quay lại quá trình bóc seal và kiểm tra hình thức máy ngay tại thời điểm bóc seal. Nếu
-            hình thức sản phẩm có lỗi, người dùng vui lòng gửi video cho cửa hàng để được hỗ trợ, trong trường hợp không
-            quay lại video thì các lỗi hình thức như xước, rạn nứt, cong vênh, ... nếu có sẽ là lỗi do quá trình sử dụng
-            của người dùng. </p>
-        <h5>2. Đối với sản phẩm đã qua sử dụng: </h5>
-        <p>Hình thức sản phẩm được mô tả ở phần ghi chú trên hoá đơn. Quý khác vui lòng kiểm tra đối chiếu lại với tình
-            trạng sản phẩm tại thời điểm bàn giao nhận máy. Nếu tại thời điểm đó quý khác đã đối chiều xong và không có
-            phản hồi về hình thức thì các lỗi hình thức sau đó (không có trong mô tả) sẽ là lỗi do quá trình sử dụng của
-            người dùng. </p> --}}
     </div>
     <div class="file-footer">
         <table style="width:100%; text-align:center; border:none; border-collapse:collapse;">
@@ -176,8 +155,10 @@
                     <p>{{ Auth::user()->name }}</p>
                     @if($order->payment_method == 'cod')
                         <strong>Thanh toán khi nhận hàng</strong>
+                    @elseif($order->payment_method == 'online' && $order->payment_status == 'paid')
+                        <strong style="color: green;">ĐÃ THANH TOÁN</strong>
                     @else
-                        <strong style="color: red;">ĐẪ THANH TOÁN</strong>
+                        <strong style="color: red;">Chưa thanh toán</strong>
                     @endif
                 </td>
             </tr>

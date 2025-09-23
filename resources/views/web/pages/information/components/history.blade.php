@@ -45,7 +45,7 @@
 
     <div class="p-2 mt-2">
         <!-- Đơn hàng -->
-        <div class="card">
+        <div class="card pe-2">
             @forelse($orders as $item)
                 @foreach ($item->orderItems as $variant)
                     <div class="d-flex pt-2 pb-2">

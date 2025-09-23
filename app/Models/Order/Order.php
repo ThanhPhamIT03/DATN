@@ -23,7 +23,8 @@ class Order extends Model
         'status',
         'customer_info',
         'payment_method',
-        'status'
+        'status',
+        'payment_status'
     ];
 
     protected $casts = [
