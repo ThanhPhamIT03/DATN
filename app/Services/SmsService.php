@@ -15,7 +15,7 @@ class SmsService
         $twilio = new Client($sid, $token);
 
         if (substr($to, 0, 1) === '0') {
-            $to = '+84' . substr($to, 1); 
+            $to = '+84' . substr($to, 1);
         }
 
         return $twilio->messages->create($to, [

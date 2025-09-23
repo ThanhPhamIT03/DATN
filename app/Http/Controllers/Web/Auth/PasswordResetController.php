@@ -27,7 +27,7 @@ class PasswordResetController extends Controller
         );
 
         // Gửi SMS OTP
-        //SmsService::send($request->phone, "Mã OTP để đặt lại mật khẩu của bạn là: $otp");
+        SmsService::send($request->phone, "Mã OTP để đặt lại mật khẩu của bạn là: $otp");
 
         return response()->json([
             'success' => true,

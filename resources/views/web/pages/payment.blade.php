@@ -41,6 +41,7 @@
                 success: function(res) {
                     if (res.success) {
                         Swal.fire('Thành công', res.message, 'success').then(() => {
+                            console.log(res.redirect);
                             window.location.href = res.redirect;
                         });
                     } else {
@@ -168,10 +169,12 @@
                             data-order='@json($orderInfo)'>
                             Thanh toán khi nhận hàng
                         </button>
-                        <button type="button" class="btn btn-primary px-4 online-button"
+                        <button type="button" class="btn btn-momo px-4 d-flex align-items-center gap-2 online-button"
                             data-url="{{ route('web.payment.online') }}" data-method="online"
                             data-order='@json($orderInfo)'>
-                            Thanh toán online
+                            <img src="{{ asset('./images/default/momo.png')}}" alt="MoMo"
+                                style="height:20px; width:auto;">
+                            Thanh toán MOMO
                         </button>
                     </div>
                 </div>

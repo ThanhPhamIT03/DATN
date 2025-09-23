@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+use App\Services\MailService;
 
 // Models
 use App\Models\Order\Order;
@@ -56,9 +57,33 @@ class ListOrderController extends Controller
         $order->status = $request->status;
         $order->save();
 
+        // Chuẩn bị dữ liệu gửi mail
+        $toEmail = $order->user->email;
+        $subject = 'Trạng thái đơn hàng';
+        $view = 'email.status-order';
+        if($order->status == 'processing') {
+            $status = 'Đang xử lý';
+        }
+        elseif($order->status == 'shipping') {
+            $status = 'Đang giao';
+        }
+        elseif($order->status == 'success') {
+            $status = 'Đã giao';
+        }
+        else {
+            $status = 'Đã hủy';
+        }
+        $data = [
+            'order_code' => $order->order_code,
+            'status' => $status
+        ];
+        $attachment = null;
+
+        MailService::sendMail($toEmail, $subject, $view, $data, $attachment);
+
         return response()->json([
             'success' => true,
-            'message' => 'Cập nhật trạng thái đơn hàng thành công!'
+            'message' => 'Cập nhật trạng thái đơn hàng thành công. Thông báo sẽ dược gửi đến email của khách hàng!'
         ], 200);
     }
 
@@ -116,7 +141,18 @@ class ListOrderController extends Controller
             // Lưu file
             $pdf->save($dir . '/' . $fileName);
 
-            return back()->with('success', 'Tạo hoá đơn thành công!');
+            // Chuẩn bị dữ liệu gửi mail
+            $toEmail = $order->user->email;
+            $subject = 'Thông báo đơn hàng';
+            $view = 'email.email-order';
+            $data = [
+                'order_code' => $order->order_code,
+            ];
+            $attachment = $fileUrl;
+
+            MailService::sendMail($toEmail, $subject, $view, $data, $attachment);
+
+            return back()->with('success', 'Tạo hoá đơn thành công. Thông báo sẽ được gửi đến email của khách hàng!');
         }
 
         // Tải file

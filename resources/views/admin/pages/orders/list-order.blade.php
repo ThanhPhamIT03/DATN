@@ -192,6 +192,7 @@
                     <th style="text-align: center;" scope="col">Thông tin khách hàng</th>
                     <th style="text-align: center;" scope="col">Phương thức thanh toán</th>
                     <th style="text-align: center;" scope="col">Trạng thái đơn hàng</th>
+                    <th style="text-align: center;" scope="col">Trạng thái thanh toán</th>
                     <th style="text-align: center;" scope="col">Hành động</th>
                     <th style="text-align: center;" scope="col">Hoá đơn</th>
                 </tr>
@@ -208,7 +209,26 @@
                                 <i class="bi bi-info-circle-fill"></i>
                             </button>
                         </td>
-                        <td style="text-align: center;">{{ $order->payment_method ?? 'N/A' }}</td>
+                        <td style="text-align: center;">
+                            @if($order->payment_method == 'cod')
+                                <span class="badge bg-primary">Thanh toán khi nhận hàng</span>
+                            @elseif($order->payment_method == 'online')
+                                <span class="badge bg-success">Thanh toán online</span>
+                            @else
+                                <span class="badge bg-danger">N/A</span>
+                            @endif
+                        </td>
+                        <td style="text-align: center;">
+                            @if($order->payment_status == 'paid')
+                                <span class="bg-success badge">Đã thanh toán</span>
+                            @elseif($order->payment_status == 'unpaid')
+                                <span class="bg-secondary badge">Chưa thanh toán</span>
+                            @elseif($order->payment_status == 'wait_paid')
+                                <span class="bg-warning badge">Chờ thanh toán</span>
+                            @else
+                                <span class="bg-danger badge">Không có thông tin</span>
+                            @endif
+                        </td>
                         <td style="text-align: center;">
                             <select class="form-select form-select-sm order-status" data-id="{{ $order->id }}">
                                 <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Đang xử

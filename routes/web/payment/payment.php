@@ -7,5 +7,8 @@ Route::middleware('auth')->controller(PaymentController::class)->name('web.payme
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::post('cod', 'cod')->name('cod');
+
+        // Payment online
         Route::post('online', 'online')->name('online');
+        Route::post('momo-ipn', 'momoIPN')->name('momo.ipn');
 });

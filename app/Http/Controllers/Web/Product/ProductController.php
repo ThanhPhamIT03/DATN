@@ -92,7 +92,7 @@ class ProductController
             'orders' => $orders,
             'searchHistories' => $searchHistories,
             'check' => $check,
-            'orderId' => $orderId,
+            'orderId' => $orderId ?? null,
             'reviews' => $reviews,
             'isReview' => $isReview
         ]);
