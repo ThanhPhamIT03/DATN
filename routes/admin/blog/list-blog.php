@@ -7,4 +7,7 @@ Route::controller(ListBlogController::class)->name('blog.list.')->prefix('blog/l
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::delete('delete', 'delete')->name('delete');
+        Route::get('detail/{id}', 'viewEdit')->name('view.edit');
+        Route::put('edit-title', 'editTitle')->name('edit.title');
+        Route::put('edit-content', 'editContent')->name('edit.content');
     });

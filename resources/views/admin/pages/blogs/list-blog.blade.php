@@ -42,7 +42,7 @@
                     confirmButtonText: "Xoá",
                     cancelButtonText: "Huỷ"
                 }).then((result) => {
-                    if(result.isConfirmed) {
+                    if (result.isConfirmed) {
                         $.ajax({
                             url: url,
                             method: 'DELETE',
@@ -51,10 +51,11 @@
                                 id: id
                             },
                             success: function(res) {
-                                if(res.success) {
-                                    Swal.fire("Đã xoá!", res.message, "success").then(() => {
-                                        location.reload();
-                                    });
+                                if (res.success) {
+                                    Swal.fire("Đã xoá!", res.message, "success").then(
+                                        () => {
+                                            location.reload();
+                                        });
                                 } else {
                                     Swal.fire("Lỗi", res.message, "error");
                                 }
@@ -108,37 +109,40 @@
             </thead>
             <tbody>
                 @forelse($blogs as $blog)
-                    <td class="text-center text-truncate" style="max-width: 200px;">
-                        {{ $blog->title }}
-                    </td>
-                    <td class="text-center">{{ $blog->author ?? 'N/A' }}</td>
-                    <td style="text-align: center;">
-                        <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->title }}"
-                            style="width: 100px; height: auto;" />
-                    </td>
-                    <td class="text-center">{{ $blog->created_at ?? 'N/A' }}</td>
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown">
-                                Hành động
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item text-danger delete-blog" href="javascript:void(0);"
-                                        data-id="{{ $blog->id }}" data-delete="{{ route('admin.blog.list.delete') }}">
-                                        Xoá
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-success detail-blog" href="javascript:void(0);"
-                                        data-id="{{ $blog->id }}" data-detail="#">
-                                        Xem chi tiết
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
+                    <tr>
+                        <td class="text-center text-truncate" style="max-width: 200px;">
+                            {{ $blog->title }}
+                        </td>
+                        <td class="text-center">{{ $blog->author ?? 'N/A' }}</td>
+                        <td style="text-align: center;">
+                            <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->title }}"
+                                style="width: 100px; height: auto;" />
+                        </td>
+                        <td class="text-center">{{ $blog->created_at ?? 'N/A' }}</td>
+                        <td style="text-align: center;">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown">
+                                    Hành động
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item text-danger delete-blog" href="javascript:void(0);"
+                                            data-id="{{ $blog->id }}"
+                                            data-delete="{{ route('admin.blog.list.delete') }}">
+                                            Xoá
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-success detail-blog"
+                                            href="{{ route('admin.blog.list.view.edit', $blog->id) }}">
+                                            Xem chi tiết
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
                 @empty
                     <td colspan="4" class="text-center text-danger">Không có bài viết nào!</td>
                 @endforelse
