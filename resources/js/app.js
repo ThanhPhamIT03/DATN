@@ -31,5 +31,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
 
+// Import chart.js
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
-
+window.Chart = Chart;

@@ -22,12 +22,46 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-bell"></i>
                     <!-- Badge nhỏ góc trên phải -->
-                    <span class="notif-badge">3</span>
+                    <span class="notif-badge">2</span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifButton">
-                    <li><a class="dropdown-item" href="#">Thông báo 1</a></li>
-                    <li><a class="dropdown-item" href="#">Thông báo 2</a></li>
-                    <li><a class="dropdown-item" href="#">Thông báo 3</a></li>
+                <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notifButton"
+                    style="width: 300px; max-height: 400px; overflow-y: auto;">
+                    <li class="dropdown-header fw-bold">Thông báo</li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-start" href="#">
+                            <div class="me-2">
+                                <i class="bi bi-bell-fill text-danger"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">Yêu cầu hủy đơn</div>
+                                <small class="text-muted">Bạn vừa nhận được yêu cầu hủy đơn #1234</small><br>
+                                <small class="text-primary">5 phút trước</small>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-start" href="#">
+                            <div class="me-2">
+                                <i class="bi bi-bell-fill text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">Đơn hàng mới</div>
+                                <small class="text-muted">Bạn vừa nhận được yêu cầu xác nhận đơn #1234</small><br>
+                                <small class="text-primary">5 phút trước</small>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-center text-primary" href="#">
+                            Xem tất cả thông báo
+                        </a>
+                    </li>
                 </ul>
             </div>
 

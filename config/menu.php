@@ -49,13 +49,13 @@ return [
     [
         'title' => 'Thương hiệu',
         'icon' => 'bi bi-shop',
-        'roles' => ['admin', 'sadmin'],
+        'roles' => ['sadmin'],
         'children' => [
             [
                 'title' => 'Danh sách thương hiệu',
                 'icon' => 'bi bi-card-list',
                 'route' => 'admin.brand.list.index',
-                'roles' => ['admin', 'sadmin']
+                'roles' => ['sadmin']
             ],
         ]
     ],
@@ -142,7 +142,7 @@ return [
         'icon' => 'bi bi-graph-up-arrow',
         'roles' => ['sadmin'],
         'children' => [
-            ['title' => 'Thống kê doanh số', 'icon' => 'bi bi-graph-up-arrow', 'route' => '', 'roles' => ['sadmin']]
+            ['title' => 'Thống kê doanh số', 'icon' => 'bi bi-graph-up-arrow', 'route' => 'admin.revenue.index', 'roles' => ['sadmin']]
         ]
     ]
 ];
