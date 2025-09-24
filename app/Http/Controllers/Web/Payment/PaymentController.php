@@ -26,7 +26,9 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $categories = Category::all()->where('status', 1);
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
         if ($user) {
             $countCartItem = Cart::where('user_id', $user->id)->count();
         } else {

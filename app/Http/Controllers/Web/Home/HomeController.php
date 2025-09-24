@@ -25,7 +25,9 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $banners = Banner::all()->where('status', 1);
-        $categories = Category::all()->where('status', 1);
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
 
         $categoryPhoneId = Category::where('slug', 'dien-thoai')->value('id');
         $categoryTabletId = Category::where('slug', 'may-tinh-bang')->value('id');

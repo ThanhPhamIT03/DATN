@@ -21,7 +21,9 @@ class SearchController
     public function index(Request $request)
     {
         $user = Auth::user();
-        $categories = Category::all()->where('status', 1);
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
 
         if ($user) {
             $countCartItem = Cart::where('user_id', $user->id)->count();
@@ -41,8 +43,7 @@ class SearchController
             ]);
 
             $searchHistories = Search::where('user_id', $user->id)->take(4)->orderBy('created_at', 'desc')->get();
-        }
-        else {
+        } else {
             $orders = [];
             $searchHistories = [];
         }
@@ -84,13 +85,13 @@ class SearchController
     public function delete(Request $request)
     {
         $user = Auth::user();
-        if(!$user) {
+        if (!$user) {
             return back()->with('error', 'Vui lòng đăng nhập!');
         }
 
         $searchHistories = $user->searchHistory;
 
-        foreach($searchHistories as $item) {
+        foreach ($searchHistories as $item) {
             $item->delete();
         }
 

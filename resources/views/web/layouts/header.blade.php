@@ -31,6 +31,24 @@
                                     {{ $category->name }}
                                     <i class="bi bi-chevron-right last-icon"></i></a></li>
                         @endforeach
+                        <li>
+                            <a href="{{ route('web.blog.list') }}">
+                                Tin công nghệ
+                                <i class="bi bi-chevron-right last-icon"></i></a></li>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Khuyến mại
+                                <i class="bi bi-chevron-right last-icon"></i></a></li>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Thu cũ đổi mới
+                                <i class="bi bi-chevron-right last-icon"></i></a></li>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

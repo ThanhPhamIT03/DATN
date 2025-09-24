@@ -21,7 +21,9 @@ class ProductController
     public function index(Request $request)
     {
         $user = Auth::user();
-        $categories = Category::all()->where('status', 1);
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
         $product = Product::find($request->id);
         if (!$product) {
             return back()->with('error', 'Sản phẩm không tồn tại');
@@ -64,9 +66,9 @@ class ProductController
             // Check người dùng chỉ đánh giá một lần
             $isReview = false;
             $review = Review::where('user_id', $user->id)
-                            ->where('product_id', $product->id)
-                            ->first();
-            if($review) {
+                ->where('product_id', $product->id)
+                ->first();
+            if ($review) {
                 $isReview = true;
             }
         } else {

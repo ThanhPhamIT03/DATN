@@ -23,7 +23,9 @@ class ProductCategoryController
         $user = Auth::user();
 
         // Lấy danh mục & brand
-        $categories = Category::where('status', 1)->get();
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
         $curentCategory = Category::findOrFail($request->id);
         $brands = Brand::where('status', 1)->get();
 

@@ -23,7 +23,9 @@ class BlogController extends Controller
     {
         $user = Auth::user();
         $blogs = Blog::orderBy('created_at', 'desc')->paginate(10);
-        $categories = Category::all()->where('status', 1);
+        $categories = Category::where('status', 1)
+            ->whereNotIn('slug', ['tin-cong-nghe', 'khuyen-mai', 'thu-cu-doi-moi'])
+            ->get();
         if ($user) {
             $countCartItem = Cart::where('user_id', $user->id)->count();
 
