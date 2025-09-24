@@ -17,6 +17,7 @@ use App\Models\Products\Brand;
 use App\Models\Cart\Cart;
 use App\Models\Order\Order;
 use App\Models\Search;
+use App\Models\Blog\Blog;
 
 class HomeController extends Controller
 {
@@ -68,6 +69,10 @@ class HomeController extends Controller
             $searchHistories = [];
         }
 
+        $featureBlog = Blog::orderBy('created_at', 'desc')
+            ->limit(8)
+            ->get();
+
         return view('web.pages.home', [
             'user' => $user,
             'banners' => $banners,
@@ -82,7 +87,8 @@ class HomeController extends Controller
             'categoryPhoneId' => $categoryPhoneId,
             'categoryTabletId' => $categoryTabletId,
             'accessoryId' => $accessoryId,
-            'oldProductId' => $oldProductId
+            'oldProductId' => $oldProductId,
+            'featureBlog' => $featureBlog
         ]);
     }
 }
