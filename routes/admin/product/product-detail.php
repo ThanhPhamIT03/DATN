@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Admin\Product\ProductDetailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 
-Route::controller(ProductDetailController::class)->name('product.detail.')->prefix('product/detail')
+Route::controller(ProductDetailController::class)
+    ->middleware(RoleMiddleware::class . ':admin,sadmin')
+    ->name('product.detail.')
+    ->prefix('product/detail')
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::post('add', 'add')->name('add');

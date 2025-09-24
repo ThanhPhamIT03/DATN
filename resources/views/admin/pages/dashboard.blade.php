@@ -12,5 +12,21 @@
 @stop
 
 @section('content')
-    
+    @if (session('error'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'error',
+                message: '{{ session('error') }}'
+            };
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            window.LaravelSwalMessage = {
+                type: 'success',
+                message: '{{ session('success') }}'
+            };
+        </script>
+    @endif
 @stop

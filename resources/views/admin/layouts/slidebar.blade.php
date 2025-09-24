@@ -6,7 +6,7 @@
     </div>
 
     {{-- Menu --}}
-    <div class="admin-menu list-group pt-4">
+    {{-- <div class="admin-menu list-group pt-4">
         @foreach (config('menu') as $index => $menu)
             @php
                 $hasChildren = !empty($menu['children']);
@@ -53,7 +53,58 @@
                 </a>
             @endif
         @endforeach
+    </div> --}}
+    
+    <div class="admin-menu list-group pt-4">
+        @foreach (config('menu') as $index => $menu)
+            @php
+                $hasChildren = !empty($menu['children']);
+                $isActiveParent = false;
+
+                if ($hasChildren) {
+                    $isActiveParent = collect($menu['children'])
+                        ->pluck('route')
+                        ->contains(fn($route) => $route && request()->routeIs($route));
+                } else {
+                    $isActiveParent = !empty($menu['route']) && request()->routeIs($menu['route']);
+                }
+
+                // check role
+                $canView = empty($menu['roles']) || in_array(auth()->user()->role, $menu['roles']);
+            @endphp
+
+            @if ($canView)
+                @if ($hasChildren)
+                    <!-- Menu cha có con -->
+                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ $isActiveParent ? 'active-parent' : '' }}"
+                        data-bs-toggle="collapse" href="#menu-{{ $index }}" role="button"
+                        aria-expanded="{{ $isActiveParent ? 'true' : 'false' }}"
+                        aria-controls="menu-{{ $index }}">
+                        <span><i class="{{ $menu['icon'] }} me-2"></i>{{ $menu['title'] }}</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse {{ $isActiveParent ? 'show' : '' }}" id="menu-{{ $index }}">
+                        @foreach ($menu['children'] as $child)
+                            @if (empty($child['roles']) || in_array(auth()->user()->role, $child['roles']))
+                                <a href="{{ $child['route'] ? route($child['route']) : '#' }}"
+                                    class="list-group-item list-group-item-action {{ request()->routeIs($child['route']) ? 'active-item' : '' }}">
+                                    @if ($child['icon'])
+                                        <i class="{{ $child['icon'] }} me-2"></i>
+                                    @endif
+                                    {{ $child['title'] }}
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                @else
+                    <!-- Menu cha không có con -->
+                    <a href="{{ $menu['route'] ? route($menu['route']) : '#' }}"
+                        class="list-group-item list-group-item-action d-flex align-items-center {{ $isActiveParent ? 'active-item' : '' }}">
+                        <i class="{{ $menu['icon'] }} me-2"></i> {{ $menu['title'] }}
+                    </a>
+                @endif
+            @endif
+        @endforeach
     </div>
-    <style>
-    </style>
 </section>

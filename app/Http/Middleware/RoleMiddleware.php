@@ -24,9 +24,10 @@ class RoleMiddleware
 
         // Nếu đăng nhập nhưng không có quyền
         if (!in_array(Auth::user()->role, $roles)) {
-            return response()->view('web.pages.errors.403-error', [
-                'message' => 'Bạn không có quyền truy cập trang này.'
-            ], 403);
+            // return response()->view('web.pages.errors.403-error', [
+            //     'message' => 'Bạn không có quyền truy cập trang này.'
+            // ], 403);
+            return back()->with('error', 'Bạn không có quyền truy cập trang này!');
         }
 
         return $next($request);
