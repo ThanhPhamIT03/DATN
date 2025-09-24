@@ -186,7 +186,7 @@
 @section('content')
     <div class="container mt-2 pb-4">
 
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-12 d-flex justify-content-end">
                 <!-- Nút mở modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVariantModal">

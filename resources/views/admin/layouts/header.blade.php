@@ -41,9 +41,15 @@
                     <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
                     <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                     <li>
+                        <form method="POST" action="{{ route('auth.logout.logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item d-flex align-items-center">Đăng xuất</button>
+                        </form>
+                    </li>
+                    <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('home.index')}}">Trở về trang mua hàng</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.index') }}">Trở về trang mua hàng</a></li>
                 </ul>
             </div>
         </div>
@@ -53,7 +59,7 @@
         #admin-header {
             border-bottom: 2px solid #dbdbdb;
         }
-            
+
         #notifButton+.dropdown-menu {
             min-width: 400px;
             font-size: 0.95rem;

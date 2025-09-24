@@ -48,6 +48,12 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
+        $oldProducts = Product::where('status', 1)
+            ->where('category_id', $oldProductId)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
         $brands = Brand::where('status', 1)
             ->take(4)
             ->get();
@@ -90,7 +96,8 @@ class HomeController extends Controller
             'categoryTabletId' => $categoryTabletId,
             'accessoryId' => $accessoryId,
             'oldProductId' => $oldProductId,
-            'featureBlog' => $featureBlog
+            'featureBlog' => $featureBlog,
+            'oldProducts' => $oldProducts
         ]);
     }
 }

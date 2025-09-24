@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Blogs\ListBlogController;
+use App\Http\Middleware\RoleMiddleware;
 
-Route::controller(ListBlogController::class)->name('blog.list.')->prefix('blog/list')
+Route::controller(ListBlogController::class)
+    ->middleware(RoleMiddleware::class . ':admin,sadmin')
+    ->name('blog.list.')
+    ->prefix('blog/list')
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::delete('delete', 'delete')->name('delete');

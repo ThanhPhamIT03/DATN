@@ -212,6 +212,7 @@
             <div class="row mb-3">
                 <!-- Category -->
                 <div class="col-md-3">
+                    <label class="form-label">Lọc theo danh mục</label>
                     <select name="category_id" class="form-select auto-submit">
                         <option value="">-- Tất cả --</option>
                         @foreach ($categories as $category)
@@ -225,6 +226,7 @@
 
                 <!-- Brand -->
                 <div class="col-md-3">
+                    <label class="form-label">Lọc theo thương hiệu</label>
                     <select name="brand_id" class="form-select auto-submit">
                         <option value="">-- Tất cả --</option>
                         @foreach ($brands as $brand)
@@ -237,6 +239,7 @@
 
                 <!-- Condition -->
                 <div class="col-md-3">
+                    <label class="form-label">Lọc theo tình trạng</label>
                     <select name="condition" class="form-select auto-submit">
                         <option value="">-- Tất cả --</option>
                         <option value="new" {{ request('condition') == 'new' ? 'selected' : '' }}>Mới</option>

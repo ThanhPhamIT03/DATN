@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Brand\BrandController;
+use App\Http\Middleware\RoleMiddleware;
 
-Route::controller(BrandController::class)->name('brand.')->prefix('brand')
+Route::controller(BrandController::class)
+    ->middleware(RoleMiddleware::class . ':sadmin')
+    ->name('brand.')->prefix('brand')
     ->group(function() {
         Route::get('list', 'index')->name('list.index');
         Route::post('add', 'add')->name('list.add');
