@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Order\Bill;
 use App\Models\Products\Review;
 use App\Models\Order\OrderPending;
+use App\Models\Notification;
 
 class Order extends Model
 {
@@ -61,5 +62,10 @@ class Order extends Model
     public function pending()
     {
         return $this->hasOne(OrderPending::class, 'order_id');
+    }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }
