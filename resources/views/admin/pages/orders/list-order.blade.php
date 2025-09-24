@@ -340,7 +340,7 @@
                         <!-- Footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary" id="exportInvoiceBtn">
+                            <button type="submit" class="btn btn-primary ladda-button" data-style="zoom-in" id="exportInvoiceBtn">
                                 Xuất hóa đơn
                             </button>
                         </div>

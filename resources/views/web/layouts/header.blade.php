@@ -169,7 +169,7 @@
                                         <i class="bi bi-bell-fill text-warning me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đang xử lý.</div>
-                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                            <a href="{{ route('web.info.history.index') }}" class="text-primary small">Xem chi tiết</a>
                                         </div>
                                     </div>
                                 @elseif ($order->status == 'shipping')
@@ -177,7 +177,7 @@
                                         <i class="bi bi-bell-fill text-primary me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đang giao hàng.</div>
-                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                            <a href="{{ route('web.info.history.index') }}" class="text-primary small">Xem chi tiết</a>
                                         </div>
                                     </div>
                                 @elseif ($order->status == 'success')
@@ -186,7 +186,7 @@
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã giao thành công.
                                             </div>
-                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                            <a href="{{ route('web.info.history.index') }}" class="text-primary small">Xem chi tiết</a>
                                         </div>
                                     </div>
                                 @elseif($order->status == 'cancel')
@@ -194,7 +194,7 @@
                                         <i class="bi bi-bell-fill text-danger me-3" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
                                             <div>Đơn hàng <strong>{{ $order->order_code }}</strong> đã huỷ.</div>
-                                            <a href="#" class="text-primary small">Xem chi tiết</a>
+                                            <a href="{{ route('web.info.history.index') }}" class="text-primary small">Xem chi tiết</a>
                                         </div>
                                     </div>
                                 @endif

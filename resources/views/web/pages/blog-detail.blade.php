@@ -17,7 +17,7 @@
         <!-- Ảnh nền -->
         <div class="mb-4">
             <img src="{{ asset('storage/' . $blog->thumbnail) }}" alt="{{ $blog->title }}" class="img-fluid w-100 rounded"
-                style="max-height: 400px; object-fit: cover;">
+                style="object-fit: cover;">
         </div>
 
         <!-- Thông tin bài viết -->

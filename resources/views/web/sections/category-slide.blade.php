@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row gx-3 gy-4 justify-content-center category-slide">
             <div class="d-flex justify-content-between align-items-center">
-                <h4 class="m-0 fearture-phone-heading" data-aos="fade-right" data-aos-duration="1000">Danh mục</h4>
+                <h4 class="m-0 fearture-phone-heading" data-aos="fade-right" data-aos-duration="1000">Danh mục sản phẩm</h4>
             </div>
             <!-- Category Item -->
             @foreach($categories as $category)

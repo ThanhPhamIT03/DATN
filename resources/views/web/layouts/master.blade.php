@@ -90,6 +90,10 @@
             });
         });
     </script>
-</body>
 
+    <!-- Nút liên hệ Zalo -->
+    <a href="https://zalo.me/0337005347" target="_blank" class="zalo-button">
+        <img src="{{ asset('./images/zalo.png') }}" alt="Liên hệ Zalo">
+    </a>
+</body>
 </html>
