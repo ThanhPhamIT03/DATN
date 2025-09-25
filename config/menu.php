@@ -144,5 +144,13 @@ return [
         'children' => [
             ['title' => 'Thống kê doanh số', 'icon' => 'bi bi-graph-up-arrow', 'route' => 'admin.revenue.index', 'roles' => ['sadmin']]
         ]
+    ],
+    [
+        'title' => 'Quản lý thông báo',
+        'icon' => 'bi bi-bell',
+        'roles' => ['admin', 'sadmin'],
+        'children' => [
+            ['title' => 'Danh sách thông báo', 'icon' => 'bi bi-card-list', 'route' => 'admin.notify.index', 'roles' => ['admin', 'sadmin']]
+        ]
     ]
 ];

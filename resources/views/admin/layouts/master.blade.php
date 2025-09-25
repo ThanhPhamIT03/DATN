@@ -94,6 +94,37 @@
                 }
             });
         });
+
+        $(document).on('click', '.mark-as-read', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let url = $(this).data('url');
+            let redirect = $(this).data('redirect');
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: id,
+                    redirect: redirect
+                },
+                success: function(res) {
+                    if(res.success) {
+                        console.log(res.message);
+                        window.location.href = res.redirect;
+                    }
+                    else {
+                        console.log(res.message);
+                        window.location.href = res.redirect;
+                    }
+                },
+                error: function() {
+                    console.log('Lỗi hệ thống!');
+                }
+            });
+        });
     </script>
 </body>
 

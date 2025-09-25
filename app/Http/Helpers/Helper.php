@@ -8,10 +8,12 @@ use App\Services\MailService;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Model;
 
 // Models
 use App\Models\Order\Order;
 use App\Models\Order\Bill;
+use App\Models\Notification;
 
 class Helper
 {
@@ -116,5 +118,15 @@ class Helper
 
             return back()->with('success', 'Tạo hoá đơn thành công. Thông báo sẽ được gửi đến email của khách hàng!');
         }
+    }
+
+    public static function sendNotification(Model $model, $type)
+    {
+        return Notification::create([
+            'notifiable_id' => $model->id,
+            'notifiable_type' => get_class($model),
+            'type' => $type,
+            'is_read' => false,
+        ]);
     }
 }

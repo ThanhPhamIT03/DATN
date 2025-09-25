@@ -22,43 +22,73 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-bell"></i>
                     <!-- Badge nhỏ góc trên phải -->
-                    <span class="notif-badge">2</span>
+                    <span class="notif-badge">{{ $notifications->count() }}</span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="notifButton"
-                    style="width: 300px; max-height: 400px; overflow-y: auto;">
+                <ul class="dropdown-menu dropdown-menu-end p-2 shadow-lg" aria-labelledby="notifButton"
+                    style="width: 500px; max-height: 350px; overflow-y: auto; border-radius: 0.75rem;">
                     <li class="dropdown-header fw-bold">Thông báo</li>
 
-                    <li>
-                        <a class="dropdown-item d-flex align-items-start" href="#">
-                            <div class="me-2">
-                                <i class="bi bi-bell-fill text-danger"></i>
-                            </div>
-                            <div>
-                                <div class="fw-semibold">Yêu cầu hủy đơn</div>
-                                <small class="text-muted">Bạn vừa nhận được yêu cầu hủy đơn #1234</small><br>
-                                <small class="text-primary">5 phút trước</small>
-                            </div>
-                        </a>
-                    </li>
+                    @forelse($notifications as $noti)
+                        @if ($noti->type == 'request')
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start mark-as-read"
+                                    data-id="{{ $noti->id }}" data-url="{{ route('admin.notify.read') }}"
+                                    data-redirect="{{ route('admin.order.request.index') }}"
+                                    href="#">
+                                    <div class="me-2">
+                                        <i class="bi bi-bell-fill text-danger"></i>
+                                    </div>
+                                    <div class="pe-2">
+                                        <div class="fw-semibold">Yêu cầu hủy đơn</div>
+                                        <small class="text-muted">
+                                            Bạn vừa nhận được yêu cầu hủy đơn #{{ $noti->notifiable->order_code }}
+                                        </small><br>
+                                        <small class="text-primary">{{ $noti->created_at->diffForHumans() }}</small><br>
 
-                    <li>
-                        <a class="dropdown-item d-flex align-items-start" href="#">
-                            <div class="me-2">
-                                <i class="bi bi-bell-fill text-primary"></i>
-                            </div>
-                            <div>
-                                <div class="fw-semibold">Đơn hàng mới</div>
-                                <small class="text-muted">Bạn vừa nhận được yêu cầu xác nhận đơn #1234</small><br>
-                                <small class="text-primary">5 phút trước</small>
-                            </div>
-                        </a>
-                    </li>
-
+                                        @if ($noti->is_read == 1)
+                                            <span class="badge bg-success">Đã đọc</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark mark-as-read-btn">
+                                                Chưa đọc
+                                            </span>
+                                        @endif
+                                    </div>
+                                </a>
+                            </li>
+                        @elseif($noti->type == 'order')
+                            <li>
+                                <a class="dropdown-item d-flex align-items-start mark-as-read"
+                                    data-id="{{ $noti->id }}" data-url="{{ route('admin.notify.read') }}"
+                                    data-redirect="{{ route('admin.order.list.index') }}"
+                                    href="#">
+                                    <div class="me-2">
+                                        <i class="bi bi-bell-fill text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-semibold">Đơn hàng mới</div>
+                                        <small class="text-muted">Bạn vừa nhận được yêu cầu xác nhận đơn
+                                            #{{ $noti->notifiable->order_code }}</small><br>
+                                        <small class="text-primary">{{ $noti->created_at->diffForHumans() }}</small>
+                                        <br>
+                                        @if ($noti->is_read == 1)
+                                            <span class="badge bg-success">Đã đọc</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark mark-as-read-btn">
+                                                Chưa đọc
+                                            </span>
+                                        @endif
+                                    </div>
+                                </a>
+                            </li>
+                        @endif
+                    @empty
+                        <li class="text-danger text-center m-4">Hiện không có thông báo nào!</li>
+                    @endforelse
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item text-center text-primary" href="#">
+                        <a class="dropdown-item text-center text-primary" href="{{ route('admin.notify.index') }}">
                             Xem tất cả thông báo
                         </a>
                     </li>
