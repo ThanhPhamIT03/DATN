@@ -11,4 +11,5 @@ Route::controller(NotifyController::class)
     ->group(function() {
         Route::get('', 'index')->name('index');
         Route::post('read', 'read')->name('read');
+        Route::post('mark-all-read', 'markAllRead')->name('markAllRead');
     });

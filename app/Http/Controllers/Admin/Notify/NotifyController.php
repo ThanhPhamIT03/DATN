@@ -26,7 +26,7 @@ class NotifyController extends Controller
     public function read(Request $request)
     {
         $notify = Notification::find($request->id);
-        if(!$notify) {
+        if (!$notify) {
             return response()->json([
                 'success' => false,
                 'message' => 'Không tìm thấy thông báo!',
@@ -41,6 +41,22 @@ class NotifyController extends Controller
             'success' => true,
             'message' => 'Đã đọc thông báo!',
             'redirect' => $request->redirect
+        ]);
+    }
+
+    public function markAllRead(Request $request)
+    {
+        $allNotify = Notification::where('is_read', 0)
+            ->get();
+            
+        foreach ($allNotify as $noti) {
+            $noti->is_read = 1;
+            $noti->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Đã đọc tất cả thông báo!'
         ]);
     }
 }

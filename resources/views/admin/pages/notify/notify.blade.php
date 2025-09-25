@@ -3,7 +3,34 @@
 @section('title', 'Danh sách thông báo')
 
 @section('script')
-    <script type="module"></script>
+    <script type="module">
+        $(document).on('click', '#markAllRead', function(e) {
+            e.preventDefault();
+
+            let url = $(this).data('url');
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    if(res.success) {
+                        Swal.fire('Thành công', res.message, 'success').then(function() {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire('Lỗi', res.message, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Lỗi hệ thống', 'error');
+                }
+            });
+        });
+    </script>
 @stop
 
 @section('breadcrumb')
@@ -19,7 +46,7 @@
             <div>
                 <span class="fw-semibold">Bạn có {{ $notifications->count() }} thông báo</span>
             </div>
-            <button id="markAllRead" class="btn btn-sm btn-outline-primary" data-url="#">
+            <button id="markAllRead" class="btn btn-sm btn-outline-primary" data-url="{{ route('admin.notify.markAllRead') }}">
                 Đánh dấu tất cả là đã đọc
             </button>
         </div>
@@ -51,9 +78,9 @@
                     </div>
 
                     @if ($noti->is_read == 1)
-                        <span class="badge bg-success ms-3">Đã đọc</span>
+                        <span class="badge bg-success ms-3 mt-2">Đã đọc</span>
                     @else
-                        <span class="badge bg-warning ms-3">Chưa đọc</span>
+                        <span class="badge bg-warning ms-3 mt-2">Chưa đọc</span>
                     @endif
                 </li>
             @empty
