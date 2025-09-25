@@ -191,8 +191,8 @@
                     <th style="text-align: center;" scope="col">Mã đơn hàng</th>
                     <th style="text-align: center;" scope="col">Thông tin khách hàng</th>
                     <th style="text-align: center;" scope="col">Phương thức thanh toán</th>
-                    <th style="text-align: center;" scope="col">Trạng thái đơn hàng</th>
                     <th style="text-align: center;" scope="col">Trạng thái thanh toán</th>
+                    <th style="text-align: center;" scope="col">Trạng thái đơn hàng</th>
                     <th style="text-align: center;" scope="col">Hành động</th>
                     <th style="text-align: center;" scope="col">Hoá đơn</th>
                 </tr>

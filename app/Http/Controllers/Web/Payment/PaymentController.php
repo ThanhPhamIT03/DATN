@@ -121,7 +121,7 @@ class PaymentController extends Controller
         ];
         $newOrder->payment_method = $data['payment_method'];
         $newOrder->status = 'processing';
-        $newOrder->payment_status = 'unpaid';
+        $newOrder->payment_status = 'wait_paid';
         $newOrder->save();
 
         foreach ($data['order_info'] as $item) {
@@ -173,6 +173,8 @@ class PaymentController extends Controller
         }
 
         session()->forget('cart');
+
+        Helper::sendNotification($newOrder, 'order');
 
         return response()->json([
             'success' => true,
@@ -264,6 +266,8 @@ class PaymentController extends Controller
         }
 
         session()->forget('cart');
+
+        Helper::sendNotification($newOrder, 'order');
 
         $payUrl = $this->momo_payment($newOrder->id);
 

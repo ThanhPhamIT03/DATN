@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Info;
 
 // Core
+
+use App\Http\Helpers\Helper;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
@@ -76,7 +78,7 @@ class HistoryController extends Controller
                 ]);
             }
 
-            OrderPending::create([
+            $pending = OrderPending::create([
                 'user_id' => Auth::user()->id,
                 'order_id' => $order->id,
                 'reason' => $request->reason,
@@ -84,15 +86,12 @@ class HistoryController extends Controller
                 'order_code' => $order->order_code
             ]);
 
+            Helper::sendNotification($pending, 'request');
+
             return response()->json([
                 'success' => true,
                 'message' => 'Yêu cầu hủy đơn thành công!'
             ]);
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Bạn không thể hủy đơn hàng này!'
-        ]);
     }
 }
