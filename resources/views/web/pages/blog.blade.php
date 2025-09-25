@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="container-xl mt-2">
-        <h3 class="mb-4">Danh sách bài viết</h3>
+        <h3 class="mb-4">Tin công nghệ</h3>
 
         @foreach ($blogs as $blog)
             <a href="{{ route('web.blog.detail', $blog->id)}}" class="text-decoration-none text-dark">

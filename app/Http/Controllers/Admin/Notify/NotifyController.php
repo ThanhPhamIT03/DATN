@@ -13,7 +13,8 @@ class NotifyController extends Controller
     {
         $user = Auth::user();
 
-        $notifications = Notification::orderBy('created_at', 'desc')
+        $notifications = Notification::orderBy('is_read', 'asc') 
+            ->orderBy('created_at', 'desc')
             ->paginate(10)
             ->withQueryString();
 
