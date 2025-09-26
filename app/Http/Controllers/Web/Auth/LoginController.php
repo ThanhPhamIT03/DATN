@@ -32,6 +32,7 @@ class LoginController
             ->withInput($request->only('phone'));
     }
 
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();

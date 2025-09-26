@@ -49,14 +49,14 @@ class ProductDetailController extends Controller
 
     public function add(Request $request)
     {
-        if (
-            !$request->product_id || !$request->code || !$request->color || !$request->storage_rom || !$request->storage_ram ||
-            !$request->price || !$request->quantity || !$request->operating_system || !$request->screen_size || !$request->screen_technology ||
-            !$request->front_camera || !$request->rear_camera || !$request->chip ||
-            !$request->battery || !$request->cpu_type
-        ) {
-            return back()->with('error', 'Vui lòng nhập đầy đủ thông tin')->withInput();
-        }
+        // if (
+        //     !$request->product_id || !$request->code || !$request->color || !$request->storage_rom || !$request->storage_ram ||
+        //     !$request->price || !$request->quantity || !$request->operating_system || !$request->screen_size || !$request->screen_technology ||
+        //     !$request->front_camera || !$request->rear_camera || !$request->chip ||
+        //     !$request->battery || !$request->cpu_type
+        // ) {
+        //     return back()->with('error', 'Vui lòng nhập đầy đủ thông tin')->withInput();
+        // }
 
         if (!is_numeric($request->price) || !is_numeric($request->quantity)) {
             return back()->with('error', 'Giá và số lượng phải là số');
@@ -77,16 +77,16 @@ class ProductDetailController extends Controller
         }
 
         $info = [
-            'operating_system' => $request->operating_system,
-            'screen_size' => $request->screen_size,
-            'screen_technology' => $request->screen_technology,
-            'front_camera' => $request->front_camera,
-            'rear_camera' => $request->rear_camera,
-            'chip' => $request->chip,
-            'rom' => $request->storage_rom . 'GB',
-            'ram' => $request->storage_ram . 'GB',
-            'battery' => $request->battery,
-            'cpu_type' => $request->cpu_type
+            'operating_system' => $request->operating_system ?? 'Đang cập nhật',
+            'screen_size' => $request->screen_size ?? 'Đang cập nhật',
+            'screen_technology' => $request->screen_technology ?? 'Đang cập nhật',
+            'front_camera' => $request->front_camera ?? 'Đang cập nhật',
+            'rear_camera' => $request->rear_camera ?? 'Đang cập nhật',
+            'chip' => $request->chip ?? 'Đang cập nhật',
+            'rom' => $request->storage_rom . 'GB' ?? 'Đang cập nhật',
+            'ram' => $request->storage_ram . 'GB' ?? 'Đang cập nhật',
+            'battery' => $request->battery ?? 'Đang cập nhật',
+            'cpu_type' => $request->cpu_type ?? 'Đang cập nhật'
         ];
 
         ProductVariant::create([
