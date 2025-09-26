@@ -67,6 +67,13 @@ class CartController
             ], 404);
         }
 
+        if($variant->quantity == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sản phẩm đang tạm hết hàng!'
+            ]);
+        }
+
         $product = $variant->product;
         if (!$product) {
             return response()->json([

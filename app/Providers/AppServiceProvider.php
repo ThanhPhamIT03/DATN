@@ -28,9 +28,10 @@ class AppServiceProvider extends ServiceProvider
 
             if(Auth::check()) {
                 $notifications = Notification::orderBy('created_at', 'desc')
-                            ->latest()
-                            ->take(5)
-                            ->get();
+                    ->where('is_read', 0)
+                    ->latest()
+                    ->take(5)
+                    ->get();
                 $view->with('notifications', $notifications);
             }
 

@@ -5,6 +5,7 @@
 @section('script')
     <script type="module">
         // Biểu đồ doanh số theo tháng
+        const salesData = @json($salesData);
         const salesCtx = document.getElementById('salesChart').getContext('2d');
         new Chart(salesCtx, {
             type: 'line',
@@ -16,10 +17,7 @@
                 ],
                 datasets: [{
                     label: 'Doanh số (VNĐ)',
-                    data: [12000000, 15000000, 8000000, 20000000, 25000000,
-                        30000000, 18000000, 22000000, 27000000,
-                        32000000, 28000000, 35000000
-                    ],
+                    data: salesData,
                     borderColor: 'rgba(78, 115, 223, 1)',
                     backgroundColor: 'rgba(78, 115, 223, 0.1)',
                     tension: 0.3,
@@ -39,7 +37,9 @@
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            callback: value => value.toLocaleString('vi-VN') + ' đ'
+                            callback: function(value) {
+                                return value.toLocaleString('vi-VN') + ' đ';
+                            }
                         }
                     }
                 }
@@ -47,20 +47,27 @@
         });
 
         // Biểu đồ tỷ lệ khách hàng
+        const customerData = @json($customerData);
         const customerCtx = document.getElementById('customerChart').getContext('2d');
         new Chart(customerCtx, {
             type: 'pie',
             data: {
                 labels: ['Khách hàng mới', 'Khách hàng cũ'],
                 datasets: [{
-                    data: [350, 650],
+                    data: [customerData.new, customerData.old],
                     backgroundColor: [
                         'rgba(28, 200, 138, 0.8)',
                         'rgba(54, 185, 204, 0.8)'
-                    ]
+                    ],
+                    borderColor: [
+                        'rgba(28, 200, 138, 1)',
+                        'rgba(54, 185, 204, 1)'
+                    ],
+                    borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
                 plugins: {
                     legend: {
                         position: 'bottom'
@@ -74,10 +81,10 @@
         new Chart(productCtx, {
             type: 'bar',
             data: {
-                labels: ['Sản phẩm A', 'Sản phẩm B', 'Sản phẩm C', 'Sản phẩm D', 'Sản phẩm E'],
+                labels: @json($labels),
                 datasets: [{
-                    label: 'Doanh thu (VNĐ)',
-                    data: [50000000, 35000000, 28000000, 15000000, 10000000],
+                    label: 'Số lượng bán ra',
+                    data: @json($data),
                     backgroundColor: 'rgba(255, 193, 7, 0.8)'
                 }]
             },
@@ -90,10 +97,7 @@
                 },
                 scales: {
                     y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: value => value.toLocaleString('vi-VN') + ' đ'
-                        }
+                        beginAtZero: true
                     }
                 }
             }
@@ -138,32 +142,35 @@
             <div class="col-md-3">
                 <div class="card shadow-sm h-100 text-center">
                     <div class="card-body">
-                        <h6 class="card-title">Doanh thu</h6>
-                        <h4 class="fw-bold text-success">120.000.000 đ</h4>
+                        <h6 class="card-title">Doanh thu tháng</h6>
+                        <h4 class="fw-bold text-success">{{ number_format($monthlyRevenue ?? 0, 0, ',', '.') }} đ</h4>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm h-100 text-center">
                     <div class="card-body">
                         <h6 class="card-title">Đơn hàng</h6>
-                        <h4 class="fw-bold text-primary">10</h4>
+                        <h4 class="fw-bold text-primary">{{ $monthlyOrders ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm h-100 text-center">
                     <div class="card-body">
                         <h6 class="card-title">Khách hàng</h6>
-                        <h4 class="fw-bold text-info">8</h4>
+                        <h4 class="fw-bold text-info">{{ $monthlyCustomers ?? 0 }}</h4>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm h-100 text-center">
                     <div class="card-body">
                         <h6 class="card-title">AOV (Giá trị TB/đơn)</h6>
-                        <h4 class="fw-bold text-warning">12.000.000đ</h4>
+                        <h4 class="fw-bold text-warning">{{ number_format($avgOrderValue ?? 0, 0, ',', '.') }} đ</h4>
                     </div>
                 </div>
             </div>
