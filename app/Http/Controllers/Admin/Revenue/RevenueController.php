@@ -187,7 +187,6 @@ class RevenueController extends Controller
         ]);
     }
 
-
     public function export(Request $request)
     {
         $from = $request->input('from');
@@ -258,6 +257,4 @@ class RevenueController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
-
-
 }
