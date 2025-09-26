@@ -55,6 +55,10 @@ class ListOrderController extends Controller
             ]);
         }
         $order->status = $request->status;
+
+        if($request->status == 'success') {
+            $order->payment_status = 'paid';
+        }
         $order->save();
 
         // Chuẩn bị dữ liệu gửi mail
